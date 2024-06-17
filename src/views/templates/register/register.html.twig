@@ -1,0 +1,58 @@
+{% extends "default.html.twig" %}
+
+{% block title %}register
+{% endblock %}
+
+{% block stylesheet %}
+<link href="/../public/css/register.css" rel="stylesheet">
+{% endblock %}
+
+{% block header %}
+{% include 'header.html.twig' %}
+{% endblock %}
+
+{% block body %}
+<div class="container-form">
+    <form class="form" action="/register" method="post">
+        <h1 class="title">Register </h1>
+        <p class="message">Créez votre compte pour profiter de toute les fonctionnalité.</p>
+        <div class="flex">
+            <label>
+                <input required="" placeholder="" name="firstName" type="text" class="input">
+                <span>Firstname</span>
+            </label>
+
+            <label>
+                <input required="" placeholder="" name="lastName" type="text" class="input">
+                <span>Lastname</span>
+            </label>
+        </div>
+        <label>
+            <input required="" placeholder="" name="email" type="email" class="input">
+            <span>Email</span>
+        </label>
+
+        <label>
+            <input required="" placeholder="" name="userPassword" type="password" class="input"
+                id="password">
+            <span class="password-label">Password</span>
+            <button type="button" id="togglePassword" class="toggle-password">Show</button>
+            <menu ul id="password-requirements">
+                <li id="length">Minimum 8 caractères</li>
+                <li id="uppercase">Au moins une masjuscule</li>
+                <li id="lowercase">Au moins une minuscule</li>
+                <li id="number">Au moins un nombre</li>
+            </menu ul>
+        </label>
+        <button class="submit" name="submit" type="submit">Register</button>
+        <p class="signin">Vous avez déjà un compte ? <a href="/login">Login</a> </p>
+    </form>
+</div>
+{% endblock %}
+
+{% block footer %}{% endblock %}
+
+{% block scripts %}
+<script src="/../public/js/checkPassword.js"></script>
+<script src="/../public/js/showPassword.js"></script>
+{% endblock %}

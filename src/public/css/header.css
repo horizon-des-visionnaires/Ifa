@@ -1,0 +1,9 @@
+header {
+    height: 8em;
+    background-color: #f5f6f9;
+}
+
+#logo {
+    height: 10em;
+    margin-top: -1em;
+}
