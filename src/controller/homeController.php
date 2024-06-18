@@ -26,8 +26,6 @@ class homeController
 
     public function connectDB()
     {
-        session_start();
-        var_dump($_SESSION);
         // Crée une nouvelle connexion PDO à la base de données MySQL.
         $this->dsn = new PDO("mysql:host=mysql;dbname=ifa_database", "ifa_user", "ifa_password");
         $this->dsn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); // Définit le mode d'erreur de PDO pour lancer des exceptions.
@@ -35,8 +33,27 @@ class homeController
 
     public function home()
     {
-        // Utilise Twig pour rendre le template 'home/home.html.twig' et l'affiche.
-        echo $this->twig->render('home/home.html.twig');
+        session_start();
+        // var_dump($_SESSION);
+
+        $isConnected = false;
+        if (isset($_SESSION['IdUser'])) {
+            $isConnected = true;
+        }
+
+        $this->logOut();
+
+        echo $this->twig->render('home/home.html.twig', [
+            'isConnected' => $isConnected
+        ]);
+    }
+
+    public function logOut()
+    {
+        if (isset($_POST['logOut'])) {
+            session_unset();
+            header("Location: /login");
+        }
     }
 }
 
