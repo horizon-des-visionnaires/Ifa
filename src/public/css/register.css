@@ -186,4 +186,5 @@ span {
     display: flex;
     justify-content: center;
     color: red;
+    font-family: 'Open Sans', sans-serif;
 }
