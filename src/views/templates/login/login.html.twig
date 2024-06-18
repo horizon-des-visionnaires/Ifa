@@ -1,0 +1,42 @@
+{% extends "default.html.twig" %}
+
+{% block title %}login
+{% endblock %}
+
+{% block stylesheet %}
+<link href="/../public/css/login.css" rel="stylesheet">
+{% endblock %}
+
+{% block header %}
+{% include 'header.html.twig' %}
+{% endblock %}
+
+{% block body %}
+<div class="container-form">
+    <form class="form" action="/login" method="post">
+        <p class="title">Login </p>
+        <p class="message">Connectez vous pour profiter de toute les fonctionnalités.</p>
+        <label>
+            <input required="" placeholder="" name="email" type="email" class="input">
+            <span>Email</span>
+        </label>
+
+        <label>
+            <input required="" placeholder="" name="userPassword" type="password" class="input" id="password">
+            <span>Password</span>
+            <button type="button" id="togglePassword" class="toggle-password">Show</button>
+        </label>
+        {% if error %}
+            <div class="error-message">{{ error }}</div>
+        {% endif %}
+        <button class="submit" name="submit" type="submit">Submit</button>
+        <p class="signin">Vous n'avez pas de compte ? <a href="/register">Register</a> </p>
+    </form>
+</div>
+{% endblock %}
+
+{% block footer %}{% endblock %}
+
+{% block scripts %}
+<script src="/../public/js/showPassword.js"></script>
+{% endblock %}

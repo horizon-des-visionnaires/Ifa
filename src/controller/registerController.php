@@ -2,7 +2,6 @@
 
 namespace register;
 
-use PDO;
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
 
@@ -15,19 +14,12 @@ class registerController
     protected $twig;
     private $loader;
     private $registerModel;
-    private $dsn;
 
     public function __construct()
     {
         $this->loader = new FilesystemLoader(__DIR__ . '/../views/templates');
         $this->twig = new Environment($this->loader);
         $this->registerModel = new \register\registerModel();
-    }
-
-    public function connectDB()
-    {
-        $this->dsn = new PDO("mysql:host=mysql;dbname=ifa_database", "ifa_user", "ifa_password");
-        $this->dsn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); // Définit le mode d'erreur de PDO pour lancer des exceptions.
     }
 
     public function register()

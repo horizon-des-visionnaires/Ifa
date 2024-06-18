@@ -26,6 +26,8 @@ class homeController
 
     public function connectDB()
     {
+        session_start();
+        var_dump($_SESSION);
         // Crée une nouvelle connexion PDO à la base de données MySQL.
         $this->dsn = new PDO("mysql:host=mysql;dbname=ifa_database", "ifa_user", "ifa_password");
         $this->dsn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); // Définit le mode d'erreur de PDO pour lancer des exceptions.

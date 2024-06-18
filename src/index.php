@@ -2,6 +2,7 @@
 // Inclut le fichier homeController.php, qui contient la définition de la classe homeController.
 require_once __DIR__ . '/controller/homeController.php';
 require_once __DIR__ . '/controller/registerController.php';
+require_once __DIR__ . '/controller/loginController.php';
 
 // Inclut le fichier createDatabase.php, qui contient la logique pour créer et configurer la base de données.
 require_once __DIR__ . '/database/createDatabase.php';
@@ -10,6 +11,7 @@ require_once __DIR__ . '/database/createDatabase.php';
 $routes = [
     '/' => ['controller' => 'home\homeController', 'method' => 'home'],
     '/register' => ['controller' => 'register\registerController', 'method' => 'register'],
+    '/login' => ['controller' => 'login\loginController', 'method' => 'login'],
 ];
 
 // Récupère l'URL demandée par le client et la divise en deux parties: le chemin et les paramètres de requête (s'il y en a).
