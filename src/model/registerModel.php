@@ -31,8 +31,7 @@ class registerModel
             $stmt->execute();
 
             if ($stmt->fetchColumn() > 0) {
-                echo "email déjà existant";
-                return;
+                return "email déjà existant";
             } else {
                 $insertRegister = "INSERT INTO User (FirstName, LastName, Email, UserPassword) VALUES (:FirstName, :LastName, :Email, :UserPassword)";
                 $stmt2 = $this->dsn->prepare($insertRegister);
@@ -42,16 +41,13 @@ class registerModel
                 $stmt2->bindParam(':UserPassword', $hased_password);
 
                 if ($stmt2->execute()) {
-                    // header("Location: /login");
-                    // exit;
-                    echo 'register ok';
+                    return 'register ok';
                 } else {
-                    echo 'erreur dans le register';
+                    return 'erreur dans le register';
                 }
             }
         } catch (PDOException $e) {
-            $error  = "error: " . $e->getMessage();
-            echo $error;
+            return "error: " . $e->getMessage();
         }
     }
 }

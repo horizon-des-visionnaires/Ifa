@@ -181,3 +181,9 @@ span {
         margin-top: 60%;
     }
 }
+
+.error-message {
+    display: flex;
+    justify-content: center;
+    color: red;
+}

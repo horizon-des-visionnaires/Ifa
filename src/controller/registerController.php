@@ -32,8 +32,8 @@ class registerController
 
     public function register()
     {
-        $this->getRegisterData();
-        echo $this->twig->render('register/register.html.twig');
+        $error = $this->getRegisterData();
+        echo $this->twig->render('register/register.html.twig', ['error' => $error]);
     }
 
     public function getRegisterData()
@@ -45,18 +45,18 @@ class registerController
             $userPassword = $_POST['userPassword'];
 
             if (strlen($userPassword) < 8) {
-                echo "Le mot de passe doit contenir au moins 8 caractères.";
-                return;
+                return "Le mot de passe doit contenir au moins 8 caractères.";
             }
 
             if (!preg_match('/[A-Z]/', $userPassword) || !preg_match('/[a-z]/', $userPassword) || !preg_match('/[0-9]/', $userPassword)) {
-                echo "Le mot de passe doit contenir au moins une lettre majuscule, une lettre minuscule et un chiffre.";
-                return;
+                return "Le mot de passe doit contenir au moins une lettre majuscule, une lettre minuscule et un chiffre.";
             }
 
             $hased_password = password_hash($userPassword, PASSWORD_DEFAULT);
 
-            $this->registerModel->insertRegisterData($firstName, $lastName, $email, $hased_password);
+            return $this->registerModel->insertRegisterData($firstName, $lastName, $email, $hased_password);
         }
+
+        return null;
     }
 }
