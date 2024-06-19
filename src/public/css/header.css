@@ -112,7 +112,7 @@ nav a {
 }
 
 .Btn:hover {
-    width: 125px;
+    width: 160px;
     border-radius: 40px;
     transition-duration: .3s;
 }

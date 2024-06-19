@@ -14,7 +14,7 @@
 {% block body %}
 <div class="container-form">
     <form class="form" action="/register" method="post">
-        <h1 class="title">Register </h1>
+        <h1 class="title">Inscription</h1>
         <p class="message">Créez votre compte pour profiter de toute les fonctionnalités.</p>
         <div class="flex">
             <label>
@@ -46,8 +46,8 @@
         {% if error %}
             <div class="error-message">{{ error }}</div>
         {% endif %}
-        <button class="submit" name="submit" type="submit">Register</button>
-        <p class="signin">Vous avez déjà un compte ? <a href="/login">Login</a> </p>
+        <button class="submit" name="submit" type="submit">Inscription</button>
+        <p class="signin">Vous avez déjà un compte ? <a href="/login">Connexion</a> </p>
     </form>
 </div>
 {% endblock %}
