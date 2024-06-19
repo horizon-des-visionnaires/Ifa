@@ -24,11 +24,19 @@ class profileController
 
     public function profile($id)
     {
+        session_start();
+
+        $isConnected = false;
+        if (isset($_SESSION['IdUser'])) {
+            $isConnected = true;
+        }
+
         $user = $this->profileModel->getUserById($id);
 
         if ($user) {
             echo $this->twig->render('profile/profile.html.twig', [
-                'user' => $user
+                'user' => $user,
+                'isConnected' => $isConnected
             ]);
         } else {
             http_response_code(404);
@@ -36,4 +44,3 @@ class profileController
         }
     }
 }
-?>
