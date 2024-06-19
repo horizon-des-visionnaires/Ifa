@@ -15,7 +15,6 @@ class homeController
     protected $twig; // Propriété pour l'objet Twig.
     private $loader; // Propriété pour le loader de Twig.
     private $homeModel; // Propriété pour l'objet homeModel.
-    private $dsn; // Propriété pour l'objet PDO (connexion à la base de données).
 
     public function __construct()
     {
@@ -24,17 +23,9 @@ class homeController
         $this->homeModel = new \home\homeModel(); // Crée une instance de la classe homeModel.
     }
 
-    public function connectDB()
-    {
-        // Crée une nouvelle connexion PDO à la base de données MySQL.
-        $this->dsn = new PDO("mysql:host=mysql;dbname=ifa_database", "ifa_user", "ifa_password");
-        $this->dsn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); // Définit le mode d'erreur de PDO pour lancer des exceptions.
-    }
-
     public function home()
     {
         session_start();
-        // var_dump($_SESSION);
 
         $isConnected = false;
         if (isset($_SESSION['IdUser'])) {

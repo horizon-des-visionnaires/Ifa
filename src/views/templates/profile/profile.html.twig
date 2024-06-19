@@ -1,0 +1,24 @@
+{% extends "default.html.twig" %}
+
+{% block title %}Profile of {{ user.FirstName }} {{ user.LastName }}{% endblock %}
+
+{% block stylesheet %}
+<link href="/../public/css/profile.css" rel="stylesheet">
+{% endblock %}
+
+{% block header %}
+{% include 'header.html.twig' %}
+{% endblock %}
+
+{% block body %}
+<div class="test">
+
+    <h1>Profile of {{ user.FirstName }} {{ user.LastName }}</h1>
+    <p>Email: {{ user.Email }}</p>
+    <p>Description: {{ user.ProfilDescription }}</p>
+</div>
+{% endblock %}
+
+{% block footer %}{% endblock %}
+
+{% block scripts %}{% endblock %}
