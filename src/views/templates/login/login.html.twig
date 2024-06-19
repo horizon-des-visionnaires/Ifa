@@ -14,7 +14,7 @@
 {% block body %}
 <div class="container-form">
     <form class="form" action="/login" method="post">
-        <p class="title">Login </p>
+        <p class="title">Connexion</p>
         <p class="message">Connectez vous pour profiter de toute les fonctionnalités.</p>
         <label>
             <input required="" placeholder="" name="email" type="email" class="input">
@@ -29,8 +29,8 @@
         {% if error %}
             <div class="error-message">{{ error }}</div>
         {% endif %}
-        <button class="submit" name="submit" type="submit">Submit</button>
-        <p class="signin">Vous n'avez pas de compte ? <a href="/register">Register</a> </p>
+        <button class="submit" name="submit" type="submit">Connexion</button>
+        <p class="signin">Vous n'avez pas de compte ? <a href="/register">Inscription</a> </p>
     </form>
 </div>
 {% endblock %}
