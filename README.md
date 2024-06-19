@@ -1,9 +1,9 @@
 # Project Details
 
-on utilise docker pour run le projet,
-on utilise l'architecture MVC pour une meilleure organisation du code,
-Twig et un moteur de templates pour l'affichage des données,
-et Beekeeper pour voir les données dans la BDD
+ - on utilise docker pour run le projet,
+ - on utilise l'architecture MVC pour une meilleure organisation du code,
+ - Twig et un moteur de templates pour l'affichage des données,
+ - Beekeeper pour voir les données dans la BDD
 
 # Technologie
 
@@ -16,6 +16,7 @@ et Beekeeper pour voir les données dans la BDD
 
 # Prerequisites
 
+  - Avoir wsl 2 d'installer
   - Avoir docker d'installer
   - Avoir un ide tel que (vs code, PHPStorm...)
 
