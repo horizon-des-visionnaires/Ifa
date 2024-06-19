@@ -9,10 +9,10 @@ document.addEventListener('DOMContentLoaded', function () {
             var passwordFieldType = passwordField.getAttribute('type');
             if (passwordFieldType === 'password') {
                 passwordField.setAttribute('type', 'text');
-                this.textContent = 'Hide';
+                this.textContent = 'Caché';
             } else {
                 passwordField.setAttribute('type', 'password');
-                this.textContent = 'Show';
+                this.textContent = 'Voir';
             }
         });
     } else {
