@@ -18,6 +18,7 @@
 
   - Avoir wsl 2 d'installer
   - Avoir docker d'installer
+  - Avoir wsl 2 d'installer
   - Avoir un ide tel que (vs code, PHPStorm...)
 
 # Installation
