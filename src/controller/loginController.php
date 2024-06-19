@@ -36,9 +36,9 @@ class loginController
             $email = $_POST['email'];
             $userPassword = $_POST['userPassword'];
             if (empty($email) || empty($userPassword)) {
-                return "veuillez remplir tous les champs";
+                return "Veuillez remplir tous les champs";
             } else {
-                $this->loginModel->checkLoginData($email, $userPassword);
+                return $this->loginModel->checkLoginData($email, $userPassword);
             }
         }
         return null;
