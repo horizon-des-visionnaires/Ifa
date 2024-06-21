@@ -30,12 +30,14 @@ class homeController
         $isConnected = false;
         if (isset($_SESSION['IdUser'])) {
             $isConnected = true;
+            $userId = $_SESSION['IdUser'];
         }
 
         $this->logOut();
 
         echo $this->twig->render('home/home.html.twig', [
-            'isConnected' => $isConnected
+            'isConnected' => $isConnected,
+            'userId' => $userId
         ]);
     }
 
