@@ -16,8 +16,8 @@
 
 # Prerequisites
 
-  - Avoir wsl 2 d'installer
   - Avoir docker d'installer
+  - Avoir wsl 2 d'installer (suivre ce Readme pour l'installer https://github.com/lucasrebl/WSL)
   - Avoir un ide tel que (vs code, PHPStorm...)
 
 # Installation
