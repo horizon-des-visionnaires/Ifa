@@ -34,15 +34,30 @@ class profileController
 
         $user = $this->profileModel->getUserById($id);
 
-        if ($user) {
-            echo $this->twig->render('profile/profile.html.twig', [
-                'user' => $user,
-                'isConnected' => $isConnected,
-                'userId' => $userId
-            ]);
-        } else {
+        if ($user === null) {
             http_response_code(404);
             echo "User not found";
+            return;
+        }
+
+        $this->updateUserData($id);
+
+        echo $this->twig->render('profile/profile.html.twig', [
+            'user' => $user,
+            'isConnected' => $isConnected,
+            'userId' => $userId
+        ]);
+    }
+
+
+    public function updateUserData($id)
+    {
+        if (isset($_POST['updateProfile'])) {
+            $FirstName = $_POST['FirstName'] ?? null;
+            $LastName = $_POST['LastName'] ?? null;
+            $ProfilDescription = $_POST['ProfilDescription'] ?? null;
+
+            $this->profileModel->updateUserData($id, $FirstName, $LastName, $ProfilDescription);
         }
     }
 }

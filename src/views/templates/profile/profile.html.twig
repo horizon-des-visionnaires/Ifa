@@ -11,13 +11,34 @@
 {% endblock %}
 
 {% block body %}
-<div class="test">
+<div class="ProfilContainer">
+    <img id="icon" src="data:image;base64,{{user.ProfilPicture}}" alt="icon">
     <h1>Profile of {{ user.FirstName }} {{ user.LastName }}</h1>
-    <p>Email: {{ user.Email }}</p>
     <p>Description: {{ user.ProfilDescription }}</p>
+    <button id="openModalButton">Edit Profile</button>
+</div>
+
+<div id="profileModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <form action="/profile-{{ user.IdUser }}" method="post" id="formUpdateLogements" enctype="multipart/form-data">
+            <label for="FirstName">FirstName</label>
+            <input type="text" name="FirstName" placeholder="FirstName">
+
+            <label for="LastName">LastName</label>
+            <input type="text" name="LastName" placeholder="LastName">
+
+            <label for="ProfilDescription">ProfilDescription</label>
+            <input type="text" name="ProfilDescription" placeholder="ProfilDescription">
+
+            <button type="submit" name="updateProfile">Update Profile</button>
+        </form>
+    </div>
 </div>
 {% endblock %}
 
 {% block footer %}{% endblock %}
 
-{% block scripts %}{% endblock %}
+{% block scripts %}
+<script src="/../public/js/modalUser.js"></script>
+{% endblock %}

@@ -15,7 +15,7 @@ $createTableUser = ("CREATE TABLE IF NOT EXISTS
     `UserPassword` varchar(255) DEFAULT NULL,
     `IsPro` tinyint(1) DEFAULT '0',
     `ProfilPicture` LONGBLOB DEFAULT NULL,
-    `ProfilDescription` TEXT DEFAULT NULL,
+    `ProfilDescription` varchar(255) DEFAULT NULL,
     PRIMARY KEY (`IdUser`),
     CONSTRAINT unique_User_Email UNIQUE (`Email`)
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 DEFAULT CHARSET = latin1");
