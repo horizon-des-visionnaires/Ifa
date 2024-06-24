@@ -12,26 +12,35 @@
 
 {% block body %}
 <div class="ProfilContainer">
-    <img id="icon" src="data:image;base64,{{user.ProfilPicture}}" alt="icon">
-    <h1>Profile of {{ user.FirstName }} {{ user.LastName }}</h1>
-    <p>Description: {{ user.ProfilDescription }}</p>
-    <button id="openModalButton">Edit Profile</button>
+    <div class="profil">
+        <div class="profilPictureName">
+            <img id="icon" src="data:image;base64,{{user.ProfilPicture}}" alt="icon">
+            <h1>{{ user.FirstName }} {{ user.LastName }}</h1>
+        </div>
+        <div class="profilButton">
+            <button id="openModalButton" class="boton-elegante">Edit Profile</button>
+        </div>
+    </div>
+    <div class="description">
+        <p>{{ user.ProfilDescription | nl2br }}</p>
+    </div>
+    <div class="link"></div>
 </div>
 
 <div id="profileModal" class="modal">
     <div class="modal-content">
         <span class="close">&times;</span>
-        <form action="/profile-{{ user.IdUser }}" method="post" id="formUpdateLogements" enctype="multipart/form-data">
-            <label for="FirstName">FirstName</label>
-            <input type="text" name="FirstName" placeholder="FirstName">
+        <form action="/profile-{{ user.IdUser }}" method="post" id="formUpdateUser" enctype="multipart/form-data">
+            <input type="text" name="FirstName" placeholder="FirstName" id="inputField">
 
-            <label for="LastName">LastName</label>
-            <input type="text" name="LastName" placeholder="LastName">
+            <input type="text" name="LastName" placeholder="LastName" id="inputField">
 
-            <label for="ProfilDescription">ProfilDescription</label>
-            <input type="text" name="ProfilDescription" placeholder="ProfilDescription">
+            <div style="position: relative;">
+                <textarea name="ProfilDescription" placeholder="ProfilDescription" id="inputFieldDesc" maxlength="255"></textarea>
+                <div id="charCount" class="char-count">0/255</div>
+            </div>
 
-            <button type="submit" name="updateProfile">Update Profile</button>
+            <button type="submit" name="updateProfile" id="inputField2">Update Profile</button>
         </form>
     </div>
 </div>
@@ -41,4 +50,5 @@
 
 {% block scripts %}
 <script src="/../public/js/modalUser.js"></script>
+<script src="/../public/js/profilDesc.js"></script>
 {% endblock %}

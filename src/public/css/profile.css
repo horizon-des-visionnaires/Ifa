@@ -1,8 +1,9 @@
 .ProfilContainer {
     background-color: #f5f6f9;
     margin-top: 10em;
-    height: 10em;
+    height: 20em;
     width: 60em;
+    margin-left: 20em;
 }
 
 .modal {
@@ -14,8 +15,8 @@
     width: 100%;
     height: 100%;
     overflow: auto;
-    background-color: rgb(0,0,0);
-    background-color: rgba(0,0,0,0.4);
+    background-color: rgb(0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.4);
 }
 
 .modal-content {
@@ -23,7 +24,7 @@
     margin: 15% auto;
     padding: 20px;
     border: 1px solid #888;
-    width: 80%;
+    width: 50%;
 }
 
 .close {
@@ -40,6 +41,135 @@
     cursor: pointer;
 }
 
+.profil {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-top: 1em;
+    padding-left: 1em;
+}
+
+.profilPictureName {
+    display: flex;
+    flex-direction: row;
+}
+
+.profilPictureName h1 {
+    padding-left: 1em;
+    font-family: 'Montserrat', sans-serif;
+}
+
 #icon {
-    height: 10em;
+    height: 6em;
+}
+
+.boton-elegante {
+    padding: 8px 12px;
+    border: 2px solid #4b4b72;
+    background-color: #4b4b72;
+    color: #ffffff;
+    font-size: 1.2rem;
+    cursor: pointer;
+    border-radius: 30px;
+    transition: all 0.4s ease;
+    outline: none;
+    position: relative;
+    overflow: hidden;
+    font-weight: bold;
+    margin-right: 0.5em;
+    margin-top: 1em;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.boton-elegante::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle,
+            rgba(255, 255, 255, 0.25) 0%,
+            rgba(255, 255, 255, 0) 70%);
+    transform: scale(0);
+    transition: transform 0.5s ease;
+}
+
+.boton-elegante:hover::after {
+    transform: scale(4);
+}
+
+.boton-elegante:hover {
+    border-color: #666666;
+    background: #5f6196;
+}
+
+#formUpdateUser {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#formUpdateUser input {
+    margin-bottom: 1em;
+    color: black;
+}
+
+#inputField {
+    width: 20em;
+    height: 1.5em;
+    border-radius: 10em;
+    border: 2px solid #4b4b72;
+    background-color: #b9c0d7;
+    font-family: 'Montserrat', sans-serif;
+    padding: 1em;
+    color: black;
+}
+
+#inputField2 {
+    width: 20em;
+    height: 3em;
+    border-radius: 10em;
+    border: 2px solid #4b4b72;
+    background-color: #b9c0d7;
+    font-family: 'Montserrat', sans-serif;
+    color: black;
+}
+
+#inputFieldDesc {
+    border-radius: 1em;
+    border: 2px solid #4b4b72;
+    background-color: #b9c0d7;
+    padding: 1em;
+    box-sizing: border-box; 
+    overflow: auto;
+    word-wrap: break-word;
+    white-space: pre-wrap;
+    margin-bottom: 1em;
+    min-width: 30em;
+    min-height: 15em;
+    max-width: 20em;
+    max-height: 15em;
+    font-family: 'Montserrat', sans-serif;
+    color: black;
+}
+
+.char-count {
+    position: absolute;
+    bottom: 25px;
+    right: 10px;
+    font-size: 0.8em;
+    font-family: 'Montserrat', sans-serif;
+}
+
+#inputField::placeholder,
+#inputFieldDesc::placeholder {
+    color: black;
+    opacity: 1; /* Ensure the placeholder is not transparent */
+}
+
+::selection {
+    background: #b9c0d7; /* Highlight background color */
+    color: black; /* Highlight text color */
+    font-family: 'Montserrat', sans-serif;
 }

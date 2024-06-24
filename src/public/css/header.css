@@ -277,6 +277,7 @@ header {
     justify-content: space-between;
     align-items: center;
     z-index: 2;
+    height: 6em;
 }
 
 header a {
