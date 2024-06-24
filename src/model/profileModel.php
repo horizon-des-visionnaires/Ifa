@@ -47,7 +47,7 @@ class profileModel
     }
 
 
-    public function updateUserData($IdUser, $FirstName, $LastName, $ProfilDescription)
+    public function updateUserData($IdUser, $FirstName, $LastName, $ProfilDescription, $ProfilPicture = null)
     {
         try {
             $setClauses = [];
@@ -60,6 +60,9 @@ class profileModel
             }
             if (!empty($ProfilDescription)) {
                 $setClauses[] = "ProfilDescription = :ProfilDescription";
+            }
+            if (!empty($ProfilPicture)) {
+                $setClauses[] = "ProfilPicture = :ProfilPicture";
             }
 
             if (empty($setClauses)) {
@@ -80,6 +83,9 @@ class profileModel
             }
             if (!empty($ProfilDescription)) {
                 $stmt->bindParam(':ProfilDescription', $ProfilDescription);
+            }
+            if (!empty($ProfilPicture)) {
+                $stmt->bindParam(':ProfilPicture', $ProfilPicture, PDO::PARAM_LOB);
             }
 
             if ($stmt->execute()) {

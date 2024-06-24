@@ -1,9 +1,10 @@
 .ProfilContainer {
     background-color: #f5f6f9;
-    margin-top: 10em;
+    margin-top: 8em;
     height: 20em;
     width: 60em;
     margin-left: 20em;
+    border-radius: 2em;
 }
 
 .modal {
@@ -14,17 +15,18 @@
     top: 0;
     width: 100%;
     height: 100%;
-    overflow: auto;
+    /* overflow: auto; */
     background-color: rgb(0, 0, 0);
     background-color: rgba(0, 0, 0, 0.4);
 }
 
 .modal-content {
     background-color: #fefefe;
-    margin: 15% auto;
+    margin: 10% auto;
     padding: 20px;
     border: 1px solid #888;
     width: 50%;
+    border-radius: 2em;
 }
 
 .close {
@@ -134,6 +136,7 @@
     background-color: #b9c0d7;
     font-family: 'Montserrat', sans-serif;
     color: black;
+    margin-top: 2em;
 }
 
 #inputFieldDesc {
@@ -141,7 +144,7 @@
     border: 2px solid #4b4b72;
     background-color: #b9c0d7;
     padding: 1em;
-    box-sizing: border-box; 
+    box-sizing: border-box;
     overflow: auto;
     word-wrap: break-word;
     white-space: pre-wrap;
@@ -165,11 +168,28 @@
 #inputField::placeholder,
 #inputFieldDesc::placeholder {
     color: black;
-    opacity: 1; /* Ensure the placeholder is not transparent */
+    opacity: 1;
 }
 
 ::selection {
-    background: #b9c0d7; /* Highlight background color */
-    color: black; /* Highlight text color */
+    background: #b9c0d7;
+    color: black;
     font-family: 'Montserrat', sans-serif;
 }
+
+.description {
+    padding-left: 2em;
+    padding-top: 1em;
+}
+
+input[type=file]::file-selector-button {
+    margin-right: 8px;
+    border: none;
+    background: #b9c0d7;
+    padding: 8px 12px;
+    color: black;
+    cursor: pointer;
+    border-radius: 10em;
+    border: 2px solid #4b4b72;
+    /* font-family: 'Montserrat', sans-serif; */
+  }

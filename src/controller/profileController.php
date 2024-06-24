@@ -57,7 +57,13 @@ class profileController
             $LastName = $_POST['LastName'] ?? null;
             $ProfilDescription = $_POST['ProfilDescription'] ?? null;
 
-            $this->profileModel->updateUserData($id, $FirstName, $LastName, $ProfilDescription);
+            $ProfilPicture = null;
+
+            if (isset($_FILES["ProfilPicture"]) && $_FILES["ProfilPicture"]["error"] == UPLOAD_ERR_OK) {
+                $ProfilPicture = file_get_contents($_FILES["ProfilPicture"]["tmp_name"]);
+            }
+
+            $this->profileModel->updateUserData($id, $FirstName, $LastName, $ProfilDescription, $ProfilPicture);
         }
     }
 }

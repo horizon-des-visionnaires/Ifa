@@ -18,7 +18,7 @@ $createTableUser = ("CREATE TABLE IF NOT EXISTS
     `ProfilDescription` varchar(255) DEFAULT NULL,
     PRIMARY KEY (`IdUser`),
     CONSTRAINT unique_User_Email UNIQUE (`Email`)
-) ENGINE = InnoDB AUTO_INCREMENT = 1 DEFAULT CHARSET = latin1");
+) ENGINE = InnoDB AUTO_INCREMENT = 1 DEFAULT CHARSET = utf8mb4 COLLATE utf8mb4_unicode_ci");
 $dsn->exec($createTableUser);
 
 $createTablePost = ("CREATE TABLE IF NOT EXISTS
