@@ -73,6 +73,7 @@ $createTableLinkUser = ("CREATE TABLE IF NOT EXISTS
     `IdLinkUser` int(11) NOT NULL AUTO_INCREMENT,
     `IdUser` int(11) DEFAULT NULL,
     `Link` varchar(255) DEFAULT NULL,
+    `LinkName` varchar(255) DEFAULT NULL,
     PRIMARY KEY (`IdLinkUser`),
     CONSTRAINT fk_User_LinkUser FOREIGN KEY (`IdUser`) REFERENCES User (`IdUser`)
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 DEFAULT CHARSET = latin1");

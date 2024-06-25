@@ -33,6 +33,7 @@ class profileController
         }
 
         $user = $this->profileModel->getUserById($id);
+        $userLink = $this->profileModel->getLinkUserData($id);
 
         if ($user === null) {
             http_response_code(404);
@@ -45,7 +46,8 @@ class profileController
         echo $this->twig->render('profile/profile.html.twig', [
             'user' => $user,
             'isConnected' => $isConnected,
-            'userId' => $userId
+            'userId' => $userId,
+            'userLink' => $userLink
         ]);
     }
 
