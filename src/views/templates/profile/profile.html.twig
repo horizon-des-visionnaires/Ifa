@@ -17,9 +17,11 @@
             <img id="icon" src="data:image;base64,{{user.ProfilPicture}}" alt="icon">
             <h1>{{ user.FirstName }} {{ user.LastName }}</h1>
         </div>
-        <div class="profilButton">
-            <button id="openModalButton" class="boton-elegante">Edit Profile</button>
-        </div>
+        {% if isConnected and userId == user.IdUser %}
+            <div class="profilButton">
+                <button id="openModalButton" class="boton-elegante">Edit Profile</button>
+            </div>
+        {% endif %}
     </div>
     <div class="description">
         <p>{{ user.ProfilDescription | nl2br }}</p>
