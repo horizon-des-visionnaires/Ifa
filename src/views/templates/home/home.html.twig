@@ -12,6 +12,15 @@
 {% endblock %}
 
 {% block body %}
+<form action="/" method="post" id="formAddPost" enctype="multipart/form-data">
+    <input type="text" name="TitlePost" placeholder="TitlePost" required>
+
+    <textarea name="ContentPost" placeholder="ContentPost" required></textarea>
+
+    <input type="file" id="images" name="PicturePost" />
+
+    <button type="submit" name="addPost">Add Post</button>
+</form>
 {% endblock %}
 
 {% block footer %}{% endblock %}

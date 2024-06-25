@@ -34,6 +34,9 @@ class homeController
         }
 
         $this->logOut();
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $this->getAddPostData($userId);
+        }
 
         echo $this->twig->render('home/home.html.twig', [
             'isConnected' => $isConnected,
@@ -48,5 +51,20 @@ class homeController
             header("Location: /login");
         }
     }
-}
 
+    public function getAddPostData($userId)
+    {
+        if (isset($_POST['addPost'])) {
+            $TitlePost = $_POST['TitlePost'];
+            $ContentPost = $_POST['ContentPost'];
+
+            $PicturePost = null;
+            if (isset($_FILES["PicturePost"]) && $_FILES["PicturePost"]["error"] == UPLOAD_ERR_OK) {
+                $PicturePost = file_get_contents($_FILES["PicturePost"]["tmp_name"]);
+            }
+
+            $IdPost = $this->homeModel->addPost($TitlePost, $ContentPost, $PicturePost);
+            $this->homeModel->addUserPost($userId, $IdPost);
+        }
+    }
+}
