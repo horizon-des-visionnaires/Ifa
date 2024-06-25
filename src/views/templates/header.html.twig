@@ -14,6 +14,14 @@
         </a>
         {% if isConnected %}
         <li>
+            <a href="/profile-{{ userId }}" id="profile">
+                <div class="item" id="item">
+                    profil
+                    <img src="public/image/user.png" id="img2">
+                </div>
+            </a>
+        </li>
+        <li>
             <form action="/" method="post">
                 <button class="Btn" type="submit" name="logOut" id="logout">
                     <div class="sign">
@@ -25,16 +33,6 @@
                     <div class="text">Deconnexion</div>
                 </button>
             </form>
-        </li>
-        <li>
-            <a href="/profile-{{ userId }}" id="profile">
-                <button class="Btn4">
-                    Mon Profil
-                    <div class="arrow-wrapper">
-                        <div class="arrow"></div>
-                    </div>
-                </button>
-            </a>
         </li>
         {% else %}
         <li>
