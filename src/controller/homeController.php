@@ -34,13 +34,16 @@ class homeController
         }
 
         $this->logOut();
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && $userId !== null) {
             $this->getAddPostData($userId);
         }
 
+        $postData = $this->homeModel->getPost();
+
         echo $this->twig->render('home/home.html.twig', [
             'isConnected' => $isConnected,
-            'userId' => $userId
+            'userId' => $userId,
+            'postData' => $postData
         ]);
     }
 
@@ -63,8 +66,7 @@ class homeController
                 $PicturePost = file_get_contents($_FILES["PicturePost"]["tmp_name"]);
             }
 
-            $IdPost = $this->homeModel->addPost($TitlePost, $ContentPost, $PicturePost);
-            $this->homeModel->addUserPost($userId, $IdPost);
+            $IdPost = $this->homeModel->addPost($TitlePost, $ContentPost, $PicturePost, $userId);
         }
     }
 }

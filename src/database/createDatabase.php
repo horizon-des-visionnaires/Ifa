@@ -29,20 +29,11 @@ $createTablePost = ("CREATE TABLE IF NOT EXISTS
     `DatePost` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     `PicturePost` LONGBLOB DEFAULT NULL,
     `Views` int(11) DEFAULT '0',
-    PRIMARY KEY (`IdPost`)
+    `IdUser` int(11) DEFAULT NULL,
+    PRIMARY KEY (`IdPost`),
+    CONSTRAINT fk_User_UserPost FOREIGN KEY (`IdUser`) REFERENCES User (`IdUser`)
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 DEFAULT CHARSET = latin1");
 $dsn->exec($createTablePost);
-
-$createTableUserPost = ("CREATE TABLE IF NOT EXISTS
-`UserPost` (
-    `Id`int(11) NOT NULL AUTO_INCREMENT,
-    `IdUser` int(11) DEFAULT NULL,
-    `IdPost` int(11) DEFAULT NULL,
-    PRIMARY KEY (`Id`),
-    CONSTRAINT fk_User_UserPost FOREIGN KEY (`IdUser`) REFERENCES User (`IdUser`),
-    CONSTRAINT fk_Post_UserPost FOREIGN KEY (`IdPost`) REFERENCES Post (`IdPost`)
-) ENGINE = InnoDB AUTO_INCREMENT = 1 DEFAULT CHARSET = latin1");
-$dsn->exec($createTableUserPost);
 
 $createTableComment = ("CREATE TABLE IF NOT EXISTS
 `Comment` (
