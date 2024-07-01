@@ -1,7 +1,6 @@
 {% extends "default.html.twig" %}
 
-{% block title %}home
-{% endblock %}
+{% block title %}home{% endblock %}
 
 {% block stylesheet %}
 <link href="/../public/css/home.css" rel="stylesheet">
@@ -12,37 +11,54 @@
 {% endblock %}
 
 {% block body %}
-
 <div class="homeContainer">
     <div class="homeFiltre"></div>
     <div class="homePost">
         {% for Post in postData %}
-            <p>{{ Post.TitlePost }}</p>
-            <p>{{ Post.ContentPost }}</p>
-            <p>{{ Post.DatePost }}</p>
-            <img id="icon" src="data:image;base64,{{Post.PicturePost}}" alt="icon">
+        <div class="post">
+            <div class="user-info">
+                <img class="user-picture" src="data:image;base64,{{ Post.ProfilPicture }}" alt="profile picture">
+                <h1>{{ Post.FirstName }} {{ Post.LastName }}</h1>
+            </div>
+            <p class="datePost">{{ Post.RelativeDatePost }}</p>
+            <div class="contentPost">
+                <h2>{{ Post.TitlePost }}</h2>
+                <p>
+                    {% set contentLines = Post.ContentPost | split("\n") %}
+                    {% for i in 0..2 %}
+                        {{ contentLines[i] }}<br>
+                    {% endfor %}
+                    {% if contentLines | length > 3 %}
+                        <span id="moreContent{{ loop.index }}" style="display:none;">
+                            {% for i in 3..(contentLines | length - 1) %}
+                                {{ contentLines[i] }}<br>
+                            {% endfor %}
+                        </span>
+                        <button class="btn-voir-plus" onclick="toggleVisibility('moreContent{{ loop.index }}')">Voir plus</button>
+                    {% endif %}
+                </p>
+            </div>
+            <img class="icon" src="data:image;base64,{{ Post.PicturePost }}" alt="icon">
+        </div>
         {% endfor %}
     </div>
-    <div class="homeAdd"></div>
+    <div class="homeAdd">
+        {% if isConnected %}
+        <div class="PostButton">
+            <button id="openModalButton" class="boton-elegante">Add Post</button>
+        </div>
+        {% endif %}
+    </div>
 </div>
-
-{% if isConnected %}
-<div class="PostButton">
-    <button id="openModalButton" class="boton-elegante">Add Post</button>
-</div>
-{% endif %}
 
 <div id="profileModal" class="modal">
     <div class="modal-content">
         <span class="close">&times;</span>
         <form action="/" method="post" id="formAddPost" enctype="multipart/form-data">
-            <input type="text" name="TitlePost" placeholder="TitlePost" id="inputField" required>
-
-            <textarea name="ContentPost" placeholder="ContentPost" id="inputFieldDesc" required></textarea>
-
-            <input type="file" id="images" name="PicturePost" />
-
-            <button type="submit" name="addPost" id="inputField2">Add Post</button>
+            <input type="text" name="TitlePost" placeholder="TitlePost" class="inputField" required>
+            <textarea name="ContentPost" placeholder="ContentPost" class="inputFieldDesc" required></textarea>
+            <input type="file" id="images" name="PicturePost">
+            <button type="submit" name="addPost" class="inputField2">Add Post</button>
         </form>
     </div>
 </div>
@@ -52,4 +68,5 @@
 
 {% block scripts %}
 <script src="/../public/js/modalUser.js"></script>
+<script src="/../public/js/viewMore.js"></script>
 {% endblock %}

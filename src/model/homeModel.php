@@ -40,7 +40,11 @@ class homeModel
 
     public function getPost()
     {
-        $stmt = $this->dsn->prepare("SELECT * FROM Post");
+        $stmt = $this->dsn->prepare(
+            "SELECT Post.TitlePost, Post.ContentPost, Post.PicturePost, Post.DatePost, User.FirstName, User.LastName, User.ProfilPicture 
+        FROM Post 
+        JOIN User ON Post.IdUser = User.IdUser"
+        );
         $stmt->execute();
         $getPostData = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
@@ -50,8 +54,29 @@ class homeModel
             } else {
                 $post['PicturePost'] = '';
             }
+            if ($post['ProfilPicture'] !== null) {
+                $post['ProfilPicture'] = base64_encode($post['ProfilPicture']);
+            } else {
+                $post['ProfilPicture'] = '';
+            }
+            $post['RelativeDatePost'] = $this->getRelativeTime($post['DatePost']);
         }
 
         return $getPostData;
+    }
+    private function getRelativeTime($date)
+    {
+        $timestamp = strtotime($date);
+        $diff = time() - $timestamp;
+
+        if ($diff < 60) {
+            return $diff . ' s';
+        } elseif ($diff < 3600) {
+            return floor($diff / 60) . ' m';
+        } elseif ($diff < 86400) {
+            return floor($diff / 3600) . ' h';
+        } else {
+            return floor($diff / 86400) . ' J';
+        }
     }
 }

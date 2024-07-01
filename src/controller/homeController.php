@@ -67,6 +67,11 @@ class homeController
             }
 
             $IdPost = $this->homeModel->addPost($TitlePost, $ContentPost, $PicturePost, $userId);
+
+            if ($IdPost) {
+                header("Location: /");
+                exit();
+            }
         }
     }
 }
