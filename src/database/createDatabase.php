@@ -35,6 +35,16 @@ $createTablePost = ("CREATE TABLE IF NOT EXISTS
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 DEFAULT CHARSET = latin1");
 $dsn->exec($createTablePost);
 
+$createTablePicturePost = ("CREATE TABLE IF NOT EXISTS
+`PicturePost` (
+    `IdPicturePost` int(11) NOT NULL AUTO_INCREMENT,
+    `IdPost` int(11) DEFAULT NULL,
+    `PicturePost` LONGBLOB DEFAULT NULL,
+    PRIMARY KEY (`IdPicturePost`),
+    CONSTRAINT fk_Post_PicturePost FOREIGN KEY (`IdPost`) REFERENCES Post (`IdPost`)
+) ENGINE = InnoDB AUTO_INCREMENT = 1 DEFAULT CHARSET = latin1");
+$dsn->exec($createTablePicturePost);
+
 $createTableComment = ("CREATE TABLE IF NOT EXISTS
 `Comment` (
     `IdComment`int(11) NOT NULL AUTO_INCREMENT,

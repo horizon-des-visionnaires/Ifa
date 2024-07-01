@@ -61,12 +61,16 @@ class homeController
             $TitlePost = $_POST['TitlePost'];
             $ContentPost = $_POST['ContentPost'];
 
-            $PicturePost = null;
-            if (isset($_FILES["PicturePost"]) && $_FILES["PicturePost"]["error"] == UPLOAD_ERR_OK) {
-                $PicturePost = file_get_contents($_FILES["PicturePost"]["tmp_name"]);
+            $PicturesPost = [];
+            if (isset($_FILES["PicturePost"])) {
+                foreach ($_FILES["PicturePost"]["tmp_name"] as $tmpName) {
+                    if ($tmpName) {
+                        $PicturesPost[] = file_get_contents($tmpName);
+                    }
+                }
             }
 
-            $IdPost = $this->homeModel->addPost($TitlePost, $ContentPost, $PicturePost, $userId);
+            $IdPost = $this->homeModel->addPost($TitlePost, $ContentPost, $PicturesPost, $userId);
 
             if ($IdPost) {
                 header("Location: /");

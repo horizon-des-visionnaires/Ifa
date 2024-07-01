@@ -22,48 +22,65 @@ class homeModel
         $this->dsn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     }
 
-    public function addPost($TitlePost, $ContentPost, $PicturePost, $IdUser)
+    public function addPost($TitlePost, $ContentPost, $PicturesPost, $IdUser)
     {
         try {
-            $stmt = $this->dsn->prepare("INSERT INTO Post (TitlePost, ContentPost, PicturePost, IdUser) VALUES (:TitlePost, :ContentPost, :PicturePost, :IdUser)");
+            $this->dsn->beginTransaction();
+
+            $stmt = $this->dsn->prepare("INSERT INTO Post (TitlePost, ContentPost, IdUser) VALUES (:TitlePost, :ContentPost, :IdUser)");
             $stmt->bindParam(':TitlePost', $TitlePost);
             $stmt->bindParam(':ContentPost', $ContentPost);
-            $stmt->bindParam(':PicturePost', $PicturePost, PDO::PARAM_LOB);
             $stmt->bindParam(':IdUser', $IdUser);
             $stmt->execute();
-            return $this->dsn->lastInsertId();
+            $IdPost = $this->dsn->lastInsertId();
+
+            $stmt = $this->dsn->prepare("INSERT INTO PicturePost (IdPost, PicturePost) VALUES (:IdPost, :PicturePost)");
+            foreach ($PicturesPost as $PicturePost) {
+                $stmt->bindParam(':IdPost', $IdPost);
+                $stmt->bindParam(':PicturePost', $PicturePost, PDO::PARAM_LOB);
+                $stmt->execute();
+            }
+
+            $this->dsn->commit();
+            return $IdPost;
         } catch (PDOException $e) {
+            $this->dsn->rollBack();
             echo "Error: " . $e->getMessage();
         }
     }
 
-
     public function getPost()
     {
         $stmt = $this->dsn->prepare(
-            "SELECT Post.TitlePost, Post.ContentPost, Post.PicturePost, Post.DatePost, User.FirstName, User.LastName, User.ProfilPicture 
-        FROM Post 
-        JOIN User ON Post.IdUser = User.IdUser"
+            "SELECT Post.IdPost, Post.TitlePost, Post.ContentPost, Post.DatePost, User.FirstName, User.LastName, User.ProfilPicture 
+            FROM Post 
+            JOIN User ON Post.IdUser = User.IdUser"
         );
         $stmt->execute();
         $getPostData = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         foreach ($getPostData as &$post) {
-            if ($post['PicturePost'] !== null) {
-                $post['PicturePost'] = base64_encode($post['PicturePost']);
-            } else {
-                $post['PicturePost'] = '';
-            }
             if ($post['ProfilPicture'] !== null) {
                 $post['ProfilPicture'] = base64_encode($post['ProfilPicture']);
             } else {
                 $post['ProfilPicture'] = '';
             }
             $post['RelativeDatePost'] = $this->getRelativeTime($post['DatePost']);
+
+            $stmtPictures = $this->dsn->prepare("SELECT PicturePost FROM PicturePost WHERE IdPost = :IdPost");
+            $stmtPictures->bindParam(':IdPost', $post['IdPost']);
+            $stmtPictures->execute();
+            $pictures = $stmtPictures->fetchAll(PDO::FETCH_COLUMN, 0);
+
+            foreach ($pictures as &$picture) {
+                $picture = base64_encode($picture);
+            }
+            $post['PicturesPost'] = $pictures;
         }
 
         return $getPostData;
     }
+
     private function getRelativeTime($date)
     {
         $timestamp = strtotime($date);
