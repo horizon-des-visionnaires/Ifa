@@ -26,20 +26,13 @@
                 <p>
                     {% set contentLines = Post.ContentPost | split("\n") %}
                     {% for i in 0..2 %}
-                        {{ contentLines[i] }}<br>
+                    {{ contentLines[i] }}<br>
                     {% endfor %}
-                    {% if contentLines | length > 3 %}
-                        <span id="moreContent{{ loop.index }}" style="display:none;">
-                            {% for i in 3..(contentLines | length - 1) %}
-                                {{ contentLines[i] }}<br>
-                            {% endfor %}
-                        </span>
-                        <button id="btn-voir-plus-{{ loop.index }}" class="btn-voir-plus" onclick="toggleVisibility('moreContent{{ loop.index }}', 'btn-voir-plus-{{ loop.index }}')">Voir plus</button>
-                    {% endif %}
+                    <a href="/post-{{ Post.IdPost }}" id="profile">Voir plus</a>
                 </p>
             </div>
             {% for picture in Post.PicturesPost %}
-                <img class="icon" src="data:image;base64,{{ picture }}" alt="icon">
+            <img class="icon" src="data:image;base64,{{ picture }}" alt="icon">
             {% endfor %}
         </div>
         {% endfor %}
@@ -61,7 +54,8 @@
 
             <textarea name="ContentPost" placeholder="ContentPost" class="inputFieldDesc" required></textarea>
 
-            <input type="file" id="images" name="PicturePost[]" multiple accept="image/*" onchange="validateFiles(this)">
+            <input type="file" id="images" name="PicturePost[]" multiple accept="image/*"
+                onchange="validateFiles(this)">
 
             <button type="submit" name="addPost" class="inputField2">Add Post</button>
         </form>
