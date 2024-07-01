@@ -1,0 +1,53 @@
+.homePost {
+    width: 30em;
+    height: 30em;
+    margin-top: 10em;
+}
+
+.post {
+    padding: 1em;
+    background-color: #b0dfb3;
+    margin-bottom: 2em;
+    border-radius: 3em;
+}
+
+.user-info {
+    display: flex;
+    flex-direction: row;
+}
+
+.user-info h1 {
+    font-family: 'Open Sans', sans-serif;
+}
+
+.user-picture {
+    height: 3em;
+    padding: 1em;
+}
+
+.datePost {
+    padding-left: 5em;
+    margin-top: -1em;
+}
+
+.contentPost {
+    padding: 1em;
+}
+
+.contentPost h2 {
+    font-family: 'Open Sans', sans-serif;
+}
+
+.icon {
+    height: 5em;
+}
+
+.btn-voir-plus {
+    background-color: #3c9048;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    margin-top: 10px;
+    border-radius: 1em;
+}

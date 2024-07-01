@@ -3,6 +3,7 @@ require_once __DIR__ . '/controller/homeController.php';
 require_once __DIR__ . '/controller/registerController.php';
 require_once __DIR__ . '/controller/loginController.php';
 require_once __DIR__ . '/controller/profileController.php';
+require_once __DIR__ . '/controller/postController.php';
 
 require_once __DIR__ . '/database/createDatabase.php';
 
@@ -28,6 +29,9 @@ if (array_key_exists($path, $routes)) {
   if (preg_match('/^\/profile-(\d+)$/', $path, $matches)) {
     $controller = new profile\profileController();
     $controller->profile($matches[1]);
+  } else if (preg_match('/^\/post-(\d+)$/', $path, $matches)) {
+    $controller = new post\postController();
+    $controller->post($matches[1]);
   } else {
     http_response_code(404);
     echo "Page not found";
