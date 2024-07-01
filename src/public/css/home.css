@@ -196,10 +196,11 @@ input[type=file]::file-selector-button {
 }
 
 .btn-voir-plus {
-    background-color: #4b4b72;
+    background-color: #3c9048;
     color: white;
     border: none;
     padding: 5px 10px;
     cursor: pointer;
     margin-top: 10px;
+    border-radius: 1em;
 }

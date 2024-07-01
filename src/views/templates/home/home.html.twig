@@ -34,7 +34,7 @@
                                 {{ contentLines[i] }}<br>
                             {% endfor %}
                         </span>
-                        <button class="btn-voir-plus" onclick="toggleVisibility('moreContent{{ loop.index }}')">Voir plus</button>
+                        <button id="btn-voir-plus-{{ loop.index }}" class="btn-voir-plus" onclick="toggleVisibility('moreContent{{ loop.index }}', 'btn-voir-plus-{{ loop.index }}')">Voir plus</button>
                     {% endif %}
                 </p>
             </div>
