@@ -15,7 +15,7 @@
 }
 
 .modal-content {
-    background-color: #fefefe;
+    background-color: #d8efd9;
     margin: 10% auto;
     padding: 20px;
     border: 1px solid #888;
@@ -53,8 +53,8 @@
     width: 20em;
     height: 1.5em;
     border-radius: 10em;
-    border: 2px solid #4b4b72;
-    background-color: #b9c0d7;
+    border: 2px solid #223f27;
+    background-color: #80c886;
     font-family: 'Montserrat', sans-serif;
     padding: 1em;
     color: black;
@@ -64,8 +64,8 @@
     width: 20em;
     height: 3em;
     border-radius: 10em;
-    border: 2px solid #4b4b72;
-    background-color: #b9c0d7;
+    border: 2px solid #223f27;
+    background-color: #80c886;
     font-family: 'Montserrat', sans-serif;
     color: black;
     margin-top: 2em;
@@ -73,8 +73,8 @@
 
 .inputFieldDesc {
     border-radius: 1em;
-    border: 2px solid #4b4b72;
-    background-color: #b9c0d7;
+    border: 2px solid #223f27;
+    background-color: #80c886;
     padding: 1em;
     box-sizing: border-box;
     overflow: auto;
@@ -89,27 +89,27 @@
 }
 
 ::selection {
-    background: #b9c0d7;
+    background: #80c886;
     color: black;
     font-family: 'Montserrat', sans-serif;
 }
 
 input[type=file]::file-selector-button {
     border: none;
-    background: #b9c0d7;
+    background: #80c886;
     padding: 8px 12px;
     color: black;
     cursor: pointer;
     border-radius: 10em;
-    border: 2px solid #4b4b72;
+    border: 2px solid #223f27;
     margin-left: 1em;
     margin-top: 1.5em;
 }
 
 .boton-elegante {
     padding: 8px 12px;
-    border: 2px solid #4b4b72;
-    background-color: #4b4b72;
+    border: 2px solid #223f27;
+    background-color: #80c886;
     color: #ffffff;
     font-size: 1.2rem;
     cursor: pointer;
@@ -141,8 +141,8 @@ input[type=file]::file-selector-button {
 }
 
 .boton-elegante:hover {
-    border-color: #666666;
-    background: #5f6196;
+    border-color: #223f27;
+    background: #3c9048;
 }
 
 .homeContainer {
@@ -159,7 +159,7 @@ input[type=file]::file-selector-button {
 
 .post {
     padding: 1em;
-    background-color: #f5f6f9;
+    background-color: #d8efd9;
     margin-bottom: 2em;
     border-radius: 3em;
 }
