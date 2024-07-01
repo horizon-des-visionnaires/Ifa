@@ -58,8 +58,11 @@
         <span class="close">&times;</span>
         <form action="/" method="post" id="formAddPost" enctype="multipart/form-data">
             <input type="text" name="TitlePost" placeholder="TitlePost" class="inputField" required>
+
             <textarea name="ContentPost" placeholder="ContentPost" class="inputFieldDesc" required></textarea>
-            <input type="file" id="images" name="PicturePost[]" multiple>
+
+            <input type="file" id="images" name="PicturePost[]" multiple accept="image/*" onchange="validateFiles(this)">
+
             <button type="submit" name="addPost" class="inputField2">Add Post</button>
         </form>
     </div>

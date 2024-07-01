@@ -27,7 +27,6 @@ $createTablePost = ("CREATE TABLE IF NOT EXISTS
     `TitlePost` varchar(255) DEFAULT NULL,
     `ContentPost` TEXT DEFAULT NULL,
     `DatePost` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    `PicturePost` LONGBLOB DEFAULT NULL,
     `Views` int(11) DEFAULT '0',
     `IdUser` int(11) DEFAULT NULL,
     PRIMARY KEY (`IdPost`),
