@@ -43,6 +43,10 @@ class postController
             $lastName = '';
         }
 
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && $userId !== null) {
+            $this->addCommentData($idPost);
+        }
+
         echo $this->twig->render('post/post.html.twig', [
             'isConnected' => $isConnected,
             'userId' => $userId,
@@ -51,5 +55,20 @@ class postController
             'lastName' => $lastName,
             'commentsData' => $commentsData
         ]);
+    }
+
+    public function addCommentData($idPost)
+    {
+        if (isset($_POST['addComment'])) {
+            $ContentComment = $_POST['ContentComment'];
+            $IdUser = $_POST['IdUser'];
+
+            $IdComment = $this->postModel->addComment($idPost, $ContentComment, $IdUser);
+
+            if ($IdComment) {
+                header("Location: /post-$idPost");
+                exit();
+            }
+        }
     }
 }

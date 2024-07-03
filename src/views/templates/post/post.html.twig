@@ -45,6 +45,25 @@
     {% endfor %}
 </div>
 
+{% if isConnected %}
+<div class="PostButton">
+    <button id="openModalButton" class="boton-elegante">Add Comment</button>
+</div>
+{% endif %}
+
+{% for Post in postData %}
+<div id="profileModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <form action="post-{{ Post.IdPost }}" method="post" id="formAddComment" enctype="multipart/form-data">
+            <textarea name="ContentComment" placeholder="ContentComment" class="inputFieldDesc" required></textarea>
+            <input type="hidden" name="IdUser" value="{{ userId }}">
+            <button type="submit" name="addComment" class="inputField2">Add Comment</button>
+        </form>
+    </div>
+</div>
+{% endfor %}
+
 <div class="comment-avis">
     <div class="commentContainer">
         {% for Comment in commentsData %}
@@ -60,12 +79,17 @@
         </div>
         {% endfor %}
     </div>
-    <div class="avisContainer"></div>
+    <div class="avisContainer">
+        <div class="avis">
+
+        </div>
+    </div>
 </div>
 {% endblock %}
 
 {% block footer %}{% endblock %}
 
 {% block scripts %}
+<script src="/../public/js/modalUser.js"></script>
 <script src="/../public/js/viewMore.js"></script>
 {% endblock %}

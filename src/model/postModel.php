@@ -95,4 +95,25 @@ class postModel
 
         return $comments;
     }
+
+    public function addComment($idPost, $ContentComment, $IdUser)
+    {
+        try {
+
+            $this->dsn->beginTransaction();
+            
+            $stmt = $this->dsn->prepare("INSERT INTO Comment (ContentComment, IdUser, IdPost) VALUES (:ContentComment, :IdUser, :idPost)");
+            $stmt->bindParam(':ContentComment', $ContentComment);
+            $stmt->bindParam(':IdUser', $IdUser);
+            $stmt->bindParam(':idPost', $idPost);
+            $stmt->execute();
+            $IdComment = $this->dsn->lastInsertId();
+
+            $this->dsn->commit();
+            return $IdComment;
+        } catch (PDOException $e) {
+            $this->dsn->rollBack();
+            echo "Error: " . $e->getMessage();
+        }
+    }
 }
