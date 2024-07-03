@@ -46,7 +46,7 @@
 </div>
 
 {% if isConnected %}
-<div class="PostButton">
+<div class="CommentButton">
     <button id="openModalButton" class="boton-elegante">Add Comment</button>
 </div>
 {% endif %}
@@ -64,26 +64,19 @@
 </div>
 {% endfor %}
 
-<div class="comment-avis">
-    <div class="commentContainer">
-        {% for Comment in commentsData %}
-        <div class="comment">
-            <div class="user-info">
-                <img class="user-picture" src="data:image;base64,{{ Comment.ProfilPicture }}" alt="profile picture">
-                <h1>{{ Comment.FirstName }} {{ Comment.LastName }}</h1>
-            </div>
-            <p class="dateComment">{{ Comment.RelativeDatePost }}</p>
-            <div class="contentComment">
-                <p>{{ Comment.ContentComment | nl2br }}</p>
-            </div>
+<div class="commentContainer">
+    {% for Comment in commentsData %}
+    <div class="comment">
+        <div class="user-info">
+            <img class="user-picture" src="data:image;base64,{{ Comment.ProfilPicture }}" alt="profile picture">
+            <h1>{{ Comment.FirstName }} {{ Comment.LastName }}</h1>
         </div>
-        {% endfor %}
-    </div>
-    <div class="avisContainer">
-        <div class="avis">
-
+        <p class="dateComment">{{ Comment.RelativeDateComment }}</p>
+        <div class="contentComment">
+            <p>{{ Comment.ContentComment | nl2br }}</p>
         </div>
     </div>
+    {% endfor %}
 </div>
 {% endblock %}
 

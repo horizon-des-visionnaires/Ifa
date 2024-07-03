@@ -53,20 +53,15 @@
     border-radius: 1em;
 }
 
-.commentContainer, .avisContainer {
+.commentContainer {
     height: 30em;
     width: 30em;
     margin-top: 3em;
+    margin-left: 33em;
 }
 
 .contentComment {
     padding-left: 1em;
-}
-
-.comment-avis {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
 }
 
 .modal {
@@ -181,4 +176,8 @@
 .boton-elegante:hover {
     border-color: #223f27;
     background: #3c9048;
+}
+
+.CommentButton {
+    margin-left: 43em;
 }
