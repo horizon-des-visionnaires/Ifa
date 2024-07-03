@@ -33,6 +33,7 @@ class postController
         }
 
         $postData = $this->postModel->getPost($idPost);
+        $commentsData = $this->postModel->getComment($idPost);
 
         if (!empty($postData)) {
             $firstName = $postData[0]['FirstName'];
@@ -47,7 +48,8 @@ class postController
             'userId' => $userId,
             'postData' => $postData,
             'firstName' => $firstName,
-            'lastName' => $lastName
+            'lastName' => $lastName,
+            'commentsData' => $commentsData
         ]);
     }
 }

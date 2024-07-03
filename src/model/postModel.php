@@ -71,4 +71,28 @@ class postModel
             return floor($diff / 86400) . ' J';
         }
     }
+
+    public function getComment($idPost)
+    {
+        $stmt = $this->dsn->prepare(
+            "SELECT Comment.ContentComment, Comment.DateComment, Comment.IdUser, User.FirstName, User.LastName, User.ProfilPicture
+        FROM Comment
+        JOIN User ON Comment.IdUser = User.IdUser
+        WHERE Comment.IdPost = :idPost"
+        );
+        $stmt->bindParam(':idPost', $idPost, PDO::PARAM_INT);
+        $stmt->execute();
+        $comments = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        foreach ($comments as &$comment) {
+            if ($comment['ProfilPicture'] !== null) {
+                $comment['ProfilPicture'] = base64_encode($comment['ProfilPicture']);
+            } else {
+                $comment['ProfilPicture'] = '';
+            }
+            $comment['RelativeDateComment'] = $this->getRelativeTime($comment['DateComment']);
+        }
+
+        return $comments;
+    }
 }

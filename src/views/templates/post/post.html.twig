@@ -11,7 +11,7 @@
 {% endblock %}
 
 {% block body %}
-<div class="homePost">
+<div class="PagePost">
     {% for Post in postData %}
     <div class="post">
         <div class="user-info">
@@ -24,23 +24,43 @@
             <p>
                 {% set contentLines = Post.ContentPost | split("\n") %}
                 {% for i in 0..2 %}
-                    {{ contentLines[i] }}<br>
+                {{ contentLines[i] }}<br>
                 {% endfor %}
                 {% if contentLines | length > 3 %}
-                    <span id="moreContent{{ loop.index }}" style="display:none;">
-                        {% for i in 3..(contentLines | length - 1) %}
-                            {{ contentLines[i] }}<br>
-                        {% endfor %}
-                    </span>
-                    <button id="btn-voir-plus-{{ loop.index }}" class="btn-voir-plus" onclick="toggleVisibility('moreContent{{ loop.index }}', 'btn-voir-plus-{{ loop.index }}')">Voir plus</button>
+                <span id="moreContentPost{{ loop.index }}" style="display:none;">
+                    {% for i in 3..(contentLines | length - 1) %}
+                    {{ contentLines[i] }}<br>
+                    {% endfor %}
+                </span>
+                <button id="btn-voir-plus-post-{{ loop.index }}" class="btn-voir-plus"
+                    onclick="toggleVisibility('moreContentPost{{ loop.index }}', 'btn-voir-plus-post-{{ loop.index }}')">Voir
+                    plus</button>
                 {% endif %}
             </p>
         </div>
         {% for picture in Post.PicturesPost %}
-            <img class="icon" src="data:image;base64,{{ picture }}" alt="icon">
+        <img class="icon" src="data:image;base64,{{ picture }}" alt="icon">
         {% endfor %}
     </div>
     {% endfor %}
+</div>
+
+<div class="comment-avis">
+    <div class="commentContainer">
+        {% for Comment in commentsData %}
+        <div class="comment">
+            <div class="user-info">
+                <img class="user-picture" src="data:image;base64,{{ Comment.ProfilPicture }}" alt="profile picture">
+                <h1>{{ Comment.FirstName }} {{ Comment.LastName }}</h1>
+            </div>
+            <p class="dateComment">{{ Comment.RelativeDatePost }}</p>
+            <div class="contentComment">
+                <p>{{ Comment.ContentComment | nl2br }}</p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <div class="avisContainer"></div>
 </div>
 {% endblock %}
 
