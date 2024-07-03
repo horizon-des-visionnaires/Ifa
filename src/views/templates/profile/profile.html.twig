@@ -56,6 +56,31 @@
         </form>
     </div>
 </div>
+
+<div class="homePost">
+    {% for Post in userPost %}
+    <div class="post">
+        <div class="user-info">
+            <img class="user-picture" src="data:image;base64,{{ Post.ProfilPicture }}" alt="profile picture">
+            <h1>{{ Post.FirstName }} {{ Post.LastName }}</h1>
+        </div>
+        <p class="datePost">{{ Post.RelativeDatePost }}</p>
+        <div class="contentPost">
+            <h2>{{ Post.TitlePost }}</h2>
+            <p>
+                {% set contentLines = Post.ContentPost | split("\n") %}
+                {% for i in 0..2 %}
+                {{ contentLines[i] }}<br>
+                {% endfor %}
+                <a href="/post-{{ Post.IdPost }}" id="profile">Voir plus</a>
+            </p>
+        </div>
+        {% for picture in Post.PicturesPost %}
+        <img class="icon" src="data:image;base64,{{ picture }}" alt="icon">
+        {% endfor %}
+    </div>
+    {% endfor %}
+</div>
 {% endblock %}
 
 {% block footer %}{% endblock %}

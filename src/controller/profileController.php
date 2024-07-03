@@ -42,12 +42,14 @@ class profileController
         }
 
         $this->updateUserData($id);
+        $userPost = $this->profileModel->getUserPosts($id);
 
         echo $this->twig->render('profile/profile.html.twig', [
             'user' => $user,
             'isConnected' => $isConnected,
             'userId' => $userId,
-            'userLink' => $userLink
+            'userLink' => $userLink,
+            'userPost' => $userPost
         ]);
     }
 

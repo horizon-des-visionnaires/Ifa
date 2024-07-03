@@ -109,4 +109,54 @@ class profileModel
 
         return $getUserLinkData;
     }
+
+    public function getUserPosts($id)
+    {
+        $stmt = $this->dsn->prepare(
+            "SELECT Post.IdPost, Post.TitlePost, Post.ContentPost, Post.DatePost, User.FirstName, User.LastName, User.ProfilPicture 
+            FROM Post 
+            JOIN User ON Post.IdUser = User.IdUser
+            WHERE User.IdUser = :id"
+        );
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        $stmt->execute();
+        $getPostData = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        foreach ($getPostData as &$post) {
+            if ($post['ProfilPicture'] !== null) {
+                $post['ProfilPicture'] = base64_encode($post['ProfilPicture']);
+            } else {
+                $post['ProfilPicture'] = '';
+            }
+            $post['RelativeDatePost'] = $this->getRelativeTime($post['DatePost']);
+
+            $stmtPictures = $this->dsn->prepare("SELECT PicturePost FROM PicturePost WHERE IdPost = :IdPost");
+            $stmtPictures->bindParam(':IdPost', $post['IdPost']);
+            $stmtPictures->execute();
+            $pictures = $stmtPictures->fetchAll(PDO::FETCH_COLUMN, 0);
+
+            foreach ($pictures as &$picture) {
+                $picture = base64_encode($picture);
+            }
+            $post['PicturesPost'] = $pictures;
+        }
+
+        return $getPostData;
+    }
+
+    private function getRelativeTime($date)
+    {
+        $timestamp = strtotime($date);
+        $diff = time() - $timestamp;
+
+        if ($diff < 60) {
+            return $diff . ' s';
+        } elseif ($diff < 3600) {
+            return floor($diff / 60) . ' m';
+        } elseif ($diff < 86400) {
+            return floor($diff / 3600) . ' h';
+        } else {
+            return floor($diff / 86400) . ' J';
+        }
+    }
 }
