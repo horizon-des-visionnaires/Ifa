@@ -159,4 +159,41 @@ class profileModel
             return floor($diff / 86400) . ' J';
         }
     }
+
+    public function deletePost($idPost, $idUser)
+    {
+        try {
+            $this->dsn->beginTransaction();
+
+            $deletePicturePost = "DELETE FROM PicturePost WHERE IdPost = :IdPost";
+            $picturePost = $this->dsn->prepare($deletePicturePost);
+            $picturePost->bindParam(':IdPost', $idPost);
+            $picturePost->execute();
+
+            $deleteComment = "DELETE FROM Comment WHERE IdPost = :IdPost";
+            $comment = $this->dsn->prepare($deleteComment);
+            $comment->bindParam(':IdPost', $idPost);
+            $comment->execute();
+
+            $deleteLike = "DELETE FROM `Like` WHERE IdPost = :IdPost";
+            $like = $this->dsn->prepare($deleteLike);
+            $like->bindParam(':IdPost', $idPost);
+            $like->execute();
+
+            $deletePost = "DELETE FROM Post WHERE IdPost = :IdPost";
+            $stmt = $this->dsn->prepare($deletePost);
+            $stmt->bindParam(':IdPost', $idPost);
+            $stmt->execute();
+
+            $this->dsn->commit();
+
+            header("Location: /profile-$idUser");
+            exit();
+
+        } catch (PDOException $e) {
+            $this->dsn->rollBack();
+            $error = "error: " . $e->getMessage();
+            echo $error;
+        }
+    }
 }

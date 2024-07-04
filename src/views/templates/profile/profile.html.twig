@@ -18,9 +18,9 @@
             <h1>{{ user.FirstName }} {{ user.LastName }}</h1>
         </div>
         {% if isConnected and userId == user.IdUser %}
-            <div class="profilButton">
-                <button id="openModalButton" class="boton-elegante">Edit Profile</button>
-            </div>
+        <div class="profilButton">
+            <button id="openModalButton" class="boton-elegante">Edit Profile</button>
+        </div>
         {% endif %}
     </div>
     <div class="description">
@@ -28,12 +28,12 @@
     </div>
     <div class="link-container">
         {% for LinkUser in userLink %}
-            <div class="link">
-                <a href="{{ LinkUser.Link }}">{{ LinkUser.LinkName }}</a>
-            </div>
+        <div class="link">
+            <a href="{{ LinkUser.Link }}">{{ LinkUser.LinkName }}</a>
+        </div>
         {% endfor %}
     </div>
-    
+
 </div>
 
 <div id="profileModal" class="modal">
@@ -63,6 +63,18 @@
         <div class="user-info">
             <img class="user-picture" src="data:image;base64,{{ Post.ProfilPicture }}" alt="profile picture">
             <h1>{{ Post.FirstName }} {{ Post.LastName }}</h1>
+            {% if isConnected and userId == user.IdUser %}
+            <form action="/profile-{{ user.IdUser }}" method="post">
+                <button type="submit" name="deletePost" id="deleteButton">
+                    <input type="hidden" name="idPost" value="{{ Post.IdPost }}">
+                    <input type="hidden" name="idUser" value="{{ user.IdUser }}">
+                    <div class="hover-text">
+                        <img src="/../public/image/bin.png" id="deleteImage">
+                    </div>
+                </button>
+            </form>
+            {% endif %}
+
         </div>
         <p class="datePost">{{ Post.RelativeDatePost }}</p>
         <div class="contentPost">

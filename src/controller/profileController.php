@@ -26,10 +26,12 @@ class profileController
     {
         session_start();
 
-        $isConnected = false;
         if (isset($_SESSION['IdUser'])) {
             $isConnected = true;
             $userId = $_SESSION['IdUser'];
+        } else {
+            $isConnected = false;
+            $userId = null;
         }
 
         $user = $this->profileModel->getUserById($id);
@@ -43,6 +45,7 @@ class profileController
 
         $this->updateUserData($id);
         $userPost = $this->profileModel->getUserPosts($id);
+        $this->getDeletePostData();
 
         echo $this->twig->render('profile/profile.html.twig', [
             'user' => $user,
@@ -68,6 +71,15 @@ class profileController
             }
 
             $this->profileModel->updateUserData($id, $FirstName, $LastName, $ProfilDescription, $ProfilPicture);
+        }
+    }
+
+    public function getDeletePostData()
+    {
+        if (isset($_POST['deletePost'])) {
+            $idPost = $_POST['idPost'];
+            $idUser = $_POST['idUser'];
+            $this->profileModel->deletePost($idPost, $idUser);
         }
     }
 }
