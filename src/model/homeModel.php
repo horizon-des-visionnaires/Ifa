@@ -96,4 +96,20 @@ class homeModel
             return floor($diff / 86400) . ' J';
         }
     }
+
+    public function updateViews($idPost)
+    {
+        try {
+            $stmt = $this->dsn->prepare("UPDATE Post SET Views = Views + 1 WHERE IdPost = :IdPost");
+            $stmt->bindParam(':IdPost', $idPost);
+
+
+            if ($stmt->execute()) {
+                header("Location: /post-$idPost");
+                exit();
+            }
+        } catch (PDOException $e) {
+            echo "Error: " . $e->getMessage();
+        }
+    }
 }

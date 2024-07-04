@@ -194,3 +194,9 @@ input[type=file]::file-selector-button {
 .icon {
     height: 5em;
 }
+
+.viewMore {
+    border-radius: 2em;
+    background-color: #80c886;
+    border: 2px solid #223f27;
+}

@@ -28,7 +28,10 @@
                     {% for i in 0..2 %}
                     {{ contentLines[i] }}<br>
                     {% endfor %}
-                    <a href="/post-{{ Post.IdPost }}" id="profile">Voir plus</a>
+                    <form action="/" method="post">
+                        <input type="hidden" name="idPost" value="{{ Post.IdPost }}">
+                        <button type="submit" name="viewMore" class="viewMore">Voir Plus</button>
+                    </form>
                 </p>
             </div>
             {% for picture in Post.PicturesPost %}

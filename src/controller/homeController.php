@@ -39,6 +39,7 @@ class homeController
         }
 
         $postData = $this->homeModel->getPost();
+        $this->getAddViewsData();
 
         echo $this->twig->render('home/home.html.twig', [
             'isConnected' => $isConnected,
@@ -80,6 +81,15 @@ class homeController
                 header("Location: /");
                 exit();
             }
+        }
+    }
+
+    public function getAddViewsData()
+    {
+        if (isset($_POST['viewMore'])) {
+            $idPost = $_POST['idPost'];
+
+            $this->homeModel->updateViews($idPost);
         }
     }
 }
