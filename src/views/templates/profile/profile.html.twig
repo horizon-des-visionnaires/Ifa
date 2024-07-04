@@ -64,7 +64,7 @@
             <img class="user-picture" src="data:image;base64,{{ Post.ProfilPicture }}" alt="profile picture">
             <h1>{{ Post.FirstName }} {{ Post.LastName }}</h1>
             {% if isConnected and userId == user.IdUser %}
-            <form action="/profile-{{ user.IdUser }}" method="post">
+            <form action="/profile-{{ user.IdUser }}" method="post" class="formDeletePost">
                 <button type="submit" name="deletePost" id="deleteButton">
                     <input type="hidden" name="idPost" value="{{ Post.IdPost }}">
                     <input type="hidden" name="idUser" value="{{ user.IdUser }}">

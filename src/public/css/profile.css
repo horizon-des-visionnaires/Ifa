@@ -255,3 +255,17 @@ input[type=file]::file-selector-button {
 .icon {
     height: 5em;
 }
+
+.formDeletePost {
+    padding-left: 6em;
+    padding-top: 1em;
+}
+
+#deleteButton {
+    background-color: transparent;
+    border: none;
+}
+
+#deleteImage {
+    height: 3em;
+}
