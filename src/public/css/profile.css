@@ -269,3 +269,9 @@ input[type=file]::file-selector-button {
 #deleteImage {
     height: 3em;
 }
+
+.viewMore {
+    border-radius: 2em;
+    background-color: #80c886;
+    border: 2px solid #223f27;
+}
