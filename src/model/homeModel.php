@@ -52,7 +52,7 @@ class homeModel
     public function getPost()
     {
         $stmt = $this->dsn->prepare(
-            "SELECT Post.IdPost, Post.TitlePost, Post.ContentPost, Post.DatePost, User.FirstName, User.LastName, User.ProfilPicture 
+            "SELECT Post.IdPost, Post.TitlePost, Post.ContentPost, Post.DatePost, User.FirstName, User.LastName 
             FROM Post 
             JOIN User ON Post.IdUser = User.IdUser"
         );
@@ -60,11 +60,7 @@ class homeModel
         $getPostData = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         foreach ($getPostData as &$post) {
-            if ($post['ProfilPicture'] !== null) {
-                $post['ProfilPicture'] = base64_encode($post['ProfilPicture']);
-            } else {
-                $post['ProfilPicture'] = '';
-            }
+            
             $post['RelativeDatePost'] = $this->getRelativeTime($post['DatePost']);
 
             $stmtPictures = $this->dsn->prepare("SELECT PicturePost FROM PicturePost WHERE IdPost = :IdPost");

@@ -113,7 +113,7 @@ class profileModel
     public function getUserPosts($id)
     {
         $stmt = $this->dsn->prepare(
-            "SELECT Post.IdPost, Post.TitlePost, Post.ContentPost, Post.DatePost, User.FirstName, User.LastName, User.ProfilPicture 
+            "SELECT Post.IdPost, Post.TitlePost, Post.ContentPost, Post.DatePost, User.FirstName, User.LastName 
             FROM Post 
             JOIN User ON Post.IdUser = User.IdUser
             WHERE User.IdUser = :id"
