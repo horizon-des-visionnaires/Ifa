@@ -27,6 +27,7 @@ class postController
         session_start();
 
         $isConnected = false;
+        $userId = null;
         if (isset($_SESSION['IdUser'])) {
             $isConnected = true;
             $userId = $_SESSION['IdUser'];
@@ -46,6 +47,8 @@ class postController
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && $userId !== null) {
             $this->addCommentData($idPost);
         }
+
+        $this->getDeletePostData();
 
         echo $this->twig->render('postDetails/postDetails.html.twig', [
             'isConnected' => $isConnected,
@@ -69,6 +72,15 @@ class postController
                 header("Location: /postDetails-$idPost");
                 exit();
             }
+        }
+    }
+
+    public function getDeletePostData()
+    {
+        if (isset($_POST['deletePost'])) {
+            $idPost = $_POST['idPost'];
+            $idUser = $_POST['idUser'];
+            $this->postDetailsModel->deletePost($idPost, $idUser);
         }
     }
 }

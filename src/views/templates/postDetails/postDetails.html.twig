@@ -17,7 +17,19 @@
         <div class="user-info">
             <img class="user-picture" src="data:image;base64,{{ Post.ProfilPicture }}" alt="profile picture">
             <h1>{{ Post.FirstName }} {{ Post.LastName }}</h1>
+            {% if isConnected and userId == Post.IdUser%}
+            <form action="/postDetails-{{ Post.IdPost }}" method="post" class="formDeletePost">
+                <button type="submit" name="deletePost" id="deleteButton">
+                    <input type="hidden" name="idPost" value="{{ Post.IdPost }}">
+                    <input type="hidden" name="idUser" value="{{ user.IdUser }}">
+                    <div class="hover-text">
+                        <img src="/../public/image/bin.png" id="deleteImage">
+                    </div>
+                </button>
+            </form>
+            {% endif %}
         </div>
+
         <p class="datePost">{{ Post.RelativeDatePost }}</p>
         <div class="contentPost">
             <h2>{{ Post.TitlePost }}</h2>
@@ -55,7 +67,7 @@
 <div id="profileModal" class="modal">
     <div class="modal-content">
         <span class="close">&times;</span>
-        <form action="postDetails-{{ Post.IdPost }}" method="post" id="formAddComment" enctype="multipart/form-data">
+        <form action="/postDetails-{{ Post.IdPost }}" method="post" id="formAddComment" enctype="multipart/form-data">
             <textarea name="ContentComment" placeholder="ContentComment" class="inputFieldDesc" required></textarea>
             <input type="hidden" name="IdUser" value="{{ userId }}">
             <button type="submit" name="addComment" class="inputField2">Add Comment</button>

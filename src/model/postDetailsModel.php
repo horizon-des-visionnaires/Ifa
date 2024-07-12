@@ -25,7 +25,7 @@ class postDetailsModel
     public function getPost($idPost)
     {
         $stmt = $this->dsn->prepare(
-            "SELECT Post.IdPost, Post.TitlePost, Post.ContentPost, Post.DatePost, User.FirstName, User.LastName, User.ProfilPicture 
+            "SELECT Post.IdPost, Post.IdUser, Post.TitlePost, Post.ContentPost, Post.DatePost, User.FirstName, User.LastName, User.ProfilPicture 
             FROM Post 
             JOIN User ON Post.IdUser = User.IdUser
             WHERE Post.IdPost = :idPost"
@@ -101,7 +101,7 @@ class postDetailsModel
         try {
 
             $this->dsn->beginTransaction();
-            
+
             $stmt = $this->dsn->prepare("INSERT INTO Comment (ContentComment, IdUser, IdPost) VALUES (:ContentComment, :IdUser, :idPost)");
             $stmt->bindParam(':ContentComment', $ContentComment);
             $stmt->bindParam(':IdUser', $IdUser);
@@ -114,6 +114,42 @@ class postDetailsModel
         } catch (PDOException $e) {
             $this->dsn->rollBack();
             echo "Error: " . $e->getMessage();
+        }
+    }
+
+    public function deletePost($idPost, $idUser)
+    {
+        try {
+            $this->dsn->beginTransaction();
+
+            $deletePicturePost = "DELETE FROM PicturePost WHERE IdPost = :IdPost";
+            $picturePost = $this->dsn->prepare($deletePicturePost);
+            $picturePost->bindParam(':IdPost', $idPost);
+            $picturePost->execute();
+
+            $deleteComment = "DELETE FROM Comment WHERE IdPost = :IdPost";
+            $comment = $this->dsn->prepare($deleteComment);
+            $comment->bindParam(':IdPost', $idPost);
+            $comment->execute();
+
+            $deleteLike = "DELETE FROM `Like` WHERE IdPost = :IdPost";
+            $like = $this->dsn->prepare($deleteLike);
+            $like->bindParam(':IdPost', $idPost);
+            $like->execute();
+
+            $deletePost = "DELETE FROM Post WHERE IdPost = :IdPost";
+            $stmt = $this->dsn->prepare($deletePost);
+            $stmt->bindParam(':IdPost', $idPost);
+            $stmt->execute();
+
+            $this->dsn->commit();
+
+            header("Location: /");
+            exit();
+        } catch (PDOException $e) {
+            $this->dsn->rollBack();
+            $error = "error: " . $e->getMessage();
+            echo $error;
         }
     }
 }
