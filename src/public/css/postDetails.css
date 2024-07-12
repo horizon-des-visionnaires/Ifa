@@ -12,13 +12,20 @@
     border-radius: 3em;
 }
 
+.user-info a,
 .user-info {
     display: flex;
     flex-direction: row;
 }
 
+a {
+    text-decoration: none;
+}
+
 .user-info h1 {
     font-family: 'Open Sans', sans-serif;
+    padding-top: -1em;
+    color: black;
 }
 
 .user-picture {
@@ -61,7 +68,7 @@
 }
 
 .contentComment {
-    padding-left: 1em;
+    padding: 0 0 0 1em;
 }
 
 .modal {

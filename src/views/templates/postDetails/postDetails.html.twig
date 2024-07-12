@@ -15,8 +15,10 @@
     {% for Post in postData %}
     <div class="post">
         <div class="user-info">
-            <img class="user-picture" src="data:image;base64,{{ Post.ProfilPicture }}" alt="profile picture">
-            <h1>{{ Post.FirstName }} {{ Post.LastName }}</h1>
+            <a href="/profile-{{ Post.IdUser }}">
+                <img class="user-picture" src="data:image;base64,{{ Post.ProfilPicture }}" alt="profile picture">
+                <h1>{{ Post.FirstName }} {{ Post.LastName }}</h1>
+            </a>
             {% if isConnected and userId == Post.IdUser%}
             <form action="/postDetails-{{ Post.IdPost }}" method="post" class="formDeletePost">
                 <button type="submit" name="deletePost" id="deleteButton">
@@ -79,8 +81,10 @@
     {% for Comment in commentsData %}
     <div class="comment">
         <div class="user-info">
-            <img class="user-picture" src="data:image;base64,{{ Comment.ProfilPicture }}" alt="profile picture">
-            <h1>{{ Comment.FirstName }} {{ Comment.LastName }}</h1>
+            <a href="/profile-{{ Comment.IdUser }}">
+                <img class="user-picture" src="data:image;base64,{{ Comment.ProfilPicture }}" alt="profile picture">
+                <h1>{{ Comment.FirstName }} {{ Comment.LastName }}</h1>
+            </a>
             {% if isConnected and userId == Comment.IdUser%}
             {% for Post in postData %}
             <form action="/postDetails-{{ Post.IdPost }}" method="post" class="formDeletePostComment">
