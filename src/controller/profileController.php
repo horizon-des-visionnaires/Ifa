@@ -35,7 +35,6 @@ class profileController
         }
 
         $user = $this->profileModel->getUserById($id);
-        $userLink = $this->profileModel->getLinkUserData($id);
 
         if ($user === null) {
             http_response_code(404);
@@ -51,7 +50,6 @@ class profileController
             'user' => $user,
             'isConnected' => $isConnected,
             'userId' => $userId,
-            'userLink' => $userLink,
             'userPost' => $userPost
         ]);
     }

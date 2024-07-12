@@ -100,16 +100,6 @@ class profileModel
         }
     }
 
-    public function getLinkUserData($id)
-    {
-        $stmt = $this->dsn->prepare("SELECT * FROM LinkUser WHERE IdUser = :id");
-        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
-        $stmt->execute();
-        $getUserLinkData = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-        return $getUserLinkData;
-    }
-
     public function getUserPosts($id)
     {
         $stmt = $this->dsn->prepare(

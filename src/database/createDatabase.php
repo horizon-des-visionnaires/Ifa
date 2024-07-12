@@ -16,6 +16,7 @@ $createTableUser = ("CREATE TABLE IF NOT EXISTS
     `IsPro` tinyint(1) DEFAULT '0',
     `ProfilPicture` LONGBLOB DEFAULT NULL,
     `ProfilDescription` varchar(255) DEFAULT NULL,
+    `IsAdmin` tinyint(1) DEFAULT '0',
     PRIMARY KEY (`IdUser`),
     CONSTRAINT unique_User_Email UNIQUE (`Email`)
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 DEFAULT CHARSET = utf8mb4 COLLATE utf8mb4_unicode_ci");
@@ -58,26 +59,17 @@ $createTableComment = ("CREATE TABLE IF NOT EXISTS
 $dsn->exec($createTableComment);
 
 $createTableLike = ("CREATE TABLE IF NOT EXISTS
-`Like` (
-    `IdLike` int(11) NOT NULL AUTO_INCREMENT,
+`LikeFavorites` (
+    `Id` int(11) NOT NULL AUTO_INCREMENT,
     `IdUser` int(11) DEFAULT NULL,
     `IdPost` int(11) DEFAULT NULL,
-    PRIMARY KEY (`IdLike`),
+    `IsLike` tinyint(1) DEFAULT '0',
+    `IsFavorites` tinyint(1) DEFAULT '0',
+    PRIMARY KEY (`Id`),
     CONSTRAINT fk_User_Like FOREIGN KEY (`IdUser`) REFERENCES User (`IdUser`),
     CONSTRAINT fk_Post_Like FOREIGN KEY (`IdPost`) REFERENCES Post (`IdPost`)
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 DEFAULT CHARSET = latin1");
 $dsn->exec($createTableLike);
-
-$createTableLinkUser = ("CREATE TABLE IF NOT EXISTS
-`LinkUser` (
-    `IdLinkUser` int(11) NOT NULL AUTO_INCREMENT,
-    `IdUser` int(11) DEFAULT NULL,
-    `Link` varchar(255) DEFAULT NULL,
-    `LinkName` varchar(255) DEFAULT NULL,
-    PRIMARY KEY (`IdLinkUser`),
-    CONSTRAINT fk_User_LinkUser FOREIGN KEY (`IdUser`) REFERENCES User (`IdUser`)
-) ENGINE = InnoDB AUTO_INCREMENT = 1 DEFAULT CHARSET = latin1");
-$dsn->exec($createTableLinkUser);
 
 $createTableSubscriber = ("CREATE TABLE IF NOT EXISTS
 `Subscriber` (
