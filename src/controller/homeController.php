@@ -28,6 +28,7 @@ class homeController
         session_start();
 
         $isConnected = false;
+        $userId = null;
         if (isset($_SESSION['IdUser'])) {
             $isConnected = true;
             $userId = $_SESSION['IdUser'];
