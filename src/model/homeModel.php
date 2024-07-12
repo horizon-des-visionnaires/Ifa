@@ -105,7 +105,7 @@ class homeModel
 
 
             if ($stmt->execute()) {
-                header("Location: /post-$idPost");
+                header("Location: /postDetails-$idPost");
                 exit();
             }
         } catch (PDOException $e) {

@@ -1,25 +1,25 @@
 <?php
 
-namespace post;
+namespace postDetails;
 
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
 
 require 'vendor/autoload.php';
 
-require_once __DIR__ . '/../model/postModel.php';
+require_once __DIR__ . '/../model/postDetailsModel.php';
 
 class postController
 {
     protected $twig;
     private $loader;
-    private $postModel;
+    private $postDetailsModel;
 
     public function __construct()
     {
         $this->loader = new FilesystemLoader(__DIR__ . '/../views/templates');
         $this->twig = new Environment($this->loader);
-        $this->postModel = new postModel();
+        $this->postDetailsModel = new postDetailsModel();
     }
 
     public function post($idPost)
@@ -32,8 +32,8 @@ class postController
             $userId = $_SESSION['IdUser'];
         }
 
-        $postData = $this->postModel->getPost($idPost);
-        $commentsData = $this->postModel->getComment($idPost);
+        $postData = $this->postDetailsModel->getPost($idPost);
+        $commentsData = $this->postDetailsModel->getComment($idPost);
 
         if (!empty($postData)) {
             $firstName = $postData[0]['FirstName'];
@@ -47,7 +47,7 @@ class postController
             $this->addCommentData($idPost);
         }
 
-        echo $this->twig->render('post/post.html.twig', [
+        echo $this->twig->render('postDetails/postDetails.html.twig', [
             'isConnected' => $isConnected,
             'userId' => $userId,
             'postData' => $postData,
@@ -63,10 +63,10 @@ class postController
             $ContentComment = $_POST['ContentComment'];
             $IdUser = $_POST['IdUser'];
 
-            $IdComment = $this->postModel->addComment($idPost, $ContentComment, $IdUser);
+            $IdComment = $this->postDetailsModel->addComment($idPost, $ContentComment, $IdUser);
 
             if ($IdComment) {
-                header("Location: /post-$idPost");
+                header("Location: /postDetails-$idPost");
                 exit();
             }
         }

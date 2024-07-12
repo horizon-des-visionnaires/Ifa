@@ -1,13 +1,13 @@
 <?php
 
-namespace post;
+namespace postDetails;
 
 use PDO;
 use PDOException;
 
 require_once __DIR__ . '/../database/connectDB.php';
 
-class postModel
+class postDetailsModel
 {
     private $dsn;
 
