@@ -30,7 +30,7 @@ if (array_key_exists($path, $routes)) {
     $controller = new profile\profileController();
     $controller->profile($matches[1]);
   } else if (preg_match('/^\/postDetails-(\d+)$/', $path, $matches)) {
-    $controller = new postDetails\postController();
+    $controller = new postDetails\postDetailsController();
     $controller->post($matches[1]);
   } else {
     http_response_code(404);

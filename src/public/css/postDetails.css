@@ -182,7 +182,8 @@
     margin-left: 43em;
 }
 
-.formDeletePost {
+.formDeletePost,
+.formDeletePostComment {
     padding-left: 6em;
     padding-top: 1em;
 }

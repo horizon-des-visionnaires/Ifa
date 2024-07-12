@@ -9,7 +9,7 @@ require 'vendor/autoload.php';
 
 require_once __DIR__ . '/../model/postDetailsModel.php';
 
-class postController
+class postDetailsController
 {
     protected $twig;
     private $loader;
@@ -49,6 +49,7 @@ class postController
         }
 
         $this->getDeletePostData();
+        $this->getDeleteCommentData();
 
         echo $this->twig->render('postDetails/postDetails.html.twig', [
             'isConnected' => $isConnected,
@@ -79,8 +80,16 @@ class postController
     {
         if (isset($_POST['deletePost'])) {
             $idPost = $_POST['idPost'];
-            $idUser = $_POST['idUser'];
-            $this->postDetailsModel->deletePost($idPost, $idUser);
+            $this->postDetailsModel->deletePost($idPost);
+        }
+    }
+
+    public function getDeleteCommentData()
+    {
+        if (isset($_POST['deletePostComment'])) {
+            $idComment = $_POST['idComment'];
+            $idPost = $_POST['idPost'];
+            $this->postDetailsModel->deleteComment($idComment, $idPost);
         }
     }
 }

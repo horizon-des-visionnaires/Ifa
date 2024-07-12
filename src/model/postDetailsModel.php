@@ -75,7 +75,7 @@ class postDetailsModel
     public function getComment($idPost)
     {
         $stmt = $this->dsn->prepare(
-            "SELECT Comment.ContentComment, Comment.DateComment, Comment.IdUser, User.FirstName, User.LastName, User.ProfilPicture
+            "SELECT Comment.ContentComment, Comment.DateComment, Comment.IdUser, Comment.IdComment, User.FirstName, User.LastName, User.ProfilPicture
         FROM Comment
         JOIN User ON Comment.IdUser = User.IdUser
         WHERE Comment.IdPost = :idPost"
@@ -117,7 +117,7 @@ class postDetailsModel
         }
     }
 
-    public function deletePost($idPost, $idUser)
+    public function deletePost($idPost)
     {
         try {
             $this->dsn->beginTransaction();
@@ -145,6 +145,27 @@ class postDetailsModel
             $this->dsn->commit();
 
             header("Location: /");
+            exit();
+        } catch (PDOException $e) {
+            $this->dsn->rollBack();
+            $error = "error: " . $e->getMessage();
+            echo $error;
+        }
+    }
+
+    public function deleteComment($idComment, $idPost)
+    {
+        try {
+            $this->dsn->beginTransaction();
+
+            $deleteComment = "DELETE FROM Comment WHERE IdComment = :IdComment";
+            $stmt = $this->dsn->prepare($deleteComment);
+            $stmt->bindParam(':IdComment', $idComment);
+            $stmt->execute();
+
+            $this->dsn->commit();
+
+            header("Location: /postDetails-$idPost");
             exit();
         } catch (PDOException $e) {
             $this->dsn->rollBack();

@@ -21,7 +21,6 @@
             <form action="/postDetails-{{ Post.IdPost }}" method="post" class="formDeletePost">
                 <button type="submit" name="deletePost" id="deleteButton">
                     <input type="hidden" name="idPost" value="{{ Post.IdPost }}">
-                    <input type="hidden" name="idUser" value="{{ user.IdUser }}">
                     <div class="hover-text">
                         <img src="/../public/image/bin.png" id="deleteImage">
                     </div>
@@ -82,6 +81,20 @@
         <div class="user-info">
             <img class="user-picture" src="data:image;base64,{{ Comment.ProfilPicture }}" alt="profile picture">
             <h1>{{ Comment.FirstName }} {{ Comment.LastName }}</h1>
+            {% if isConnected and userId == Comment.IdUser%}
+            {% for Post in postData %}
+            <form action="/postDetails-{{ Post.IdPost }}" method="post" class="formDeletePostComment">
+                <button type="submit" name="deletePostComment" id="deleteButton">
+                    <input type="hidden" name="idComment" value="{{ Comment.IdComment }}">
+                    <input type="hidden" name="idPost" value="{{ Post.IdPost }}">
+                    <div class="hover-text">
+                        <img src="/../public/image/bin.png" id="deleteImage">
+                    </div>
+                </button>
+            </form>
+            {% endfor %}
+            {% endif %}
+
         </div>
         <p class="dateComment">{{ Comment.RelativeDateComment }}</p>
         <div class="contentComment">
