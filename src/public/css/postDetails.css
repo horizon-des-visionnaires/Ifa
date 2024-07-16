@@ -203,3 +203,26 @@ a {
 #deleteImage {
     height: 3em;
 }
+
+.heart {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.heart:focus {
+    outline: none;
+}
+
+.heart i {
+    font-size: 24px;
+    color: #000;
+}
+
+.heart.active i.fas {
+    color: red;
+}
+
+.heart:hover i.far {
+    color: red;
+}
