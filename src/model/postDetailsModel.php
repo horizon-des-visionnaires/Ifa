@@ -229,7 +229,7 @@ class postDetailsModel
             $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
             if ($result !== false) {
-                return (bool)$result['IsLike']; 
+                return (bool)$result['IsLike'];
             } else {
                 return false;
             }
@@ -274,27 +274,26 @@ class postDetailsModel
 
 
     public function getIsFavorites($IdUser, $IdPost)
-{
-    try {
-        $stmt = $this->dsn->prepare(
-            "SELECT IsFavorites 
+    {
+        try {
+            $stmt = $this->dsn->prepare(
+                "SELECT IsFavorites 
             FROM LikeFavorites 
             WHERE IdUser = :IdUser AND IdPost = :IdPost"
-        );
-        $stmt->bindParam(':IdUser', $IdUser, PDO::PARAM_INT);
-        $stmt->bindParam(':IdPost', $IdPost, PDO::PARAM_INT);
-        $stmt->execute();
-        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+            );
+            $stmt->bindParam(':IdUser', $IdUser, PDO::PARAM_INT);
+            $stmt->bindParam(':IdPost', $IdPost, PDO::PARAM_INT);
+            $stmt->execute();
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        if ($result !== false) {
-            return (bool)$result['IsFavorites'];
-        } else {
+            if ($result !== false) {
+                return (bool)$result['IsFavorites'];
+            } else {
+                return false;
+            }
+        } catch (PDOException $e) {
+            echo "Error: " . $e->getMessage();
             return false;
         }
-    } catch (PDOException $e) {
-        echo "Error: " . $e->getMessage();
-        return false;
     }
-}
-
 }
