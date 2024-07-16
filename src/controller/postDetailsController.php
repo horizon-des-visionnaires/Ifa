@@ -51,6 +51,7 @@ class postDetailsController
         $this->getDeletePostData();
         $this->getDeleteCommentData();
         $this->getDataAddLike();
+        $this->getDataAddFavorite();
 
         echo $this->twig->render('postDetails/postDetails.html.twig', [
             'isConnected' => $isConnected,
@@ -101,6 +102,17 @@ class postDetailsController
                 $IdUser = $_SESSION['IdUser'];
                 $IdPost = $_POST['IdPost'];
                 $this->postDetailsModel->LikeData($IdUser, $IdPost);
+            }
+        }
+    }
+
+    public function getDataAddFavorite()
+    {
+        if (isset($_POST['AddFavorite'])) {
+            if (isset($_SESSION['IdUser'])) {
+                $IdUser = $_SESSION['IdUser'];
+                $IdPost = $_POST['IdPost'];
+                $this->postDetailsModel->FavoriteData($IdUser, $IdPost);
             }
         }
     }

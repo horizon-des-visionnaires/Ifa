@@ -69,15 +69,29 @@
                     {% endif %}
                 </button>
             </form>
+
+            <form action="/postDetails-{{ Post.IdPost }}" method="post">
+                <input type="hidden" name="AddFavorite" value="1">
+                <input type="hidden" name="IdPost" value="{{ Post.IdPost }}">
+                <button class="favorite {% if Post.IsFavorites %}active{% endif %}" type="submit">
+                    {% if Post.IsFavorites %}
+                    <i class="fas fa-star"></i>
+                    {% else %}
+                    <i class="far fa-star"></i>
+                    {% endif %}
+                </button>
+            </form>
         </div>
         {% else %}
         <div class="interaction">
             <button class="heart" disabled>
                 <i class="far fa-heart"></i>
             </button>
+            <button class="favorite" disabled>
+                <i class="far fa-star"></i>
+            </button>
         </div>
         {% endif %}
-
     </div>
     {% endfor %}
 </div>

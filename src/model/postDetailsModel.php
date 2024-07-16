@@ -53,6 +53,7 @@ class postDetailsModel
             $post['PicturesPost'] = $pictures;
 
             $post['IsLike'] = $this->getIsLike($post['IdUser'], $post['IdPost']);
+            $post['IsFavorites'] = $this->getIsFavorites($post['IdUser'], $post['IdPost']);
         }
 
         return $getPostData;
@@ -179,7 +180,6 @@ class postDetailsModel
     public function LikeData($IdUser, $IdPost)
     {
         try {
-            // Vérifier si l'utilisateur a déjà liké ce post
             $checkIsLike = "SELECT COUNT(*) FROM LikeFavorites WHERE IdUser = :IdUser AND IdPost = :IdPost";
             $execCheckIsLike = $this->dsn->prepare($checkIsLike);
             $execCheckIsLike->bindParam(':IdUser', $IdUser);
@@ -230,6 +230,63 @@ class postDetailsModel
         } catch (PDOException $e) {
             echo "Error: " . $e->getMessage();
             return null;
+        }
+    }
+
+    public function FavoriteData($IdUser, $IdPost)
+    {
+        try {
+            $checkFavorite = "SELECT IsFavorites FROM LikeFavorites WHERE IdUser = :IdUser AND IdPost = :IdPost";
+            $stmt = $this->dsn->prepare($checkFavorite);
+            $stmt->bindParam(':IdUser', $IdUser);
+            $stmt->bindParam(':IdPost', $IdPost);
+            $stmt->execute();
+
+            $existingFavorite = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            if ($existingFavorite) {
+                $updateFavorite = "UPDATE LikeFavorites SET IsFavorites = NOT IsFavorites WHERE IdUser = :IdUser AND IdPost = :IdPost";
+            } else {
+                $updateFavorite = "INSERT INTO LikeFavorites (IdUser, IdPost, IsFavorites) VALUES (:IdUser, :IdPost, 1)";
+            }
+
+            $execUpdateFavorite = $this->dsn->prepare($updateFavorite);
+            $execUpdateFavorite->bindParam(':IdUser', $IdUser);
+            $execUpdateFavorite->bindParam(':IdPost', $IdPost);
+
+            if ($execUpdateFavorite->execute()) {
+                header("Location: /postDetails-$IdPost");
+                exit();
+            } else {
+                echo "Erreur lors de l'ajout ou de la suppression du favori.";
+            }
+        } catch (PDOException $e) {
+            echo "Erreur : " . $e->getMessage();
+        }
+    }
+
+
+    public function getIsFavorites($IdUser, $IdPost)
+    {
+        try {
+            $stmt = $this->dsn->prepare(
+                "SELECT IsFavorites 
+            FROM LikeFavorites 
+            WHERE IdUser = :IdUser AND IdPost = :IdPost"
+            );
+            $stmt->bindParam(':IdUser', $IdUser, PDO::PARAM_INT);
+            $stmt->bindParam(':IdPost', $IdPost, PDO::PARAM_INT);
+            $stmt->execute();
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            if ($result !== false) {
+                return $result['IsFavorites'];
+            } else {
+                return null;
+            }
+        } catch (PDOException $e) {
+            echo "Error: " . $e->getMessage();
+            return false;
         }
     }
 }
