@@ -245,3 +245,7 @@ a {
 .favorite:hover i.far {
     color: yellow;
 }
+
+.total-likes2 {
+    padding-top: 0.3em;
+}

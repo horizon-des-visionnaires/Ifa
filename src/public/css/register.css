@@ -14,6 +14,8 @@
     padding: 20px;
     border-radius: 20px;
     position: relative;
+    margin-bottom: 2em;
+    box-shadow: 4px 8px 16px rgba(0, 0, 0, 0.2);
 }
 
 .title {
