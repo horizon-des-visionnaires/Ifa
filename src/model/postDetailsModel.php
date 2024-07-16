@@ -54,6 +54,12 @@ class postDetailsModel
 
             $post['IsLike'] = $this->getIsLike($post['IdUser'], $post['IdPost']);
             $post['IsFavorites'] = $this->getIsFavorites($post['IdUser'], $post['IdPost']);
+
+            $stmtLikes = $this->dsn->prepare("SELECT COUNT(*) AS TotalLikes FROM LikeFavorites WHERE IdPost = :IdPost AND IsLike = 1");
+            $stmtLikes->bindParam(':IdPost', $post['IdPost']);
+            $stmtLikes->execute();
+            $totalLikes = $stmtLikes->fetch(PDO::FETCH_ASSOC)['TotalLikes'];
+            $post['TotalLikes'] = $totalLikes;
         }
 
         return $getPostData;
@@ -213,7 +219,7 @@ class postDetailsModel
     {
         try {
             $stmt = $this->dsn->prepare(
-                "SELECT IsLike 
+                "SELECT IsLike, IdUser
             FROM LikeFavorites 
             WHERE IdUser = :IdUser AND IdPost = :IdPost"
             );
@@ -222,16 +228,13 @@ class postDetailsModel
             $stmt->execute();
             $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
-            if ($result !== false) {
-                return $result['IsLike'];
-            } else {
-                return null;
-            }
+            return $result; // Retourne les données du like (IsLike et IdUser) ou null si aucun like.
         } catch (PDOException $e) {
             echo "Error: " . $e->getMessage();
             return null;
         }
     }
+
 
     public function FavoriteData($IdUser, $IdPost)
     {

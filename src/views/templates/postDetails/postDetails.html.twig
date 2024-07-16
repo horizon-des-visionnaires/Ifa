@@ -68,6 +68,7 @@
                     <i class="far fa-heart"></i>
                     {% endif %}
                 </button>
+                <span class="total-likes">{{ Post.TotalLikes }} likes</span>
             </form>
 
             <form action="/postDetails-{{ Post.IdPost }}" method="post">
