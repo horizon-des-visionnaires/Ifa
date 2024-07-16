@@ -51,6 +51,8 @@ class postDetailsModel
                 $picture = base64_encode($picture);
             }
             $post['PicturesPost'] = $pictures;
+
+            $post['IsLike'] = $this->getIsLike($post['IdUser'], $post['IdPost']);
         }
 
         return $getPostData;
@@ -171,6 +173,63 @@ class postDetailsModel
             $this->dsn->rollBack();
             $error = "error: " . $e->getMessage();
             echo $error;
+        }
+    }
+
+    public function LikeData($IdUser, $IdPost)
+    {
+        try {
+            // Vérifier si l'utilisateur a déjà liké ce post
+            $checkIsLike = "SELECT COUNT(*) FROM LikeFavorites WHERE IdUser = :IdUser AND IdPost = :IdPost";
+            $execCheckIsLike = $this->dsn->prepare($checkIsLike);
+            $execCheckIsLike->bindParam(':IdUser', $IdUser);
+            $execCheckIsLike->bindParam(':IdPost', $IdPost);
+            $execCheckIsLike->execute();
+
+            $isLiked = $execCheckIsLike->fetchColumn() > 0;
+
+            if ($isLiked) {
+                $updateLike = "UPDATE LikeFavorites SET IsLike = NOT IsLike WHERE IdUser = :IdUser AND IdPost = :IdPost";
+            } else {
+                $updateLike = "INSERT INTO LikeFavorites (IdUser, IdPost, IsLike) VALUES (:IdUser, :IdPost, 1)";
+            }
+
+            $execUpdateLike = $this->dsn->prepare($updateLike);
+            $execUpdateLike->bindParam(':IdUser', $IdUser);
+            $execUpdateLike->bindParam(':IdPost', $IdPost);
+
+            if ($execUpdateLike->execute()) {
+                header("Location: /postDetails-$IdPost");
+                exit();
+            } else {
+                echo "Erreur lors de l'ajout ou de la suppression du like.";
+            }
+        } catch (PDOException $e) {
+            echo "Erreur : " . $e->getMessage();
+        }
+    }
+
+    public function getIsLike($IdUser, $IdPost)
+    {
+        try {
+            $stmt = $this->dsn->prepare(
+                "SELECT IsLike 
+            FROM LikeFavorites 
+            WHERE IdUser = :IdUser AND IdPost = :IdPost"
+            );
+            $stmt->bindParam(':IdUser', $IdUser, PDO::PARAM_INT);
+            $stmt->bindParam(':IdPost', $IdPost, PDO::PARAM_INT);
+            $stmt->execute();
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            if ($result !== false) {
+                return $result['IsLike'];
+            } else {
+                return null;
+            }
+        } catch (PDOException $e) {
+            echo "Error: " . $e->getMessage();
+            return null;
         }
     }
 }

@@ -4,6 +4,7 @@
 
 {% block stylesheet %}
 <link href="/../public/css/postDetails.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
 {% endblock %}
 
 {% block header %}
@@ -54,6 +55,19 @@
         {% for picture in Post.PicturesPost %}
         <img class="icon" src="data:image;base64,{{ picture }}" alt="icon">
         {% endfor %}
+        <div class="interaction">
+            <form action="/postDetails-{{ Post.IdPost }}" method="post">
+                <input type="hidden" name="AddLike" value="1">
+                <input type="hidden" name="IdPost" value="{{ Post.IdPost }}">
+                <button class="heart" type="submit">
+                    {% if Post.IsLike %}
+                    <i class="fas fa-heart"></i>
+                    {% else %}
+                    <i class="far fa-heart"></i>
+                    {% endif %}
+                </button>
+            </form>
+        </div>        
     </div>
     {% endfor %}
 </div>

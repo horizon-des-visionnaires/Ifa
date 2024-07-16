@@ -50,6 +50,7 @@ class postDetailsController
 
         $this->getDeletePostData();
         $this->getDeleteCommentData();
+        $this->getDataAddLike();
 
         echo $this->twig->render('postDetails/postDetails.html.twig', [
             'isConnected' => $isConnected,
@@ -90,6 +91,17 @@ class postDetailsController
             $idComment = $_POST['idComment'];
             $idPost = $_POST['idPost'];
             $this->postDetailsModel->deleteComment($idComment, $idPost);
+        }
+    }
+
+    public function getDataAddLike()
+    {
+        if (isset($_POST['AddLike'])) {
+            if (isset($_SESSION['IdUser'])) {
+                $IdUser = $_SESSION['IdUser'];
+                $IdPost = $_POST['IdPost'];
+                $this->postDetailsModel->LikeData($IdUser, $IdPost);
+            }
         }
     }
 }
