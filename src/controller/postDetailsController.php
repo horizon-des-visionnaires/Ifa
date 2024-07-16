@@ -36,6 +36,11 @@ class postDetailsController
         $postData = $this->postDetailsModel->getPost($idPost);
         $commentsData = $this->postDetailsModel->getComment($idPost);
 
+        foreach ($postData as &$post) {
+            $post['IsLike'] = $this->postDetailsModel->getIsLike($userId, $post['IdPost']);
+            $post['IsFavorites'] = $this->postDetailsModel->getIsFavorites($userId, $post['IdPost']);
+        }
+
         if (!empty($postData)) {
             $firstName = $postData[0]['FirstName'];
             $lastName = $postData[0]['LastName'];

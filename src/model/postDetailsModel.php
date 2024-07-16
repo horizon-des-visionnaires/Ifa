@@ -219,7 +219,7 @@ class postDetailsModel
     {
         try {
             $stmt = $this->dsn->prepare(
-                "SELECT IsLike, IdUser
+                "SELECT IsLike 
             FROM LikeFavorites 
             WHERE IdUser = :IdUser AND IdPost = :IdPost"
             );
@@ -228,10 +228,14 @@ class postDetailsModel
             $stmt->execute();
             $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
-            return $result; // Retourne les données du like (IsLike et IdUser) ou null si aucun like.
+            if ($result !== false) {
+                return (bool)$result['IsLike']; 
+            } else {
+                return false;
+            }
         } catch (PDOException $e) {
             echo "Error: " . $e->getMessage();
-            return null;
+            return false;
         }
     }
 
@@ -270,26 +274,27 @@ class postDetailsModel
 
 
     public function getIsFavorites($IdUser, $IdPost)
-    {
-        try {
-            $stmt = $this->dsn->prepare(
-                "SELECT IsFavorites 
+{
+    try {
+        $stmt = $this->dsn->prepare(
+            "SELECT IsFavorites 
             FROM LikeFavorites 
             WHERE IdUser = :IdUser AND IdPost = :IdPost"
-            );
-            $stmt->bindParam(':IdUser', $IdUser, PDO::PARAM_INT);
-            $stmt->bindParam(':IdPost', $IdPost, PDO::PARAM_INT);
-            $stmt->execute();
-            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        );
+        $stmt->bindParam(':IdUser', $IdUser, PDO::PARAM_INT);
+        $stmt->bindParam(':IdPost', $IdPost, PDO::PARAM_INT);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
-            if ($result !== false) {
-                return $result['IsFavorites'];
-            } else {
-                return null;
-            }
-        } catch (PDOException $e) {
-            echo "Error: " . $e->getMessage();
+        if ($result !== false) {
+            return (bool)$result['IsFavorites'];
+        } else {
             return false;
         }
+    } catch (PDOException $e) {
+        echo "Error: " . $e->getMessage();
+        return false;
     }
+}
+
 }
