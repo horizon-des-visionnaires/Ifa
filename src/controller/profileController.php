@@ -87,7 +87,6 @@ class profileController
         if (isset($_POST['pushRequest'])) {
             $Job = $_POST['Job'];
             $Age = $_POST['Age'];
-            $Email = $_POST['Email'];
             $Description = $_POST['Description'];
             $idUser = $_POST['idUser'];
 
@@ -101,7 +100,7 @@ class profileController
                 $identityCardVerso = file_get_contents($_FILES["identityCardVerso"]["tmp_name"]);
             }
 
-            $this->profileModel->insertRequestPassProData($Job, $Age, $Email, $Description, $idUser, $identityCardRecto, $identityCardVerso);
+            $this->profileModel->insertRequestPassProData($Job, $Age, $Description, $idUser, $identityCardRecto, $identityCardVerso);
         }
     }
 }

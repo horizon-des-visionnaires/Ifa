@@ -186,17 +186,16 @@ class profileModel
         }
     }
 
-    public function insertRequestPassProData($Job, $Age, $Email, $Description, $idUser ,$identityCardRecto = null, $identityCardVerso = null)
+    public function insertRequestPassProData($Job, $Age, $Description, $idUser ,$identityCardRecto = null, $identityCardVerso = null)
     {
         try {
             $this->dsn->beginTransaction();
 
-            $insertData = "INSERT INTO RequestPassPro (IdUser, UserJob, UserAge, UserEmail, Description, IdentityCardRecto, IdentityCardVerso) VALUE (:IdUser, :UserJob, :UserAge, :UserEmail, :Description, :IdentityCardRecto, :IdentityCardVerso)";
+            $insertData = "INSERT INTO RequestPassPro (IdUser, UserJob, UserAge, Description, IdentityCardRecto, IdentityCardVerso) VALUE (:IdUser, :UserJob, :UserAge, :Description, :IdentityCardRecto, :IdentityCardVerso)";
             $stmt = $this->dsn->prepare($insertData);
             $stmt->bindParam(':IdUser', $idUser);
             $stmt->bindParam(':UserJob', $Job);
             $stmt->bindParam(':UserAge', $Age);
-            $stmt->bindParam(':UserEmail', $Email);
             $stmt->bindParam(':Description', $Description);
             $stmt->bindParam(':IdentityCardRecto', $identityCardRecto, PDO::PARAM_LOB);
             $stmt->bindParam(':IdentityCardVerso', $identityCardVerso, PDO::PARAM_LOB);

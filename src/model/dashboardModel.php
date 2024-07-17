@@ -21,4 +21,39 @@ class dashboardModel
         $this->dsn = new PDO("mysql:host=mysql;dbname=ifa_database", "ifa_user", "ifa_password");
         $this->dsn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     }
+
+    public function getAllRequestPassPro()
+    {
+        try {
+            $stmt = $this->dsn->query("
+                    SELECT 
+                        rp.*, 
+                        u.FirstName, 
+                        u.LastName ,
+                        u.Email
+                    FROM 
+                        RequestPassPro rp
+                    LEFT JOIN 
+                        User u 
+                    ON 
+                        rp.IdUser = u.IdUser
+                ");
+            $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            foreach ($results as &$row) {
+                if (!is_null($row['IdentityCardRecto'])) {
+                    $row['IdentityCardRecto'] = base64_encode($row['IdentityCardRecto']);
+                }
+                if (!is_null($row['IdentityCardVerso'])) {
+                    $row['IdentityCardVerso'] = base64_encode($row['IdentityCardVerso']);
+                }
+            }
+
+            return $results;
+        } catch (PDOException $e) {
+            $this->dsn->rollBack();
+            $error = "error: " . $e->getMessage();
+            echo $error;
+        }
+    }
 }

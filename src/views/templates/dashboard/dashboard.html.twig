@@ -11,7 +11,19 @@
 {% endblock %}
 
 {% block body %}
-<h1>test</h1>
+<div class="request">
+    {% for RequestPassPro in requestPassProData %}
+    <p>{{ RequestPassPro.IdUser }}</p>
+    <p>{{ RequestPassPro.FirstName  }}</p>
+    <p>{{ RequestPassPro.LastName  }}</p>
+    <p>{{ RequestPassPro.Email }}</p>
+    <p>{{ RequestPassPro.UserJob }}</p>
+    <p>{{ RequestPassPro.UserAge }}</p>
+    <p>{{ RequestPassPro.Description }}</p>
+    <img class="icon" src="data:image;base64,{{ RequestPassPro.IdentityCardRecto }}" alt="icon">
+    <img class="icon" src="data:image;base64,{{ RequestPassPro.IdentityCardVerso }}" alt="icon">        
+    {% endfor %}
+</div>
 {% endblock %}
 
 {% block footer %}{% endblock %}

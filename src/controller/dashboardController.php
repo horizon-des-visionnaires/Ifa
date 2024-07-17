@@ -24,6 +24,10 @@ class dashboardController
 
     public function dashboard()
     {
-        echo $this->twig->render('dashboard/dashboard.html.twig');
+        $requestPassProData = $this->dashboardModel->getAllRequestPassPro();
+
+        echo $this->twig->render('dashboard/dashboard.html.twig', [
+            'requestPassProData' => $requestPassProData
+        ]);
     }
 }
