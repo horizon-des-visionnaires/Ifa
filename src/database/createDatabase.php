@@ -81,3 +81,19 @@ $createTableSubscriber = ("CREATE TABLE IF NOT EXISTS
     CONSTRAINT fk_IdSubscriber_Subscriber FOREIGN KEY (`IdSubscriber`) REFERENCES User (`IdUser`)
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 DEFAULT CHARSET = latin1");
 $dsn->exec($createTableSubscriber);
+
+$createTableRequestPassPro = ("CREATE TABLE IF NOT EXISTS
+`RequestPassPro` (
+    `IdRequest` int(11) NOT NULL AUTO_INCREMENT,
+    `IdUser` int(11) DEFAULT NULL,
+    `UserJob` varchar(255) DEFAULT NULL,
+    `UserAge` int(11) DEFAULT NULL,
+    `UserEmail` varchar(255) DEFAULT NULL,
+    `Description` TEXT DEFAULT NULL,
+    `IdentityCardRecto` LONGBLOB DEFAULT NULL,
+    `IdentityCardVerso` LONGBLOB DEFAULT NULL,
+    `IsRequestValid` tinyint(1) DEFAULT '0',
+    PRIMARY KEY (`IdRequest`),
+    CONSTRAINT fk_IdUser_RequestPassPro FOREIGN KEY (`IdUser`) REFERENCES User (`IdUser`)
+) ENGINE = InnoDB AUTO_INCREMENT = 1 DEFAULT CHARSET = latin1");
+$dsn->exec($createTableRequestPassPro);
