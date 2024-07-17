@@ -21,6 +21,16 @@
                 </div>
             </a>
         </li>
+        {% if IsAdmin %}
+        <li>
+            <a href="/dashboard" id="dashboard">
+                <div class="item" id="item">
+                    dashboard
+                    <img src="public/image/dashboard.png" id="img2">
+                </div>
+            </a>
+        </li>
+        {% endif %}
         <li>
             <form action="/" method="post">
                 <button class="Btn" type="submit" name="logOut" id="logout">

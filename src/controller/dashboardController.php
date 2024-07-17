@@ -33,11 +33,22 @@ class dashboardController
             $userId = $_SESSION['IdUser'];
         }
 
+        $IsAdmin = false;
+        if (isset($_SESSION['IsAdmin']) && $_SESSION['IsAdmin'] == 1) {
+            $IsAdmin = true;
+        }
+
+        if (!$IsAdmin) {
+            header("Location: /");
+            exit();
+        }
+
         $requestPassProData = $this->dashboardModel->getAllRequestPassPro();
 
         echo $this->twig->render('dashboard/dashboard.html.twig', [
             'isConnected' => $isConnected,
             'userId' => $userId,
+            'IsAdmin' => $IsAdmin,
             'requestPassProData' => $requestPassProData
         ]);
     }

@@ -34,6 +34,11 @@ class homeController
             $userId = $_SESSION['IdUser'];
         }
 
+        $IsAdmin = false;
+        if (isset($_SESSION['IsAdmin']) && $_SESSION['IsAdmin'] == 1) {
+            $IsAdmin = true;
+        }
+
         $this->logOut();
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && $userId !== null) {
             $this->getAddPostData($userId);
@@ -45,6 +50,7 @@ class homeController
         echo $this->twig->render('home/home.html.twig', [
             'isConnected' => $isConnected,
             'userId' => $userId,
+            'IsAdmin' => $IsAdmin,
             'postData' => $postData
         ]);
     }

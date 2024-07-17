@@ -33,6 +33,11 @@ class postDetailsController
             $userId = $_SESSION['IdUser'];
         }
 
+        $IsAdmin = false;
+        if (isset($_SESSION['IsAdmin']) && $_SESSION['IsAdmin'] == 1) {
+            $IsAdmin = true;
+        }
+
         $postData = $this->postDetailsModel->getPost($idPost);
         $commentsData = $this->postDetailsModel->getComment($idPost);
 
@@ -61,6 +66,7 @@ class postDetailsController
         echo $this->twig->render('postDetails/postDetails.html.twig', [
             'isConnected' => $isConnected,
             'userId' => $userId,
+            'IsAdmin' => $IsAdmin,
             'postData' => $postData,
             'firstName' => $firstName,
             'lastName' => $lastName,

@@ -38,6 +38,8 @@ class loginModel
                 $_SESSION['Email'] = $userData['Email'];
                 $_SESSION['UserPassword'] = $userData['UserPassword'];
                 $_SESSION['IsPro'] = $userData['IsPro'];
+                $_SESSION['IsPro'] = $userData['IsPro'];
+                $_SESSION['IsAdmin'] = $userData['IsAdmin'];
 
                 header("Location: /");
                 exit;

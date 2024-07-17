@@ -34,6 +34,11 @@ class profileController
             $userId = null;
         }
 
+        $IsAdmin = false;
+        if (isset($_SESSION['IsAdmin']) && $_SESSION['IsAdmin'] == 1) {
+            $IsAdmin = true;
+        }
+
         $user = $this->profileModel->getUserById($id);
 
         if ($user === null) {
@@ -51,6 +56,7 @@ class profileController
             'user' => $user,
             'isConnected' => $isConnected,
             'userId' => $userId,
+            'IsAdmin' => $IsAdmin,
             'userPost' => $userPost
         ]);
     }
