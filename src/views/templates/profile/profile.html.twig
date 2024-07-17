@@ -4,6 +4,9 @@
 
 {% block stylesheet %}
 <link href="/../public/css/profile.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+      crossorigin="anonymous" referrerpolicy="no-referrer" />
+
 {% endblock %}
 
 {% block header %}
@@ -15,7 +18,11 @@
     <div class="profil">
         <div class="profilPictureName">
             <img id="icon" src="data:image;base64,{{user.ProfilPicture}}" alt="icon">
+            {% if userId == user.IdUser and user.IsPro == 1 %}
+            <h1>{{ user.FirstName }} {{ user.LastName }}</h1> <i id="certifIcon" class="fas fa-check-circle"></i>
+            {% else %}
             <h1>{{ user.FirstName }} {{ user.LastName }}</h1>
+            {% endif %}
         </div>
         {% if isConnected and userId == user.IdUser %}
         {% if userId == user.IdUser and user.IsPro == 0 %}
@@ -86,7 +93,11 @@
     <div class="post">
         <div class="user-info">
             <img class="user-picture" src="data:image;base64,{{ Post.ProfilPicture }}" alt="profile picture">
-            <h1>{{ Post.FirstName }} {{ Post.LastName }}</h1>
+            {% if userId == user.IdUser and user.IsPro == 0 %}
+            <h1>{{ user.FirstName }} {{ user.LastName }}</h1>
+            {% else %}
+            <h1>{{ user.FirstName }} {{ user.LastName }}</h1> <i id="certifIcon" class="fas fa-check-circle"></i>
+            {% endif %}
             {% if isConnected and userId == user.IdUser %}
             <form action="/profile-{{ user.IdUser }}" method="post" class="formDeletePost">
                 <button type="submit" name="deletePost" id="deleteButton">

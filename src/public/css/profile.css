@@ -70,6 +70,11 @@
     flex-direction: row;
 }
 
+#certifIcon {
+    padding-left: 0.5em;
+    padding-top: 2.5em;
+}
+
 .profilPictureName h1 {
     padding-left: 1em;
     font-family: 'Open Sans', sans-serif;
@@ -236,7 +241,7 @@ input[type=file]::file-selector-button {
 }
 
 .homePost {
-    width: 30em;
+    width: 32em;
     height: 30em;
     margin-top: 3em;
     margin-left: 33em;
