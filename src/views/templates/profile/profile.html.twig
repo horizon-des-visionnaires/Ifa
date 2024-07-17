@@ -18,6 +18,9 @@
             <h1>{{ user.FirstName }} {{ user.LastName }}</h1>
         </div>
         {% if isConnected and userId == user.IdUser %}
+        <div class="passProButton">
+            <button id="openModalButtonPro" class="boton-elegante">Demande Passez pro</button>
+        </div>
         <div class="profilButton">
             <button id="openModalButton" class="boton-elegante">Edit Profile</button>
         </div>
@@ -49,6 +52,32 @@
     </div>
 </div>
 
+<div class="modal2" id="ProModal">
+    <div class="modal-content2">
+        <span class="close2">&times;</span>
+        <form action="/profile-{{ user.IdUser }}" method="post" id="formPassPro" enctype="multipart/form-data">
+            <input type="text" name="Job" placeholder="Job" id="inputField">
+            <input type="number" name="Age" placeholder="Age minimum 18 ans" min="18" id="inputField">
+            <input type="email" name="Email" placeholder="Email" id="inputField">
+
+            <div style="position: relative;">
+                <textarea name="Description" placeholder="Parcours, étude, pourquoi vouloir être pro, expérience"
+                    id="inputFieldDesc2"></textarea>
+            </div>
+
+            <label for="images" id="labelText">Carte d'identité recto :</label>
+            <input type="file" id="images" name="identityCardRecto" accept="image/*"
+                aria-label="Carte d'identité recto" />
+
+            <label for="images" id="labelText">Carte d'identité verso :</label>
+            <input type="file" id="images" name="identityCardVerso" accept="image/*"
+                aria-label="Carte d'identité recto" />
+
+            <button type="submit" name="pushRequest" id="inputField2">envoyer la demande</button>
+        </form>
+    </div>
+</div>
+
 <div class="homePost">
     {% for Post in userPost %}
     <div class="post">
@@ -67,7 +96,7 @@
             </form>
             {% endif %}
         </div>
-        
+
         <p class="datePost">{{ Post.RelativeDatePost }}</p>
         <div class="contentPost">
             <h2>{{ Post.TitlePost }}</h2>
@@ -76,10 +105,10 @@
                 {% for i in 0..2 %}
                 {{ contentLines[i] }}<br>
                 {% endfor %}
-                <form action="/" method="post">
-                    <input type="hidden" name="idPost" value="{{ Post.IdPost }}">
-                    <button type="submit" name="viewMore" class="viewMore">Voir Plus</button>
-                </form>
+            <form action="/" method="post">
+                <input type="hidden" name="idPost" value="{{ Post.IdPost }}">
+                <button type="submit" name="viewMore" class="viewMore">Voir Plus</button>
+            </form>
             </p>
         </div>
         {% for picture in Post.PicturesPost %}

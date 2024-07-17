@@ -6,4 +6,14 @@ body{
     padding: 0;
     /* background-color: #285d31; */
     background-color: #eae3e0;
+    -ms-overflow-style: none;
+}
+
+html {
+    scrollbar-width: none;
+}
+
+::-webkit-scrollbar {
+    width: 0px;
+    background: transparent;
 }
