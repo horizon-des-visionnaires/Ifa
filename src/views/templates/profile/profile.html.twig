@@ -18,9 +18,11 @@
             <h1>{{ user.FirstName }} {{ user.LastName }}</h1>
         </div>
         {% if isConnected and userId == user.IdUser %}
+        {% if userId == user.IdUser and user.IsPro == 0 %}
         <div class="passProButton">
             <button id="openModalButtonPro" class="boton-elegante">Demande Passez pro</button>
         </div>
+        {% endif %}
         <div class="profilButton">
             <button id="openModalButton" class="boton-elegante">Edit Profile</button>
         </div>
