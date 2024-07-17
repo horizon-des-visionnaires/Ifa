@@ -24,7 +24,7 @@
         </div>
         {% endif %}
         <div class="profilButton">
-            <button id="openModalButton" class="boton-elegante">Edit Profile</button>
+            <button id="openModalButton" class="boton-elegante">Editer le profile</button>
         </div>
         {% endif %}
     </div>
@@ -37,19 +37,19 @@
     <div class="modal-content">
         <span class="close">&times;</span>
         <form action="/profile-{{ user.IdUser }}" method="post" id="formUpdateUser" enctype="multipart/form-data">
-            <input type="text" name="FirstName" placeholder="FirstName" id="inputField">
+            <input type="text" name="FirstName" placeholder="Prénom" id="inputField">
 
-            <input type="text" name="LastName" placeholder="LastName" id="inputField">
+            <input type="text" name="LastName" placeholder="Nom de famille" id="inputField">
 
             <div style="position: relative;">
-                <textarea name="ProfilDescription" placeholder="ProfilDescription" id="inputFieldDesc"
+                <textarea name="ProfilDescription" placeholder="Description du profil" id="inputFieldDesc"
                     maxlength="255"></textarea>
                 <div id="charCount" class="char-count">0/255</div>
             </div>
 
             <input type="file" id="images" name="ProfilPicture" />
 
-            <button type="submit" name="updateProfile" id="inputField2">Update Profile</button>
+            <button type="submit" name="updateProfile" id="inputField2">Valider les changements</button>
         </form>
     </div>
 </div>
@@ -58,8 +58,8 @@
     <div class="modal-content2">
         <span class="close2">&times;</span>
         <form action="/profile-{{ user.IdUser }}" method="post" id="formPassPro" enctype="multipart/form-data">
-            <input type="text" name="Job" placeholder="Job" id="inputField" required>
-            <input type="number" name="Age" placeholder="Age minimum 18 ans" min="18" id="inputField" required>
+            <input type="text" name="Job" placeholder="Métier" id="inputField" required>
+            <input type="number" name="Age" placeholder="Age (minimum 18 ans)" min="18" id="inputField" required>
 
             <div style="position: relative;">
                 <textarea name="Description" placeholder="Parcours, étude, pourquoi vouloir être pro, expérience"
