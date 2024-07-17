@@ -13,147 +13,153 @@
 {% endblock %}
 
 {% block body %}
-<div class="PagePost">
-    {% for Post in postData %}
-    <div class="post">
-        <div class="user-info">
-            <a href="/profile-{{ Post.IdUser }}">
-                <img class="user-picture" src="data:image;base64,{{ Post.ProfilPicture }}" alt="profile picture">
-                {% if isPro == 1 %}
-                <h1>{{ firstName }} {{ lastName }}</h1> <i id="certifIcon" class="fas fa-check-circle"></i>
-                {% else %}
-                <h1>{{ firstName }} {{ lastName }}</h1>
-                {% endif %}
-            </a>
-            {% if isConnected and userId == Post.IdUser%}
-            <form action="/postDetails-{{ Post.IdPost }}" method="post" class="formDeletePost">
-                <button type="submit" name="deletePost" id="deleteButton">
-                    <input type="hidden" name="idPost" value="{{ Post.IdPost }}">
-                    <div class="hover-text">
-                        <img src="/../public/image/bin.png" id="deleteImage">
-                    </div>
-                </button>
-            </form>
-            {% endif %}
-        </div>
+<div class="container">
+    <div class="postContainer">
+        <div class="PagePost">
+            {% for Post in postData %}
+            <div class="post">
+                <div class="user-info">
+                    <a href="/profile-{{ Post.IdUser }}">
+                        <img class="user-picture" src="data:image;base64,{{ Post.ProfilPicture }}"
+                            alt="profile picture">
+                        {% if isPro == 1 %}
+                        <h1>{{ firstName }} {{ lastName }}</h1> <i id="certifIcon" class="fas fa-check-circle"></i>
+                        {% else %}
+                        <h1>{{ firstName }} {{ lastName }}</h1>
+                        {% endif %}
+                    </a>
+                    {% if isConnected and userId == Post.IdUser%}
+                    <form action="/postDetails-{{ Post.IdPost }}" method="post" class="formDeletePost">
+                        <button type="submit" name="deletePost" id="deleteButton">
+                            <input type="hidden" name="idPost" value="{{ Post.IdPost }}">
+                            <div class="hover-text">
+                                <img src="/../public/image/bin.png" id="deleteImage">
+                            </div>
+                        </button>
+                    </form>
+                    {% endif %}
+                </div>
 
-        <p class="datePost">{{ Post.RelativeDatePost }}</p>
-        <div class="contentPost">
-            <h2>{{ Post.TitlePost }}</h2>
-            <p>
-                {% set contentLines = Post.ContentPost | split("\n") %}
-                {% for i in 0..2 %}
-                {{ contentLines[i] }}<br>
+                <p class="datePost">{{ Post.RelativeDatePost }}</p>
+                <div class="contentPost">
+                    <h2>{{ Post.TitlePost }}</h2>
+                    <p>
+                        {% set contentLines = Post.ContentPost | split("\n") %}
+                        {% for i in 0..2 %}
+                        {{ contentLines[i] }}<br>
+                        {% endfor %}
+                        {% if contentLines | length > 3 %}
+                        <span id="moreContentPost{{ loop.index }}" style="display:none;">
+                            {% for i in 3..(contentLines | length - 1) %}
+                            {{ contentLines[i] }}<br>
+                            {% endfor %}
+                        </span>
+                        <button id="btn-voir-plus-post-{{ loop.index }}" class="btn-voir-plus"
+                            onclick="toggleVisibility('moreContentPost{{ loop.index }}', 'btn-voir-plus-post-{{ loop.index }}')">Voir
+                            plus</button>
+                        {% endif %}
+                    </p>
+                </div>
+                {% for picture in Post.PicturesPost %}
+                <img class="icon" src="data:image;base64,{{ picture }}" alt="icon">
                 {% endfor %}
-                {% if contentLines | length > 3 %}
-                <span id="moreContentPost{{ loop.index }}" style="display:none;">
-                    {% for i in 3..(contentLines | length - 1) %}
-                    {{ contentLines[i] }}<br>
-                    {% endfor %}
-                </span>
-                <button id="btn-voir-plus-post-{{ loop.index }}" class="btn-voir-plus"
-                    onclick="toggleVisibility('moreContentPost{{ loop.index }}', 'btn-voir-plus-post-{{ loop.index }}')">Voir
-                    plus</button>
-                {% endif %}
-            </p>
-        </div>
-        {% for picture in Post.PicturesPost %}
-        <img class="icon" src="data:image;base64,{{ picture }}" alt="icon">
-        {% endfor %}
-        {% if isConnected %}
-        <div class="interaction">
-            <form action="/postDetails-{{ Post.IdPost }}" method="post">
-                <input type="hidden" name="AddLike" value="1">
-                <input type="hidden" name="IdPost" value="{{ Post.IdPost }}">
-                <button class="heart {% if Post.IsLike %}active{% endif %}" type="submit">
-                    {% if Post.IsLike %}
-                    <i class="fas fa-heart"></i>
-                    {% else %}
-                    <i class="far fa-heart"></i>
-                    {% endif %}
-                </button>
-                <span class="total-likes">{{ Post.TotalLikes }} likes</span>
-            </form>
+                {% if isConnected %}
+                <div class="interaction">
+                    <form action="/postDetails-{{ Post.IdPost }}" method="post">
+                        <input type="hidden" name="AddLike" value="1">
+                        <input type="hidden" name="IdPost" value="{{ Post.IdPost }}">
+                        <button class="heart {% if Post.IsLike %}active{% endif %}" type="submit">
+                            {% if Post.IsLike %}
+                            <i class="fas fa-heart"></i>
+                            {% else %}
+                            <i class="far fa-heart"></i>
+                            {% endif %}
+                        </button>
+                        <span class="total-likes">{{ Post.TotalLikes }} likes</span>
+                    </form>
 
-            <form action="/postDetails-{{ Post.IdPost }}" method="post">
-                <input type="hidden" name="AddFavorite" value="1">
-                <input type="hidden" name="IdPost" value="{{ Post.IdPost }}">
-                <button class="favorite {% if Post.IsFavorites %}active{% endif %}" type="submit">
-                    {% if Post.IsFavorites %}
-                    <i class="fas fa-star"></i>
-                    {% else %}
-                    <i class="far fa-star"></i>
-                    {% endif %}
-                </button>
-            </form>
+                    <form action="/postDetails-{{ Post.IdPost }}" method="post">
+                        <input type="hidden" name="AddFavorite" value="1">
+                        <input type="hidden" name="IdPost" value="{{ Post.IdPost }}">
+                        <button class="favorite {% if Post.IsFavorites %}active{% endif %}" type="submit">
+                            {% if Post.IsFavorites %}
+                            <i class="fas fa-star"></i>
+                            {% else %}
+                            <i class="far fa-star"></i>
+                            {% endif %}
+                        </button>
+                    </form>
+                </div>
+                {% else %}
+                <div class="interaction">
+                    <button class="heart" disabled>
+                        <i class="far fa-heart"></i>
+                    </button>
+                    <span class="total-likes2">{{ Post.TotalLikes }} likes</span>
+                    <button class="favorite" disabled>
+                        <i class="far fa-star"></i>
+                    </button>
+                </div>
+                {% endif %}
+            </div>
+            {% endfor %}
         </div>
-        {% else %}
-        <div class="interaction">
-            <button class="heart" disabled>
-                <i class="far fa-heart"></i>
-            </button>
-            <span class="total-likes2">{{ Post.TotalLikes }} likes</span>
-            <button class="favorite" disabled>
-                <i class="far fa-star"></i>
-            </button>
+    </div>
+
+    <div class="commmentContainer">
+        {% if isConnected %}
+        <div class="CommentButton">
+            <button id="openModalButton" class="boton-elegante">Add Comment</button>
         </div>
         {% endif %}
-    </div>
-    {% endfor %}
-</div>
 
-{% if isConnected %}
-<div class="CommentButton">
-    <button id="openModalButton" class="boton-elegante">Add Comment</button>
-</div>
-{% endif %}
+        {% for Post in postData %}
+        <div id="profileModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <form action="/postDetails-{{ Post.IdPost }}" method="post" id="formAddComment"
+                    enctype="multipart/form-data">
+                    <textarea name="ContentComment" placeholder="ContentComment" class="inputFieldDesc"
+                        required></textarea>
+                    <input type="hidden" name="IdUser" value="{{ userId }}">
+                    <button type="submit" name="addComment" class="inputField2">Add Comment</button>
+                </form>
+            </div>
+        </div>
+        {% endfor %}
 
-{% for Post in postData %}
-<div id="profileModal" class="modal">
-    <div class="modal-content">
-        <span class="close">&times;</span>
-        <form action="/postDetails-{{ Post.IdPost }}" method="post" id="formAddComment" enctype="multipart/form-data">
-            <textarea name="ContentComment" placeholder="ContentComment" class="inputFieldDesc" required></textarea>
-            <input type="hidden" name="IdUser" value="{{ userId }}">
-            <button type="submit" name="addComment" class="inputField2">Add Comment</button>
-        </form>
-    </div>
-</div>
-{% endfor %}
+        <div class="commentContainer">
+            {% for Comment in commentsData %}
+            <div class="comment">
+                <div class="user-info">
+                    <a href="/profile-{{ Comment.IdUser }}">
+                        <img class="user-picture" src="data:image;base64,{{ Comment.ProfilPicture }}"
+                            alt="profile picture">
+                            <h1>{{ Comment.FirstName }} {{ Comment.LastName }}</h1>
+                    </a>
+                    {% if isConnected and userId == Comment.IdUser%}
+                    {% for Post in postData %}
+                    <form action="/postDetails-{{ Post.IdPost }}" method="post" class="formDeletePostComment">
+                        <button type="submit" name="deletePostComment" id="deleteButton">
+                            <input type="hidden" name="idComment" value="{{ Comment.IdComment }}">
+                            <input type="hidden" name="idPost" value="{{ Post.IdPost }}">
+                            <div class="hover-text">
+                                <img src="/../public/image/bin.png" id="deleteImage">
+                            </div>
+                        </button>
+                    </form>
+                    {% endfor %}
+                    {% endif %}
 
-<div class="commentContainer">
-    {% for Comment in commentsData %}
-    <div class="comment">
-        <div class="user-info">
-            <a href="/profile-{{ Comment.IdUser }}">
-                <img class="user-picture" src="data:image;base64,{{ Comment.ProfilPicture }}" alt="profile picture">
-                {% if isPro == 1 %}
-                <h1>{{ firstName }} {{ lastName }}</h1> <i id="certifIcon" class="fas fa-check-circle"></i>
-                {% else %}
-                <h1>{{ firstName }} {{ lastName }}</h1>
-                {% endif %}
-            </a>
-            {% if isConnected and userId == Comment.IdUser%}
-            {% for Post in postData %}
-            <form action="/postDetails-{{ Post.IdPost }}" method="post" class="formDeletePostComment">
-                <button type="submit" name="deletePostComment" id="deleteButton">
-                    <input type="hidden" name="idComment" value="{{ Comment.IdComment }}">
-                    <input type="hidden" name="idPost" value="{{ Post.IdPost }}">
-                    <div class="hover-text">
-                        <img src="/../public/image/bin.png" id="deleteImage">
-                    </div>
-                </button>
-            </form>
+                </div>
+                <p class="dateComment">{{ Comment.RelativeDateComment }}</p>
+                <div class="contentComment">
+                    <p>{{ Comment.ContentComment | nl2br }}</p>
+                </div>
+            </div>
             {% endfor %}
-            {% endif %}
-
-        </div>
-        <p class="dateComment">{{ Comment.RelativeDateComment }}</p>
-        <div class="contentComment">
-            <p>{{ Comment.ContentComment | nl2br }}</p>
         </div>
     </div>
-    {% endfor %}
 </div>
 {% endblock %}
 

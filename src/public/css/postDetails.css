@@ -1,8 +1,13 @@
+.container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
 .PagePost {
     width: 31em;
     height: 30em;
     margin-top: 10em;
-    margin-left: 33em;
 }
 
 .post,
@@ -72,7 +77,6 @@ a {
     height: 30em;
     width: 31em;
     margin-top: 3em;
-    margin-left: 33em;
 }
 
 .contentComment {
@@ -194,7 +198,8 @@ a {
 }
 
 .CommentButton {
-    margin-left: 43em;
+    margin-top: 6em;
+    padding-left: 9.5em;
 }
 
 .formDeletePost,
