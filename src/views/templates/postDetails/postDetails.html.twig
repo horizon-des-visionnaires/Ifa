@@ -19,7 +19,11 @@
         <div class="user-info">
             <a href="/profile-{{ Post.IdUser }}">
                 <img class="user-picture" src="data:image;base64,{{ Post.ProfilPicture }}" alt="profile picture">
-                <h1>{{ Post.FirstName }} {{ Post.LastName }}</h1>
+                {% if isPro == 1 %}
+                <h1>{{ firstName }} {{ lastName }}</h1> <i id="certifIcon" class="fas fa-check-circle"></i>
+                {% else %}
+                <h1>{{ firstName }} {{ lastName }}</h1>
+                {% endif %}
             </a>
             {% if isConnected and userId == Post.IdUser%}
             <form action="/postDetails-{{ Post.IdPost }}" method="post" class="formDeletePost">
@@ -123,7 +127,11 @@
         <div class="user-info">
             <a href="/profile-{{ Comment.IdUser }}">
                 <img class="user-picture" src="data:image;base64,{{ Comment.ProfilPicture }}" alt="profile picture">
-                <h1>{{ Comment.FirstName }} {{ Comment.LastName }}</h1>
+                {% if isPro == 1 %}
+                <h1>{{ firstName }} {{ lastName }}</h1> <i id="certifIcon" class="fas fa-check-circle"></i>
+                {% else %}
+                <h1>{{ firstName }} {{ lastName }}</h1>
+                {% endif %}
             </a>
             {% if isConnected and userId == Comment.IdUser%}
             {% for Post in postData %}

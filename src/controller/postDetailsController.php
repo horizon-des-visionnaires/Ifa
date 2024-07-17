@@ -49,9 +49,11 @@ class postDetailsController
         if (!empty($postData)) {
             $firstName = $postData[0]['FirstName'];
             $lastName = $postData[0]['LastName'];
+            $isPro = $postData[0]['IsPro'];
         } else {
             $firstName = '';
             $lastName = '';
+            $isPro = '';
         }
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && $userId !== null) {
@@ -69,6 +71,7 @@ class postDetailsController
             'IsAdmin' => $IsAdmin,
             'postData' => $postData,
             'firstName' => $firstName,
+            'isPro' => $isPro,
             'lastName' => $lastName,
             'commentsData' => $commentsData
         ]);

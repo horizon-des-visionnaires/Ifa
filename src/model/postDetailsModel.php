@@ -25,7 +25,7 @@ class postDetailsModel
     public function getPost($idPost)
     {
         $stmt = $this->dsn->prepare(
-            "SELECT Post.IdPost, Post.IdUser, Post.TitlePost, Post.ContentPost, Post.DatePost, User.FirstName, User.LastName, User.ProfilPicture 
+            "SELECT Post.IdPost, Post.IdUser, Post.TitlePost, Post.ContentPost, Post.DatePost, User.FirstName, User.LastName, User.ProfilPicture, User.IsPro 
             FROM Post 
             JOIN User ON Post.IdUser = User.IdUser
             WHERE Post.IdPost = :idPost"

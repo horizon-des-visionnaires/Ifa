@@ -1,5 +1,5 @@
 .PagePost {
-    width: 30em;
+    width: 31em;
     height: 30em;
     margin-top: 10em;
     margin-left: 33em;
@@ -41,6 +41,11 @@ a {
     margin-top: -1em;
 }
 
+#certifIcon {
+    padding-left: 0.5em;
+    padding-top: 2.5em;
+}
+
 .contentPost {
     padding: 1em;
 }
@@ -65,7 +70,7 @@ a {
 
 .commentContainer {
     height: 30em;
-    width: 30em;
+    width: 31em;
     margin-top: 3em;
     margin-left: 33em;
 }
