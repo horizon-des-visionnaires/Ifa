@@ -135,7 +135,11 @@
                     <a href="/profile-{{ Comment.IdUser }}">
                         <img class="user-picture" src="data:image;base64,{{ Comment.ProfilPicture }}"
                             alt="profile picture">
-                            <h1>{{ Comment.FirstName }} {{ Comment.LastName }}</h1>
+                        {% if Comment.IsPro == 1 %}
+                        <h1>{{ Comment.FirstName  }} {{ Comment.LastName }}</h1> <i id="certifIcon" class="fas fa-check-circle"></i>
+                        {% else %}
+                        <h1>{{ Comment.FirstName  }} {{ Comment.LastName }}</h1>
+                        {% endif %}
                     </a>
                     {% if isConnected and userId == Comment.IdUser%}
                     {% for Post in postData %}

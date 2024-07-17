@@ -84,7 +84,7 @@ class postDetailsModel
     public function getComment($idPost)
     {
         $stmt = $this->dsn->prepare(
-            "SELECT Comment.ContentComment, Comment.DateComment, Comment.IdUser, Comment.IdComment, User.FirstName, User.LastName, User.ProfilPicture
+            "SELECT Comment.ContentComment, Comment.DateComment, Comment.IdUser, Comment.IdComment, User.FirstName, User.LastName, User.ProfilPicture, User.IsPro
         FROM Comment
         JOIN User ON Comment.IdUser = User.IdUser
         WHERE Comment.IdPost = :idPost"
