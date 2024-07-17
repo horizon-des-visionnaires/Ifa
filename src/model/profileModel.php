@@ -179,7 +179,33 @@ class profileModel
 
             header("Location: /profile-$idUser");
             exit();
+        } catch (PDOException $e) {
+            $this->dsn->rollBack();
+            $error = "error: " . $e->getMessage();
+            echo $error;
+        }
+    }
 
+    public function insertRequestPassProData($Job, $Age, $Email, $Description, $idUser ,$identityCardRecto = null, $identityCardVerso = null)
+    {
+        try {
+            $this->dsn->beginTransaction();
+
+            $insertData = "INSERT INTO RequestPassPro (IdUser, UserJob, UserAge, UserEmail, Description, IdentityCardRecto, IdentityCardVerso) VALUE (:IdUser, :UserJob, :UserAge, :UserEmail, :Description, :IdentityCardRecto, :IdentityCardVerso)";
+            $stmt = $this->dsn->prepare($insertData);
+            $stmt->bindParam(':IdUser', $idUser);
+            $stmt->bindParam(':UserJob', $Job);
+            $stmt->bindParam(':UserAge', $Age);
+            $stmt->bindParam(':UserEmail', $Email);
+            $stmt->bindParam(':Description', $Description);
+            $stmt->bindParam(':IdentityCardRecto', $identityCardRecto, PDO::PARAM_LOB);
+            $stmt->bindParam(':IdentityCardVerso', $identityCardVerso, PDO::PARAM_LOB);
+            $stmt->execute();
+
+            $this->dsn->commit();
+
+            header("Location: /profile-$idUser");
+            exit();
         } catch (PDOException $e) {
             $this->dsn->rollBack();
             $error = "error: " . $e->getMessage();

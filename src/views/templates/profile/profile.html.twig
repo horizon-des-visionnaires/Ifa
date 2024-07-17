@@ -56,22 +56,24 @@
     <div class="modal-content2">
         <span class="close2">&times;</span>
         <form action="/profile-{{ user.IdUser }}" method="post" id="formPassPro" enctype="multipart/form-data">
-            <input type="text" name="Job" placeholder="Job" id="inputField">
-            <input type="number" name="Age" placeholder="Age minimum 18 ans" min="18" id="inputField">
-            <input type="email" name="Email" placeholder="Email" id="inputField">
+            <input type="text" name="Job" placeholder="Job" id="inputField" required>
+            <input type="number" name="Age" placeholder="Age minimum 18 ans" min="18" id="inputField" required>
+            <input type="email" name="Email" placeholder="Email" id="inputField" required>
 
             <div style="position: relative;">
                 <textarea name="Description" placeholder="Parcours, étude, pourquoi vouloir être pro, expérience"
-                    id="inputFieldDesc2"></textarea>
+                    id="inputFieldDesc2" required></textarea>
             </div>
 
             <label for="images" id="labelText">Carte d'identité recto :</label>
-            <input type="file" id="images" name="identityCardRecto" accept="image/*"
-                aria-label="Carte d'identité recto" />
+            <input type="file" id="images" name="identityCardRecto" accept="image/*" aria-label="Carte d'identité recto"
+                required />
 
             <label for="images" id="labelText">Carte d'identité verso :</label>
-            <input type="file" id="images" name="identityCardVerso" accept="image/*"
-                aria-label="Carte d'identité recto" />
+            <input type="file" id="images" name="identityCardVerso" accept="image/*" aria-label="Carte d'identité recto"
+                required />
+
+            <input type="hidden" name="idUser" value="{{ user.IdUser }}">
 
             <button type="submit" name="pushRequest" id="inputField2">envoyer la demande</button>
         </form>

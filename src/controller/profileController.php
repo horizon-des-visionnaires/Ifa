@@ -45,6 +45,7 @@ class profileController
         $this->updateUserData($id);
         $userPost = $this->profileModel->getUserPosts($id);
         $this->getDeletePostData();
+        $this->getRequestPassProData();
 
         echo $this->twig->render('profile/profile.html.twig', [
             'user' => $user,
@@ -78,6 +79,29 @@ class profileController
             $idPost = $_POST['idPost'];
             $idUser = $_POST['idUser'];
             $this->profileModel->deletePost($idPost, $idUser);
+        }
+    }
+
+    public function getRequestPassProData()
+    {
+        if (isset($_POST['pushRequest'])) {
+            $Job = $_POST['Job'];
+            $Age = $_POST['Age'];
+            $Email = $_POST['Email'];
+            $Description = $_POST['Description'];
+            $idUser = $_POST['idUser'];
+
+            $identityCardRecto = null;
+            $identityCardVerso = null;
+
+            if (isset($_FILES["identityCardRecto"]) && $_FILES["identityCardRecto"]["error"] == UPLOAD_ERR_OK) {
+                $identityCardRecto = file_get_contents($_FILES["identityCardRecto"]["tmp_name"]);
+            }
+            if (isset($_FILES["identityCardVerso"]) && $_FILES["identityCardVerso"]["error"] == UPLOAD_ERR_OK) {
+                $identityCardVerso = file_get_contents($_FILES["identityCardVerso"]["tmp_name"]);
+            }
+
+            $this->profileModel->insertRequestPassProData($Job, $Age, $Email, $Description, $idUser, $identityCardRecto, $identityCardVerso);
         }
     }
 }
