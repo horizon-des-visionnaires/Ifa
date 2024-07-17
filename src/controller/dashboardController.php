@@ -24,9 +24,20 @@ class dashboardController
 
     public function dashboard()
     {
+        session_start();
+
+        $isConnected = false;
+        $userId = null;
+        if (isset($_SESSION['IdUser'])) {
+            $isConnected = true;
+            $userId = $_SESSION['IdUser'];
+        }
+
         $requestPassProData = $this->dashboardModel->getAllRequestPassPro();
 
         echo $this->twig->render('dashboard/dashboard.html.twig', [
+            'isConnected' => $isConnected,
+            'userId' => $userId,
             'requestPassProData' => $requestPassProData
         ]);
     }
