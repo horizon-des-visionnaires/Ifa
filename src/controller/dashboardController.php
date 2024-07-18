@@ -44,6 +44,7 @@ class dashboardController
         }
 
         $requestPassProData = $this->dashboardModel->getAllRequestPassPro();
+        $this->getDataValidRequest();
 
         echo $this->twig->render('dashboard/dashboard.html.twig', [
             'isConnected' => $isConnected,
@@ -51,5 +52,14 @@ class dashboardController
             'IsAdmin' => $IsAdmin,
             'requestPassProData' => $requestPassProData
         ]);
+    }
+
+    public function getDataValidRequest()
+    {
+        if (isset($_POST['requestValid'])) {
+            $IdRequest = $_POST['IdRequest'];
+
+            $this->dashboardModel->requestValid($IdRequest);
+        }
     }
 }

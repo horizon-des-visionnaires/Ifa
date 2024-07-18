@@ -37,6 +37,8 @@ class dashboardModel
                         User u 
                     ON 
                         rp.IdUser = u.IdUser
+                    WHERE 
+                        rp.IsRequestValid = 0
                 ");
             $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
@@ -54,6 +56,36 @@ class dashboardModel
             $this->dsn->rollBack();
             $error = "error: " . $e->getMessage();
             echo $error;
+        }
+    }
+
+    public function requestValid($IdRequest)
+    {
+        try {
+            $this->dsn->beginTransaction();
+
+            $updateRequestQuery = "UPDATE RequestPassPro SET IsRequestValid = 1 WHERE IdRequest = :IdRequest";
+            $stmt = $this->dsn->prepare($updateRequestQuery);
+            $stmt->execute([':IdRequest' => $IdRequest]);
+
+            $getUserIdQuery = "SELECT IdUser FROM RequestPassPro WHERE IdRequest = :IdRequest AND IsRequestValid = 1";
+            $stmt = $this->dsn->prepare($getUserIdQuery);
+            $stmt->execute([':IdRequest' => $IdRequest]);
+            $IdUser = $stmt->fetchColumn();
+
+            if ($IdUser) {
+                $updateUserQuery = "UPDATE User SET IsPro = 1 WHERE IdUser = :IdUser";
+                $stmt = $this->dsn->prepare($updateUserQuery);
+                $stmt->execute([':IdUser' => $IdUser]);
+            }
+
+            $this->dsn->commit();
+
+            header("Location: /dashboard");
+            exit();
+        } catch (PDOException $e) {
+            $this->dsn->rollBack();
+            echo "Erreur : " . $e->getMessage();
         }
     }
 }
