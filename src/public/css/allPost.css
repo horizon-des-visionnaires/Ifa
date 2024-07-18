@@ -145,14 +145,14 @@ input[type=file]::file-selector-button {
     background: #3c9048;
 }
 
-.homeContainer {
+.allPostContainer {
     margin-top: 10em;
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
 }
 
-.homePost {
+.allPostPost {
     width: 30em;
     height: 30em;
 }
