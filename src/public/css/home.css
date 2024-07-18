@@ -1,3 +1,49 @@
-h1 {
-    margin-top: 10em;
+.ProfilContainer {
+    margin-top: 8em;
+}
+
+.allProfil {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(28em, 1fr));
+    gap: 2em;
+    justify-items: center; 
+}
+
+.profil {
+    padding-top: 1em;
+    padding-left: 1em;
+    background-color: #b0dfb3;
+    min-height: 10em;
+    max-height: 10em;
+    width: 28em;
+    border-radius: 2em;
+    margin-bottom: 2em;
+}
+
+.profilPictureName {
+    display: flex;
+    flex-direction: row;
+}
+
+#certifIcon {
+    padding-left: 0.5em;
+    padding-top: 2.5em;
+}
+
+.profilPictureName h1 {
+    padding-left: 0.5em;
+    font-family: 'Open Sans', sans-serif;
+}
+
+#icon {
+    height: 6em;
+}
+
+.description p {
+    font-size: 1.5em;
+}
+
+a {
+    color: black;
+    text-decoration: none;
 }

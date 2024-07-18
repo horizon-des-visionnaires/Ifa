@@ -4,6 +4,8 @@
 
 {% block stylesheet %}
 <link href="/../public/css/home.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
 {% endblock %}
 
 {% block header %}
@@ -11,7 +13,27 @@
 {% endblock %}
 
 {% block body %}
-<h1>test</h1>
+<div class="ProfilContainer">
+    <div class="allProfil">
+        {% for user in userProData %}
+        <a href="profile-{{ user.IdUser }}">
+            <div class="profil">
+                <div class="profilPictureName">
+                    <img id="icon" src="data:image;base64,{{user.ProfilPicture}}" alt="icon">
+                    <h1>{{ user.FirstName }} {{ user.LastName }}</h1> <i id="certifIcon" class="fas fa-check-circle"></i>
+                </div>
+                <div class="description">
+                    {% set truncatedDescription = user.ProfilDescription[:35] %}
+                    <p>
+                        {{ truncatedDescription }}
+                        {% if user.ProfilDescription|length > 35 %}...{% endif %}
+                    </p>
+                </div>
+            </div>
+        </a>
+        {% endfor %}
+    </div>
+</div>
 {% endblock %}
 
 {% block footer %}{% endblock %}
