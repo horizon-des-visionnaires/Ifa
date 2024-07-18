@@ -1,3 +1,92 @@
+.requestContainer {
+    margin-top: 8em;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
 .request {
-    margin-top: 5em;
+    width: 25em;
+    height: fit-content;
+    background-color: #b0dfb3;
+    margin-bottom: 3em;
+    border-radius: 3em;
+    margin-right: 1em;
+    margin-left: 1em;
+    padding-left: 1em;
+}
+
+.infoUser {
+    display: flex;
+    flex-direction: column;
+}
+
+.name {
+    display: flex;
+    flex-direction: row;
+}
+
+.name h1 {
+    font-family: 'Open Sans', sans-serif;
+    padding-right: 0.5em;
+}
+
+.name p {
+    font-size: 1.5em;
+    font-family: 'Open Sans', sans-serif;
+    padding-top: 0.3em;
+}
+
+.email p,
+.job p {
+    padding-right: 2em;
+    font-size: 1.5em;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.email p,
+.job p {
+    margin-top: -0.5em;
+}
+
+.icon {
+    height: 3em;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(1em);
+}
+
+.modal-content {
+    display: block;
+    width: 70%;
+    max-width: 500px;
+    margin-top: 10em;
+    margin-left: 30em;
+}
+
+.close {
+    position: absolute;
+    top: 3em;
+    right: 35px;
+    color: #fff;
+    font-size: 40px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.close:hover,
+.close:focus {
+    color: #bbb;
+    text-decoration: none;
+    cursor: pointer;
 }

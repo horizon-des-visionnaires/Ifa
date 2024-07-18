@@ -11,22 +11,42 @@
 {% endblock %}
 
 {% block body %}
-<div class="request">
+<div class="requestContainer">
     {% for RequestPassPro in requestPassProData %}
-    <p>{{ RequestPassPro.IdUser }}</p>
-    <p>{{ RequestPassPro.FirstName  }}</p>
-    <p>{{ RequestPassPro.LastName  }}</p>
-    <p>{{ RequestPassPro.Email }}</p>
-    <p>{{ RequestPassPro.UserJob }}</p>
-    <p>{{ RequestPassPro.UserAge }}</p>
-    <p>{{ RequestPassPro.Description }}</p>
-    <img class="icon" src="data:image;base64,{{ RequestPassPro.IdentityCardRecto }}" alt="icon">
-    <img class="icon" src="data:image;base64,{{ RequestPassPro.IdentityCardVerso }}" alt="icon">        
+    <div class="request">
+        <div class="infoUser">
+            <div class="name">
+                <h1>{{ RequestPassPro.FirstName }}</h1>
+                <h1>{{ RequestPassPro.LastName }}</h1>
+                <p>{{ RequestPassPro.UserAge }} ans</p>
+            </div>
+            <div class="job">
+                <p>Métier : {{ RequestPassPro.UserJob }}</p>
+            </div>
+            <div class="email">
+                <p>Email : {{ RequestPassPro.Email }}</p>
+            </div>
+        </div>
+        <div class="description">
+            <h3>Contenu de la demande pour passez pro</h3>
+            <p>{{ RequestPassPro.Description | nl2br }}</p>
+        </div>
+        <div class="identityCard">
+            <img class="icon" src="data:image;base64,{{ RequestPassPro.IdentityCardRecto }}" alt="icon" onclick="openModal(this)">
+            <img class="icon" src="data:image;base64,{{ RequestPassPro.IdentityCardVerso }}" alt="icon" onclick="openModal(this)">
+        </div>
+    </div>
     {% endfor %}
+</div>
+
+<div id="myModal" class="modal">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <img class="modal-content" id="img01">
 </div>
 {% endblock %}
 
 {% block footer %}{% endblock %}
 
 {% block scripts %}
+<script src="/../public/js/modalImageRequest.js"></script>
 {% endblock %}
