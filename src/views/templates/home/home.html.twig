@@ -14,6 +14,7 @@
 
 {% block body %}
 <div class="ProfilContainer">
+    <h1>Découvrez des professionnel</h1>
     <div class="allProfil">
         {% for user in userProData %}
         <a href="profile-{{ user.IdUser }}">
@@ -32,6 +33,7 @@
             </div>
         </a>
         {% endfor %}
+        <a href="/research" class="beautiful-button">Voir d'autres Profils de pro</a>
     </div>
 </div>
 {% endblock %}
