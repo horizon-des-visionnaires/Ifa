@@ -11,64 +11,10 @@
 {% endblock %}
 
 {% block body %}
-<div class="homeContainer">
-    <div class="homeFiltre"></div>
-    <div class="homePost">
-        {% for Post in postData %}
-        <div class="post">
-            <div class="user-info">
-                <img class="user-picture" src="data:image;base64,{{ Post.ProfilPicture }}" alt="profile picture">
-                <h1>{{ Post.FirstName }} {{ Post.LastName }}</h1>
-            </div>
-            <p class="datePost">{{ Post.RelativeDatePost }}</p>
-            <div class="contentPost">
-                <h2>{{ Post.TitlePost }}</h2>
-                <p>
-                    {% set contentLines = Post.ContentPost | split("\n") %}
-                    {% for i in 0..2 %}
-                    {{ contentLines[i] }}<br>
-                    {% endfor %}
-                    <form action="/" method="post">
-                        <input type="hidden" name="idPost" value="{{ Post.IdPost }}">
-                        <button type="submit" name="viewMore" class="viewMore">Voir Plus</button>
-                    </form>
-                </p>
-            </div>
-            {% for picture in Post.PicturesPost %}
-            <img class="icon" src="data:image;base64,{{ picture }}" alt="icon">
-            {% endfor %}
-        </div>
-        {% endfor %}
-    </div>
-    <div class="homeAdd">
-        {% if isConnected %}
-        <div class="PostButton">
-            <button id="openModalButton" class="boton-elegante">Add Post</button>
-        </div>
-        {% endif %}
-    </div>
-</div>
-
-<div id="profileModal" class="modal">
-    <div class="modal-content">
-        <span class="close">&times;</span>
-        <form action="/" method="post" id="formAddPost" enctype="multipart/form-data">
-            <input type="text" name="TitlePost" placeholder="TitlePost" class="inputField" required>
-
-            <textarea name="ContentPost" placeholder="ContentPost" class="inputFieldDesc" required></textarea>
-
-            <input type="file" id="images" name="PicturePost[]" multiple accept="image/*"
-                onchange="validateFiles(this)">
-
-            <button type="submit" name="addPost" class="inputField2">Add Post</button>
-        </form>
-    </div>
-</div>
+<h1>test</h1>
 {% endblock %}
 
 {% block footer %}{% endblock %}
 
 {% block scripts %}
-<script src="/../public/js/modalUser.js"></script>
-<script src="/../public/js/viewMore.js"></script>
 {% endblock %}
