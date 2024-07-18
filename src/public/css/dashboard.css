@@ -91,3 +91,15 @@
     text-decoration: none;
     cursor: pointer;
 }
+
+#inputField2 {
+    width: 20em;
+    height: 3em;
+    border-radius: 10em;
+    border: 2px solid #223f27;
+    background-color: #80c886;
+    font-family: 'Montserrat', sans-serif;
+    color: black;
+    margin-bottom: 2em;
+    margin-left: 3em;
+}

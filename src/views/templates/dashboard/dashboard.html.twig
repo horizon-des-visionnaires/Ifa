@@ -35,6 +35,20 @@
             <img class="icon" src="data:image;base64,{{ RequestPassPro.IdentityCardRecto }}" alt="icon" onclick="openModal(this)">
             <img class="icon" src="data:image;base64,{{ RequestPassPro.IdentityCardVerso }}" alt="icon" onclick="openModal(this)">
         </div>
+        <div class="button">
+            <div class="buttonValid">
+                <form action="/dashboard" method="post">
+                    <input type="hidden" name="IdRequest" value="{{ RequestPassPro.IdRequest }}">
+                    <button name="requestValid" type="submit" id="inputField2">Valider la demande</button>
+                </form>
+            </div>
+            <div class="buttonInvalid">
+                <form action="/dashboard" method="post">
+                    <input type="hidden" name="IdRequest" value="{{ RequestPassPro.IdRequest }}">
+                    <button name="requestInvalid" type="submit" id="inputField2">Refuser la demande</button>
+                </form>
+            </div>
+        </div>
     </div>
     {% endfor %}
 </div>
