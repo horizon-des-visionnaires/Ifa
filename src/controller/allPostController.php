@@ -45,6 +45,8 @@ class allPostController
         $searchQuery = isset($_GET['search']) ? $_GET['search'] : '';
         $postData = $this->allPostModel->getPost($searchQuery);
         $this->getAddViewsData();
+        $this->getDataAddLike();
+        $this->getDataAddFavorite();
 
         echo $this->twig->render('allPost/allPost.html.twig', [
             'isConnected' => $isConnected,
@@ -89,6 +91,28 @@ class allPostController
             $idPost = $_POST['idPost'];
 
             $this->allPostModel->updateViews($idPost);
+        }
+    }
+
+    public function getDataAddLike()
+    {
+        if (isset($_POST['AddLike'])) {
+            if (isset($_SESSION['IdUser'])) {
+                $IdUser = $_SESSION['IdUser'];
+                $IdPost = $_POST['IdPost'];
+                $this->allPostModel->LikeData($IdUser, $IdPost);
+            }
+        }
+    }
+
+    public function getDataAddFavorite()
+    {
+        if (isset($_POST['AddFavorite'])) {
+            if (isset($_SESSION['IdUser'])) {
+                $IdUser = $_SESSION['IdUser'];
+                $IdPost = $_POST['IdPost'];
+                $this->allPostModel->FavoriteData($IdUser, $IdPost);
+            }
         }
     }
 }
