@@ -49,14 +49,26 @@ class allPostModel
         }
     }
 
-    public function getPost()
+    public function getPost($searchQuery = '')
     {
-        $stmt = $this->dsn->prepare(
-            "SELECT Post.IdPost, Post.TitlePost, Post.ContentPost, Post.DatePost, 
-                User.FirstName, User.LastName, User.ProfilPicture, User.IsPro 
-         FROM Post 
-         JOIN User ON Post.IdUser = User.IdUser"
-        );
+        $query = "SELECT Post.IdPost, Post.TitlePost, Post.ContentPost, Post.DatePost, 
+            User.FirstName, User.LastName, User.ProfilPicture, User.IsPro 
+          FROM Post 
+          JOIN User ON Post.IdUser = User.IdUser";
+
+        if ($searchQuery) {
+            $query .= " WHERE Post.TitlePost LIKE :searchQuery 
+                OR User.FirstName LIKE :searchQuery 
+                OR User.LastName LIKE :searchQuery";
+        }
+
+        $stmt = $this->dsn->prepare($query);
+
+        if ($searchQuery) {
+            $searchQuery = "%{$searchQuery}%";
+            $stmt->bindParam(':searchQuery', $searchQuery);
+        }
+
         $stmt->execute();
         $getPostData = $stmt->fetchAll(PDO::FETCH_ASSOC);
 

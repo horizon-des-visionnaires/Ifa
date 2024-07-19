@@ -42,14 +42,16 @@ class allPostController
             $this->getAddPostData($userId);
         }
 
-        $postData = $this->allPostModel->getPost();
+        $searchQuery = isset($_GET['search']) ? $_GET['search'] : '';
+        $postData = $this->allPostModel->getPost($searchQuery);
         $this->getAddViewsData();
 
         echo $this->twig->render('allPost/allPost.html.twig', [
             'isConnected' => $isConnected,
             'userId' => $userId,
             'IsAdmin' => $IsAdmin,
-            'postData' => $postData
+            'postData' => $postData,
+            'searchQuery' => $searchQuery
         ]);
     }
 

@@ -1,5 +1,12 @@
+.search-add {
+    position: fixed;
+    margin-left: 70em;
+    display: flex;
+    flex-direction: column-reverse;
+}
+
 .PostButton {
-    margin-top: 10em;
+    margin-top: 5em;
 }
 
 .modal {
@@ -155,6 +162,7 @@ input[type=file]::file-selector-button {
 .allPostPost {
     width: 30em;
     height: 30em;
+    margin-right: 10em;
 }
 
 .post {
@@ -204,4 +212,46 @@ input[type=file]::file-selector-button {
 #certifIcon {
     padding-left: 0.5em;
     padding-top: 2.5em;
+}
+
+.group {
+    display: flex;
+    line-height: 28px;
+    align-items: center;
+    position: relative;
+}
+
+.search {
+    width: 20em;
+    height: 40px;
+    line-height: 28px;
+    padding: 0 1rem;
+    padding-left: 2.5rem;
+    border: 2px solid transparent;
+    border-radius: 8px;
+    outline: none;
+    background-color: #f3f3f4;
+    color: #0d0c22;
+    transition: .3s ease;
+}
+
+.search::placeholder {
+    font-family: 'Montserrat', sans-serif;
+    color: black;
+}
+
+.search:focus,
+.search:hover {
+    outline: none;
+    border-color: rgba(234, 76, 137, 0.4);
+    background-color: #fff;
+    box-shadow: 0 0 0 4px rgb(234 76 137 / 10%);
+}
+
+.iconSearch {
+    position: absolute;
+    left: 1rem;
+    fill: #9e9ea7;
+    width: 1rem;
+    height: 1rem;
 }

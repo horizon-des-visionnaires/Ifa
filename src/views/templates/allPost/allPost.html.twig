@@ -5,7 +5,7 @@
 {% block stylesheet %}
 <link href="/../public/css/allPost.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
-      crossorigin="anonymous" referrerpolicy="no-referrer" />
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
 {% endblock %}
 
 {% block header %}
@@ -21,9 +21,9 @@
             <div class="user-info">
                 <img class="user-picture" src="data:image;base64,{{ Post.ProfilPicture }}" alt="profile picture">
                 {% if Post.IsPro == 1 %}
-                    <h1>{{ Post.FirstName }} {{ Post.LastName }}</h1> <i id="certifIcon" class="fas fa-check-circle"></i>
+                <h1>{{ Post.FirstName }} {{ Post.LastName }}</h1> <i id="certifIcon" class="fas fa-check-circle"></i>
                 {% else %}
-                    <h1>{{ Post.FirstName }} {{ Post.LastName }}</h1>
+                <h1>{{ Post.FirstName }} {{ Post.LastName }}</h1>
                 {% endif %}
             </div>
             <p class="datePost">{{ Post.RelativeDatePost }}</p>
@@ -34,10 +34,10 @@
                     {% for i in 0..2 %}
                     {{ contentLines[i] }}<br>
                     {% endfor %}
-                    <form action="/allPost" method="post">
-                        <input type="hidden" name="idPost" value="{{ Post.IdPost }}">
-                        <button type="submit" name="viewMore" class="viewMore">Voir Plus</button>
-                    </form>
+                <form action="/allPost" method="post">
+                    <input type="hidden" name="idPost" value="{{ Post.IdPost }}">
+                    <button type="submit" name="viewMore" class="viewMore">Voir Plus</button>
+                </form>
                 </p>
             </div>
             {% for picture in Post.PicturesPost %}
@@ -46,12 +46,26 @@
         </div>
         {% endfor %}
     </div>
-    <div class="allPostAdd">
+    <div class="search-add">
         {% if isConnected %}
         <div class="PostButton">
             <button id="openModalButton" class="boton-elegante">Add Post</button>
         </div>
         {% endif %}
+        <div class="searchBar">
+            <form action="/allPost" method="get" class="search-form">
+                <div class="group">
+                    <svg class="iconSearch" aria-hidden="true" viewBox="0 0 24 24">
+                        <g>
+                            <path
+                                d="M21.53 20.47l-3.66-3.66C19.195 15.24 20 13.214 20 11c0-4.97-4.03-9-9-9s-9 4.03-9 9 4.03 9 9 9c2.215 0 4.24-.804 5.808-2.13l3.66 3.66c.147.146.34.22.53.22s.385-.073.53-.22c.295-.293.295-.767.002-1.06zM3.5 11c0-4.135 3.365-7.5 7.5-7.5s7.5 3.365 7.5 7.5-3.365 7.5-7.5 7.5-7.5-3.365-7.5-7.5z">
+                            </path>
+                        </g>
+                    </svg>
+                    <input placeholder="Cherchez un nom, un titre" type="search" value="{{ searchQuery }}" class="search" name="search">
+                </div>
+            </form>
+        </div>
     </div>
 </div>
 
