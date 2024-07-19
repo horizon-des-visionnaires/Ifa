@@ -304,3 +304,42 @@ input[type=file]::file-selector-button {
     background-color: #80c886;
     border: 2px solid #223f27;
 }
+
+.image-modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.9);
+    backdrop-filter: blur(1em);
+}
+
+.image-modal-content {
+    margin: auto;
+    display: block;
+    width: 70%;
+    max-width: 500px;
+    margin-top: 10em;
+    margin-left: 30em;
+}
+
+.close-image-modal {
+    position: absolute;
+    top: 3em;
+    right: 35px;
+    color: #f1f1f1;
+    font-size: 40px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.close-image-modal:hover,
+.close-image-modal:focus {
+    color: #bbb;
+    text-decoration: none;
+    cursor: pointer;
+}

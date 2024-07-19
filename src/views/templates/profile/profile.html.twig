@@ -131,6 +131,12 @@
     </div>
     {% endfor %}
 </div>
+
+<div id="imageModal" class="image-modal">
+    <span class="close-image-modal">&times;</span>
+    <img class="image-modal-content" id="img01">
+    <div id="caption"></div>
+</div>
 {% endblock %}
 
 {% block footer %}{% endblock %}
@@ -138,4 +144,5 @@
 {% block scripts %}
 <script src="/../public/js/modalUser.js"></script>
 <script src="/../public/js/profilDesc.js"></script>
+<script src="/../public/js/modalImagePost.js"></script>
 {% endblock %}
