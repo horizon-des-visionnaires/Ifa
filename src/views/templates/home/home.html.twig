@@ -21,7 +21,8 @@
             <div class="profil">
                 <div class="profilPictureName">
                     <img id="icon" src="data:image;base64,{{user.ProfilPicture}}" alt="icon">
-                    <h1>{{ user.FirstName }} {{ user.LastName }}</h1> <i id="certifIcon" class="fas fa-check-circle"></i>
+                    <h1>{{ user.FirstName }} {{ user.LastName }}</h1> <i id="certifIcon"
+                        class="fas fa-check-circle"></i>
                 </div>
                 <div class="description">
                     {% set truncatedDescription = user.ProfilDescription[:35] %}
@@ -33,7 +34,37 @@
             </div>
         </a>
         {% endfor %}
-        <a href="/research" class="beautiful-button">Voir d'autres Profils de pro</a>
+        <a href="/research" class="beautiful-button">Découvrir d'autres professionnels</a>
+    </div>
+</div>
+
+<div class="postContainer">
+    <h1>Posts populaires</h1>
+    <div class="allPosts">
+        {% for post in randomPosts %}
+        <a href="postDetails-{{ post.IdPost }}">
+            <div class="post">
+                <div class="user-details">
+                    <img id="icon" src="data:image;base64,{{ post.ProfilPicture }}" alt="icon">
+                    <h1>{{ post.FirstName }} {{ post.LastName }} </h1>
+                    {% if post.IsPro == 1 %}
+                    <i id="certifIcon" class="fas fa-check-circle"></i>
+                    {% endif %}
+                </div>
+                <p id="date">{{ post.RelativeDatePost }}</p>
+                <p id="views">{{ post.Views }} vus</p>
+                <div class="contentPost">
+                    <h2>{{ post.TitlePost }}</h2>
+                    {% set truncatedDescription = post.ContentPost[:50] %}
+                    <p>
+                        {{ truncatedDescription }}
+                        {% if post.ContentPost|length > 50 %}...{% endif %}
+                    </p>
+                </div>
+            </div>
+        </a>
+        {% endfor %}
+        <a href="/allPost" class="beautiful-button">Découvrir d'autres posts</a>
     </div>
 </div>
 {% endblock %}

@@ -40,12 +40,14 @@ class homeController
 
         $this->logOut();
         $userProData = $this->homeModel->get5UserProRandom();
+        $randomPosts = $this->homeModel->get5RandomPostsFromTop10();
 
         echo $this->twig->render('home/home.html.twig', [
             'isConnected' => $isConnected,
             'userId' => $userId,
             'IsAdmin' => $IsAdmin,
-            'userProData' => $userProData
+            'userProData' => $userProData,
+            'randomPosts' => $randomPosts
         ]);
     }
 
