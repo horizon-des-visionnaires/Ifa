@@ -51,19 +51,7 @@ class allPostModel
 
     public function getPost($searchQuery = '')
     {
-        $query = "SELECT Post.IdPost, Post.TitlePost, Post.ContentPost, Post.DatePost, Post.Views,
-              User.IdUser, User.FirstName, User.LastName, User.ProfilPicture, User.IsPro 
-              FROM Post 
-              JOIN User ON Post.IdUser = User.IdUser";
-
-        if ($searchQuery) {
-            $query .= " WHERE Post.TitlePost LIKE :searchQuery 
-                    OR User.FirstName LIKE :searchQuery 
-                    OR User.LastName LIKE :searchQuery";
-        }
-
-        $query .= " ORDER BY Post.DatePost DESC";
-
+        $query = $this->buildQuery($searchQuery);
         $stmt = $this->dsn->prepare($query);
 
         if ($searchQuery) {
@@ -75,55 +63,62 @@ class allPostModel
         $getPostData = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         foreach ($getPostData as &$post) {
-            if (!isset($post['IdUser'])) {
-                echo "Error: IdUser not found in post data. ";
-                continue;
-            }
-
-            if ($post['ProfilPicture'] !== null) {
-                $post['ProfilPicture'] = base64_encode($post['ProfilPicture']);
-            } else {
-                $post['ProfilPicture'] = '';
-            }
-            $post['RelativeDatePost'] = $this->getRelativeTime($post['DatePost']);
-
-            if (!isset($post['IdPost'])) {
-                echo "Error: IdPost not found in post data. ";
-                continue;
-            }
-
-            $stmtPictures = $this->dsn->prepare("SELECT PicturePost FROM PicturePost WHERE IdPost = :IdPost");
-            $stmtPictures->bindParam(':IdPost', $post['IdPost']);
-            $stmtPictures->execute();
-            $pictures = $stmtPictures->fetchAll(PDO::FETCH_COLUMN, 0);
-
-            foreach ($pictures as &$picture) {
-                $picture = base64_encode($picture);
-            }
-            $post['PicturesPost'] = $pictures;
-
-            if (isset($post['IdUser'])) {
-                $post['IsLike'] = $this->getIsLike($post['IdUser'], $post['IdPost']);
-                $post['IsFavorites'] = $this->getIsFavorites($post['IdUser'], $post['IdPost']);
-            } else {
-                $post['IsLike'] = false;
-                $post['IsFavorites'] = false;
-            }
-
-            if (isset($post['IdPost'])) {
-                $stmtLikes = $this->dsn->prepare("SELECT COUNT(*) AS TotalLikes FROM LikeFavorites WHERE IdPost = :IdPost AND IsLike = 1");
-                $stmtLikes->bindParam(':IdPost', $post['IdPost']);
-                $stmtLikes->execute();
-                $totalLikes = $stmtLikes->fetch(PDO::FETCH_ASSOC)['TotalLikes'];
-                $post['TotalLikes'] = $totalLikes;
-            } else {
-                $post['TotalLikes'] = 0;
-            }
+            $this->processPost($post);
         }
 
         return $getPostData;
     }
 
+    private function buildQuery($searchQuery)
+    {
+        $query = "SELECT Post.IdPost, Post.TitlePost, Post.ContentPost, Post.DatePost, Post.Views,
+                  User.IdUser, User.FirstName, User.LastName, User.ProfilPicture, User.IsPro 
+                  FROM Post 
+                  JOIN User ON Post.IdUser = User.IdUser";
+
+        if ($searchQuery) {
+            $query .= " WHERE Post.TitlePost LIKE :searchQuery 
+                        OR User.FirstName LIKE :searchQuery 
+                        OR User.LastName LIKE :searchQuery";
+        }
+
+        $query .= " ORDER BY Post.DatePost DESC";
+
+        return $query;
+    }
+
+    private function processPost(&$post)
+    {
+        $post['ProfilPicture'] = $this->processProfilePicture($post['ProfilPicture']);
+        $post['RelativeDatePost'] = $this->getRelativeTime($post['DatePost']);
+        $post['PicturesPost'] = $this->getPictures($post['IdPost']);
+        $post['IsLike'] = $this->getIsLike($post['IdUser'], $post['IdPost']);
+        $post['IsFavorites'] = $this->getIsFavorites($post['IdUser'], $post['IdPost']);
+        $post['TotalLikes'] = $this->getTotalLikes($post['IdPost']);
+    }
+
+    private function processProfilePicture($picture)
+    {
+        return $picture !== null ? base64_encode($picture) : '';
+    }
+
+    private function getPictures($idPost)
+    {
+        $stmtPictures = $this->dsn->prepare("SELECT PicturePost FROM PicturePost WHERE IdPost = :IdPost");
+        $stmtPictures->bindParam(':IdPost', $idPost);
+        $stmtPictures->execute();
+        $pictures = $stmtPictures->fetchAll(PDO::FETCH_COLUMN, 0);
+
+        return array_map('base64_encode', $pictures);
+    }
+
+    private function getTotalLikes($idPost)
+    {
+        $stmtLikes = $this->dsn->prepare("SELECT COUNT(*) AS TotalLikes FROM LikeFavorites WHERE IdPost = :IdPost AND IsLike = 1");
+        $stmtLikes->bindParam(':IdPost', $idPost);
+        $stmtLikes->execute();
+        return $stmtLikes->fetch(PDO::FETCH_ASSOC)['TotalLikes'];
+    }
 
     private function getRelativeTime($date)
     {
@@ -147,7 +142,6 @@ class allPostModel
             $stmt = $this->dsn->prepare("UPDATE Post SET Views = Views + 1 WHERE IdPost = :IdPost");
             $stmt->bindParam(':IdPost', $idPost);
 
-
             if ($stmt->execute()) {
                 header("Location: /postDetails-$idPost");
                 exit();
@@ -162,19 +156,15 @@ class allPostModel
         try {
             $stmt = $this->dsn->prepare(
                 "SELECT IsLike 
-            FROM LikeFavorites 
-            WHERE IdUser = :IdUser AND IdPost = :IdPost"
+                FROM LikeFavorites 
+                WHERE IdUser = :IdUser AND IdPost = :IdPost"
             );
             $stmt->bindParam(':IdUser', $IdUser, PDO::PARAM_INT);
             $stmt->bindParam(':IdPost', $IdPost, PDO::PARAM_INT);
             $stmt->execute();
             $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
-            if ($result !== false) {
-                return (bool)$result['IsLike'];
-            } else {
-                return false;
-            }
+            return $result !== false ? (bool)$result['IsLike'] : false;
         } catch (PDOException $e) {
             echo "Error: " . $e->getMessage();
             return false;
@@ -186,19 +176,15 @@ class allPostModel
         try {
             $stmt = $this->dsn->prepare(
                 "SELECT IsFavorites 
-            FROM LikeFavorites 
-            WHERE IdUser = :IdUser AND IdPost = :IdPost"
+                FROM LikeFavorites 
+                WHERE IdUser = :IdUser AND IdPost = :IdPost"
             );
             $stmt->bindParam(':IdUser', $IdUser, PDO::PARAM_INT);
             $stmt->bindParam(':IdPost', $IdPost, PDO::PARAM_INT);
             $stmt->execute();
             $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
-            if ($result !== false) {
-                return (bool)$result['IsFavorites'];
-            } else {
-                return false;
-            }
+            return $result !== false ? (bool)$result['IsFavorites'] : false;
         } catch (PDOException $e) {
             echo "Error: " . $e->getMessage();
             return false;
