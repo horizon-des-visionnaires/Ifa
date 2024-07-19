@@ -52,16 +52,17 @@ class allPostModel
     public function getPost($searchQuery = '')
     {
         $query = "SELECT Post.IdPost, Post.TitlePost, Post.ContentPost, Post.DatePost, 
-            User.FirstName, User.LastName, User.ProfilPicture, User.IsPro 
-          FROM Post 
-          JOIN User ON Post.IdUser = User.IdUser
-          ORDER BY Post.DatePost DESC";
+              User.FirstName, User.LastName, User.ProfilPicture, User.IsPro 
+              FROM Post 
+              JOIN User ON Post.IdUser = User.IdUser";
 
         if ($searchQuery) {
             $query .= " WHERE Post.TitlePost LIKE :searchQuery 
-                OR User.FirstName LIKE :searchQuery 
-                OR User.LastName LIKE :searchQuery";
+                    OR User.FirstName LIKE :searchQuery 
+                    OR User.LastName LIKE :searchQuery";
         }
+
+        $query .= " ORDER BY Post.DatePost DESC";
 
         $stmt = $this->dsn->prepare($query);
 
