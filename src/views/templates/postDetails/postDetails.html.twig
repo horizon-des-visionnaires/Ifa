@@ -89,16 +89,19 @@
                             {% endif %}
                         </button>
                     </form>
+
+                    <p class="viewsPost">{{ Post.Views }} views</p>
                 </div>
                 {% else %}
                 <div class="interaction">
                     <button class="heart" disabled>
                         <i class="far fa-heart"></i>
                     </button>
-                    <span class="total-likes2">{{ Post.TotalLikes }} likes</span>
+                    <span class="total-likes3">{{ Post.TotalLikes }} likes</span>
                     <button class="favorite" disabled>
                         <i class="far fa-star"></i>
                     </button>
+                    <p class="viewsPost">{{ Post.Views }} views</p>
                 </div>
                 {% endif %}
             </div>

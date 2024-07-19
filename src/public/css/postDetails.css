@@ -222,6 +222,7 @@ a {
 .interaction {
     display: flex;
     flex-direction: row;
+    padding-top: 1em;
 }
 
 .heart,
@@ -229,6 +230,10 @@ a {
     background-color: transparent;
     border: none;
     cursor: pointer;
+}
+
+.favorite {
+    padding-left: 2em;
 }
 
 .heart:focus,
@@ -260,4 +265,18 @@ a {
 
 .total-likes2 {
     padding-top: 0.3em;
+}
+
+.total-likes3 {
+    padding-top: 0.7em;
+}
+
+span {
+    font-family: 'Montserrat', sans-serif;
+}
+
+.viewsPost {
+    margin-top: 0.7em;
+    font-family: 'Montserrat', sans-serif;
+    padding-left: 13em;
 }
