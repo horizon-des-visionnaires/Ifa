@@ -106,7 +106,8 @@ class profileModel
             "SELECT Post.IdPost, Post.TitlePost, Post.ContentPost, Post.DatePost, User.FirstName, User.LastName, User.ProfilPicture 
             FROM Post 
             JOIN User ON Post.IdUser = User.IdUser
-            WHERE User.IdUser = :id"
+            WHERE User.IdUser = :id
+            ORDER BY Post.DatePost DESC"
         );
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
         $stmt->execute();

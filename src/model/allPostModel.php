@@ -54,7 +54,8 @@ class allPostModel
         $query = "SELECT Post.IdPost, Post.TitlePost, Post.ContentPost, Post.DatePost, 
             User.FirstName, User.LastName, User.ProfilPicture, User.IsPro 
           FROM Post 
-          JOIN User ON Post.IdUser = User.IdUser";
+          JOIN User ON Post.IdUser = User.IdUser
+          ORDER BY Post.DatePost DESC";
 
         if ($searchQuery) {
             $query .= " WHERE Post.TitlePost LIKE :searchQuery 
