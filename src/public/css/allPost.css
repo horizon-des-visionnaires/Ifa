@@ -243,7 +243,7 @@ input[type=file]::file-selector-button {
 .search:focus,
 .search:hover {
     outline: none;
-    border-color: rgba(234, 76, 137, 0.4);
+    border-color: #b0dfb3;
     background-color: #fff;
     box-shadow: 0 0 0 4px rgb(234 76 137 / 10%);
 }
