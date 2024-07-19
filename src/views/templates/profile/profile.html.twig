@@ -5,7 +5,7 @@
 {% block stylesheet %}
 <link href="/../public/css/profile.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
-      crossorigin="anonymous" referrerpolicy="no-referrer" />
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 {% endblock %}
 
@@ -119,7 +119,7 @@
                 {% for i in 0..2 %}
                 {{ contentLines[i] }}<br>
                 {% endfor %}
-            <form action="/" method="post">
+            <form action="/profile-{{ Post.IdUser }}" method="post">
                 <input type="hidden" name="idPost" value="{{ Post.IdPost }}">
                 <button type="submit" name="viewMore" class="viewMore">Voir Plus</button>
             </form>
@@ -128,6 +128,47 @@
         {% for picture in Post.PicturesPost %}
         <img class="icon" src="data:image;base64,{{ picture }}" alt="icon">
         {% endfor %}
+        {% if isConnected %}
+        <div class="interaction">
+            <form action="/profile-{{ Post.IdUser }}" method="post">
+                <input type="hidden" name="AddLike" value="1">
+                <input type="hidden" name="IdPost" value="{{ Post.IdPost }}">
+                <button class="heart {% if Post.IsLike %}active{% endif %}" type="submit">
+                    {% if Post.IsLike %}
+                    <i class="fas fa-heart"></i>
+                    {% else %}
+                    <i class="far fa-heart"></i>
+                    {% endif %}
+                </button>
+                <span class="total-likes">{{ Post.TotalLikes }} likes</span>
+            </form>
+
+            <form action="/profile-{{ Post.IdUser }}" method="post">
+                <input type="hidden" name="AddFavorite" value="1">
+                <input type="hidden" name="IdPost" value="{{ Post.IdPost }}">
+                <button class="favorite {% if Post.IsFavorites %}active{% endif %}" type="submit">
+                    {% if Post.IsFavorites %}
+                    <i class="fas fa-star"></i>
+                    {% else %}
+                    <i class="far fa-star"></i>
+                    {% endif %}
+                </button>
+            </form>
+
+            <p class="viewsPost">{{ Post.Views }} views</p>
+        </div>
+        {% else %}
+        <div class="interaction">
+            <button class="heart" disabled>
+                <i class="far fa-heart"></i>
+            </button>
+            <span class="total-likes3">{{ Post.TotalLikes }} likes</span>
+            <button class="favorite" disabled>
+                <i class="far fa-star"></i>
+            </button>
+            <p class="viewsPost">{{ Post.Views }} views</p>
+        </div>
+        {% endif %}
     </div>
     {% endfor %}
 </div>

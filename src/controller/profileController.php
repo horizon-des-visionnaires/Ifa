@@ -51,6 +51,10 @@ class profileController
         $userPost = $this->profileModel->getUserPosts($id);
         $this->getDeletePostData();
         $this->getRequestPassProData();
+        $this->getDataAddLike();
+        $this->getDataAddFavorite();
+        $this->getAddViewsData();
+
 
         echo $this->twig->render('profile/profile.html.twig', [
             'user' => $user,
@@ -107,6 +111,37 @@ class profileController
             }
 
             $this->profileModel->insertRequestPassProData($Job, $Age, $Description, $idUser, $identityCardRecto, $identityCardVerso);
+        }
+    }
+
+    public function getDataAddLike()
+    {
+        if (isset($_POST['AddLike'])) {
+            if (isset($_SESSION['IdUser'])) {
+                $IdUser = $_SESSION['IdUser'];
+                $IdPost = $_POST['IdPost'];
+                $this->profileModel->LikeData($IdUser, $IdPost);
+            }
+        }
+    }
+
+    public function getDataAddFavorite()
+    {
+        if (isset($_POST['AddFavorite'])) {
+            if (isset($_SESSION['IdUser'])) {
+                $IdUser = $_SESSION['IdUser'];
+                $IdPost = $_POST['IdPost'];
+                $this->profileModel->FavoriteData($IdUser, $IdPost);
+            }
+        }
+    }
+
+    public function getAddViewsData()
+    {
+        if (isset($_POST['viewMore'])) {
+            $idPost = $_POST['idPost'];
+
+            $this->profileModel->updateViews($idPost);
         }
     }
 }

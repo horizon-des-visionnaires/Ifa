@@ -343,3 +343,65 @@ input[type=file]::file-selector-button {
     text-decoration: none;
     cursor: pointer;
 }
+
+.interaction {
+    display: flex;
+    flex-direction: row;
+    padding-top: 1em;
+}
+
+.heart,
+.favorite {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.favorite {
+    padding-left: 2em;
+}
+
+.heart:focus,
+.favorite:focus {
+    outline: none;
+}
+
+.heart i,
+.favorite i {
+    font-size: 24px;
+    color: #000;
+}
+
+.heart.active i.fas {
+    color: red;
+}
+
+.heart:hover i.far {
+    color: red;
+}
+
+.favorite.active i.fas {
+    color: yellow;
+}
+
+.favorite:hover i.far {
+    color: yellow;
+}
+
+.total-likes2 {
+    padding-top: 0.3em;
+}
+
+.total-likes3 {
+    padding-top: 0.7em;
+}
+
+span {
+    font-family: 'Montserrat', sans-serif;
+}
+
+.viewsPost {
+    margin-top: 0.4em;
+    font-family: 'Montserrat', sans-serif;
+    padding-left: 13em;
+}
