@@ -5,6 +5,10 @@
     flex-direction: column-reverse;
 }
 
+.allPostFiltre {
+    margin-left: -15em;
+}
+
 .PostButton {
     margin-top: 5em;
 }
