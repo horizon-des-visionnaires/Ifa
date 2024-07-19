@@ -14,7 +14,34 @@
 
 {% block body %}
 <div class="allPostContainer">
-    <div class="allPostFiltre"></div>
+    <div class="allPostFiltre">
+        <div class="filter-bar">
+            <form action="/allPost" method="get" class="filter-form">
+                <div class="group">
+                    <label for="sortBy">Sort by:</label>
+                    <select name="sortBy" id="sortBy">
+                        <option value="date" {% if sortBy == 'date' %}selected{% endif %}>Date</option>
+                        <option value="likes" {% if sortBy == 'likes' %}selected{% endif %}>Likes</option>
+                        <option value="views" {% if sortBy == 'views' %}selected{% endif %}>Views</option>
+                        <option value="comments" {% if sortBy == 'comments' %}selected{% endif %}>Comments</option>
+                    </select>
+                    
+                    <label for="order">Order:</label>
+                    <select name="order" id="order">
+                        <option value="DESC" {% if order == 'DESC' %}selected{% endif %}>Descending</option>
+                        <option value="ASC" {% if order == 'ASC' %}selected{% endif %}>Ascending</option>
+                    </select>
+                    
+                    <button type="submit">Apply Filters</button>
+                </div>
+            </form>
+            
+            <form action="/allPost" method="get" class="reset-form">
+                <input type="hidden" name="search" value="{{ searchQuery }}">
+                <button type="submit">Reset Filters</button>
+            </form>
+        </div>
+    </div>
     <div class="allPostPost">
         {% for Post in postData %}
         <div class="post">

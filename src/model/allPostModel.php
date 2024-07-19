@@ -49,9 +49,9 @@ class allPostModel
         }
     }
 
-    public function getPost($searchQuery = '')
+    public function getFilteredPosts($searchQuery = '', $sortBy = '', $order = 'DESC')
     {
-        $query = $this->buildQuery($searchQuery);
+        $query = $this->buildQuery($searchQuery, $sortBy, $order);
         $stmt = $this->dsn->prepare($query);
 
         if ($searchQuery) {
@@ -69,20 +69,34 @@ class allPostModel
         return $getPostData;
     }
 
-    private function buildQuery($searchQuery)
+    private function buildQuery($searchQuery, $sortBy, $order)
     {
         $query = "SELECT Post.IdPost, Post.TitlePost, Post.ContentPost, Post.DatePost, Post.Views,
-                  User.IdUser, User.FirstName, User.LastName, User.ProfilPicture, User.IsPro 
-                  FROM Post 
-                  JOIN User ON Post.IdUser = User.IdUser";
+              User.IdUser, User.FirstName, User.LastName, User.ProfilPicture, User.IsPro 
+              FROM Post 
+              JOIN User ON Post.IdUser = User.IdUser";
 
         if ($searchQuery) {
             $query .= " WHERE Post.TitlePost LIKE :searchQuery 
-                        OR User.FirstName LIKE :searchQuery 
-                        OR User.LastName LIKE :searchQuery";
+                    OR User.FirstName LIKE :searchQuery 
+                    OR User.LastName LIKE :searchQuery";
         }
 
-        $query .= " ORDER BY Post.DatePost DESC";
+        switch ($sortBy) {
+            case 'likes':
+                $query .= " ORDER BY (SELECT COUNT(*) FROM LikeFavorites WHERE IdPost = Post.IdPost AND IsLike = 1) $order";
+                break;
+            case 'views':
+                $query .= " ORDER BY Post.Views $order";
+                break;
+            case 'comments':
+                $query .= " ORDER BY (SELECT COUNT(*) FROM Comment WHERE IdPost = Post.IdPost) $order";
+                break;
+            case 'date':
+            default:
+                $query .= " ORDER BY Post.DatePost $order";
+                break;
+        }
 
         return $query;
     }

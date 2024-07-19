@@ -43,7 +43,10 @@ class allPostController
         }
 
         $searchQuery = isset($_GET['search']) ? $_GET['search'] : '';
-        $postData = $this->allPostModel->getPost($searchQuery);
+        $sortBy = isset($_GET['sortBy']) ? $_GET['sortBy'] : '';
+        $order = isset($_GET['order']) ? $_GET['order'] : 'DESC';
+
+        $postData = $this->allPostModel->getFilteredPosts($searchQuery, $sortBy, $order);
         $this->getAddViewsData();
         $this->getDataAddLike();
         $this->getDataAddFavorite();
@@ -53,7 +56,9 @@ class allPostController
             'userId' => $userId,
             'IsAdmin' => $IsAdmin,
             'postData' => $postData,
-            'searchQuery' => $searchQuery
+            'searchQuery' => $searchQuery,
+            'sortBy' => $sortBy,
+            'order' => $order
         ]);
     }
 
