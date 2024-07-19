@@ -4,6 +4,8 @@
 
 {% block stylesheet %}
 <link href="/../public/css/allPost.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+      crossorigin="anonymous" referrerpolicy="no-referrer" />
 {% endblock %}
 
 {% block header %}
@@ -18,7 +20,11 @@
         <div class="post">
             <div class="user-info">
                 <img class="user-picture" src="data:image;base64,{{ Post.ProfilPicture }}" alt="profile picture">
-                <h1>{{ Post.FirstName }} {{ Post.LastName }}</h1>
+                {% if Post.IsPro == 1 %}
+                    <h1>{{ Post.FirstName }} {{ Post.LastName }}</h1> <i id="certifIcon" class="fas fa-check-circle"></i>
+                {% else %}
+                    <h1>{{ Post.FirstName }} {{ Post.LastName }}</h1>
+                {% endif %}
             </div>
             <p class="datePost">{{ Post.RelativeDatePost }}</p>
             <div class="contentPost">

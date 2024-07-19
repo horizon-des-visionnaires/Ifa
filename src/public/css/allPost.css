@@ -200,3 +200,8 @@ input[type=file]::file-selector-button {
     background-color: #80c886;
     border: 2px solid #223f27;
 }
+
+#certifIcon {
+    padding-left: 0.5em;
+    padding-top: 2.5em;
+}

@@ -52,9 +52,10 @@ class allPostModel
     public function getPost()
     {
         $stmt = $this->dsn->prepare(
-            "SELECT Post.IdPost, Post.TitlePost, Post.ContentPost, Post.DatePost, User.FirstName, User.LastName, User.ProfilPicture 
-            FROM Post 
-            JOIN User ON Post.IdUser = User.IdUser"
+            "SELECT Post.IdPost, Post.TitlePost, Post.ContentPost, Post.DatePost, 
+                User.FirstName, User.LastName, User.ProfilPicture, User.IsPro 
+         FROM Post 
+         JOIN User ON Post.IdUser = User.IdUser"
         );
         $stmt->execute();
         $getPostData = $stmt->fetchAll(PDO::FETCH_ASSOC);
