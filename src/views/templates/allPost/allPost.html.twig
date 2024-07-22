@@ -15,32 +15,30 @@
 {% block body %}
 <div class="allPostContainer">
     <div class="allPostFiltre">
-        <div class="filter-bar">
-            <form action="/allPost" method="get" class="filter-form">
-                <div class="group">
-                    <label for="sortBy">Sort by:</label>
-                    <select name="sortBy" id="sortBy">
-                        <option value="date" {% if sortBy == 'date' %}selected{% endif %}>Date</option>
-                        <option value="likes" {% if sortBy == 'likes' %}selected{% endif %}>Likes</option>
-                        <option value="views" {% if sortBy == 'views' %}selected{% endif %}>Views</option>
-                        <option value="comments" {% if sortBy == 'comments' %}selected{% endif %}>Comments</option>
-                    </select>
-                    
-                    <label for="order">Order:</label>
-                    <select name="order" id="order">
-                        <option value="DESC" {% if order == 'DESC' %}selected{% endif %}>Descending</option>
-                        <option value="ASC" {% if order == 'ASC' %}selected{% endif %}>Ascending</option>
-                    </select>
-                    
-                    <button type="submit">Apply Filters</button>
-                </div>
-            </form>
-            
-            <form action="/allPost" method="get" class="reset-form">
-                <input type="hidden" name="search" value="{{ searchQuery }}">
-                <button type="submit">Reset Filters</button>
-            </form>
-        </div>
+        <form action="/allPost" method="get" class="filter-form">
+            <div class="group">
+                <label for="sortBy">Sort by:</label>
+                <select name="sortBy" id="sortBy">
+                    <option value="date" {% if sortBy=='date' %}selected{% endif %}>Date</option>
+                    <option value="likes" {% if sortBy=='likes' %}selected{% endif %}>Likes</option>
+                    <option value="views" {% if sortBy=='views' %}selected{% endif %}>Views</option>
+                    <option value="comments" {% if sortBy=='comments' %}selected{% endif %}>Comments</option>
+                </select>
+
+                <label for="order">Order:</label>
+                <select name="order" id="order">
+                    <option value="DESC" {% if order=='DESC' %}selected{% endif %}>Descending</option>
+                    <option value="ASC" {% if order=='ASC' %}selected{% endif %}>Ascending</option>
+                </select>
+
+                <button type="submit">Apply Filters</button>
+            </div>
+        </form>
+
+        <form action="/allPost" method="get" class="reset-form">
+            <input type="hidden" name="search" value="{{ searchQuery }}">
+            <button type="submit">Reset Filters</button>
+        </form>
     </div>
     <div class="allPostPost">
         {% for Post in postData %}
@@ -71,46 +69,46 @@
             <img class="icon" src="data:image;base64,{{ picture }}" alt="icon">
             {% endfor %}
             {% if isConnected %}
-                <div class="interaction">
-                    <form action="/allPost" method="post">
-                        <input type="hidden" name="AddLike" value="1">
-                        <input type="hidden" name="IdPost" value="{{ Post.IdPost }}">
-                        <button class="heart {% if Post.IsLike %}active{% endif %}" type="submit">
-                            {% if Post.IsLike %}
-                            <i class="fas fa-heart"></i>
-                            {% else %}
-                            <i class="far fa-heart"></i>
-                            {% endif %}
-                        </button>
-                        <span class="total-likes">{{ Post.TotalLikes }} likes</span>
-                    </form>
-
-                    <form action="/allPost" method="post">
-                        <input type="hidden" name="AddFavorite" value="1">
-                        <input type="hidden" name="IdPost" value="{{ Post.IdPost }}">
-                        <button class="favorite {% if Post.IsFavorites %}active{% endif %}" type="submit">
-                            {% if Post.IsFavorites %}
-                            <i class="fas fa-star"></i>
-                            {% else %}
-                            <i class="far fa-star"></i>
-                            {% endif %}
-                        </button>
-                    </form>
-
-                    <p class="viewsPost">{{ Post.Views }} views</p>
-                </div>
-                {% else %}
-                <div class="interaction">
-                    <button class="heart" disabled>
+            <div class="interaction">
+                <form action="/allPost" method="post">
+                    <input type="hidden" name="AddLike" value="1">
+                    <input type="hidden" name="IdPost" value="{{ Post.IdPost }}">
+                    <button class="heart {% if Post.IsLike %}active{% endif %}" type="submit">
+                        {% if Post.IsLike %}
+                        <i class="fas fa-heart"></i>
+                        {% else %}
                         <i class="far fa-heart"></i>
+                        {% endif %}
                     </button>
-                    <span class="total-likes3">{{ Post.TotalLikes }} likes</span>
-                    <button class="favorite" disabled>
+                    <span class="total-likes">{{ Post.TotalLikes }} likes</span>
+                </form>
+
+                <form action="/allPost" method="post">
+                    <input type="hidden" name="AddFavorite" value="1">
+                    <input type="hidden" name="IdPost" value="{{ Post.IdPost }}">
+                    <button class="favorite {% if Post.IsFavorites %}active{% endif %}" type="submit">
+                        {% if Post.IsFavorites %}
+                        <i class="fas fa-star"></i>
+                        {% else %}
                         <i class="far fa-star"></i>
+                        {% endif %}
                     </button>
-                    <p class="viewsPost">{{ Post.Views }} views</p>
-                </div>
-                {% endif %}
+                </form>
+
+                <p class="viewsPost">{{ Post.Views }} views</p>
+            </div>
+            {% else %}
+            <div class="interaction">
+                <button class="heart" disabled>
+                    <i class="far fa-heart"></i>
+                </button>
+                <span class="total-likes3">{{ Post.TotalLikes }} likes</span>
+                <button class="favorite" disabled>
+                    <i class="far fa-star"></i>
+                </button>
+                <p class="viewsPost">{{ Post.Views }} views</p>
+            </div>
+            {% endif %}
         </div>
         {% endfor %}
     </div>
@@ -130,7 +128,8 @@
                             </path>
                         </g>
                     </svg>
-                    <input placeholder="Cherchez un nom, un titre" type="search" value="{{ searchQuery }}" class="search" name="search">
+                    <input placeholder="Cherchez un nom, un titre" type="search" value="{{ searchQuery }}"
+                        class="search" name="search">
                 </div>
             </form>
         </div>
