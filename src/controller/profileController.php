@@ -55,13 +55,16 @@ class profileController
         $this->getDataAddFavorite();
         $this->getAddViewsData();
 
+        $postFav = $this->profileModel->getUserFavorites($id);
+
 
         echo $this->twig->render('profile/profile.html.twig', [
             'user' => $user,
             'isConnected' => $isConnected,
             'userId' => $userId,
             'IsAdmin' => $IsAdmin,
-            'userPost' => $userPost
+            'userPost' => $userPost,
+            'postFav' => $postFav
         ]);
     }
 

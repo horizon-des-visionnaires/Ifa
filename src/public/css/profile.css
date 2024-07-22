@@ -240,11 +240,16 @@ input[type=file]::file-selector-button {
     padding-bottom: 0.5em;
 }
 
-.homePost {
+.button-container {
+    margin-left: 38em;
+}
+
+.profilPost, .profilFavorites{
     width: 32em;
-    height: 30em;
+    height: auto;
     margin-top: 3em;
     margin-left: 33em;
+    margin-bottom: 3em;
 }
 
 .post {

@@ -196,7 +196,7 @@ class profileModel
         }
     }
 
-    public function insertRequestPassProData($Job, $Age, $Description, $idUser ,$identityCardRecto = null, $identityCardVerso = null)
+    public function insertRequestPassProData($Job, $Age, $Description, $idUser, $identityCardRecto = null, $identityCardVerso = null)
     {
         try {
             $this->dsn->beginTransaction();
@@ -350,5 +350,50 @@ class profileModel
         } catch (PDOException $e) {
             echo "Error: " . $e->getMessage();
         }
+    }
+
+    public function getUserFavorites($id)
+    {
+        $stmt = $this->dsn->prepare(
+            "SELECT Post.IdPost, Post.TitlePost, Post.ContentPost, Post.DatePost, Post.Views, Post.IdUser, User.FirstName, User.LastName, User.ProfilPicture 
+        FROM Post 
+        JOIN User ON Post.IdUser = User.IdUser
+        JOIN LikeFavorites ON Post.IdPost = LikeFavorites.IdPost
+        WHERE LikeFavorites.IdUser = :id AND LikeFavorites.IsFavorites = 1
+        ORDER BY Post.DatePost DESC"
+        );
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        $stmt->execute();
+        $getFavPostData = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        foreach ($getFavPostData as &$postFav) {
+            if ($postFav['ProfilPicture'] !== null) {
+                $postFav['ProfilPicture'] = base64_encode($postFav['ProfilPicture']);
+            } else {
+                $postFav['ProfilPicture'] = '';
+            }
+            $postFav['RelativeDatePost'] = $this->getRelativeTime($postFav['DatePost']);
+
+            $stmtPictures = $this->dsn->prepare("SELECT PicturePost FROM PicturePost WHERE IdPost = :IdPost");
+            $stmtPictures->bindParam(':IdPost', $postFav['IdPost']);
+            $stmtPictures->execute();
+            $pictures = $stmtPictures->fetchAll(PDO::FETCH_COLUMN, 0);
+
+            foreach ($pictures as &$picture) {
+                $picture = base64_encode($picture);
+            }
+            $postFav['PicturesPost'] = $pictures;
+
+            $postFav['IsLike'] = $this->getIsLike($postFav['IdUser'], $postFav['IdPost']);
+            $postFav['IsFavorites'] = true;
+
+            $stmtLikes = $this->dsn->prepare("SELECT COUNT(*) AS TotalLikes FROM LikeFavorites WHERE IdPost = :IdPost AND IsLike = 1");
+            $stmtLikes->bindParam(':IdPost', $postFav['IdPost']);
+            $stmtLikes->execute();
+            $totalLikes = $stmtLikes->fetch(PDO::FETCH_ASSOC)['TotalLikes'];
+            $postFav['TotalLikes'] = $totalLikes;
+        }
+
+        return $getFavPostData;
     }
 }
