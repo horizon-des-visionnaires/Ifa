@@ -7,6 +7,7 @@ require_once __DIR__ . '/controller/postDetailsController.php';
 require_once __DIR__ . '/controller/dashboardController.php';
 require_once __DIR__ . '/controller/allPostController.php';
 require_once __DIR__ . '/controller/researchController.php';
+require_once __DIR__ . '/controller/adviceController.php';
 
 
 require_once __DIR__ . '/database/createDatabase.php';
@@ -18,6 +19,7 @@ $routes = [
   '/dashboard' => ['controller' => 'dashboard\dashboardController', 'method' => 'dashboard'],
   '/allPost' => ['controller' => 'allPost\allPostController', 'method' => 'allPost'],
   '/research' => ['controller' => 'research\researchContoller', 'method' => 'research'],
+  '/advice' => ['controller' => 'advice\adviceController', 'method' => 'advice'],
 ];
 
 $requestParts = explode('?', $_SERVER['REQUEST_URI'], 2);
