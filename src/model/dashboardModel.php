@@ -88,4 +88,39 @@ class dashboardModel
             echo "Erreur : " . $e->getMessage();
         }
     }
+
+    public function getRequestPassProById($IdRequest)
+    {
+        try {
+            $stmt = $this->dsn->prepare("
+                SELECT 
+                    rp.*, 
+                    u.FirstName, 
+                    u.LastName,
+                    u.Email
+                FROM 
+                    RequestPassPro rp
+                LEFT JOIN 
+                    User u 
+                ON 
+                    rp.IdUser = u.IdUser
+                WHERE 
+                    rp.IdRequest = :IdRequest
+            ");
+            $stmt->execute([':IdRequest' => $IdRequest]);
+            $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            if (!is_null($row['IdentityCardRecto'])) {
+                $row['IdentityCardRecto'] = base64_encode($row['IdentityCardRecto']);
+            }
+            if (!is_null($row['IdentityCardVerso'])) {
+                $row['IdentityCardVerso'] = base64_encode($row['IdentityCardVerso']);
+            }
+
+            return $row;
+        } catch (PDOException $e) {
+            $error = "error: " . $e->getMessage();
+            echo $error;
+        }
+    }
 }

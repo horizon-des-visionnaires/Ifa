@@ -48,6 +48,12 @@
                     <button name="requestInvalid" type="submit" id="inputField2">Refuser la demande</button>
                 </form>
             </div>
+            <form action="/dashboard" method="post">
+                <input type="hidden" name="IdRequest" value="{{ RequestPassPro.IdRequest }}">
+                <input type="hidden" name="downloadPDF" value="1">
+                <button type="submit" id="inputField2">Télécharger la demande au format PDF</button>
+            </form>
+            
         </div>
     </div>
     {% endfor %}
