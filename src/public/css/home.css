@@ -1,11 +1,24 @@
-.ProfilContainer,
+.title h1 {
+    font-family: 'Open Sans', sans-serif;
+    text-align: center;
+    margin-top: 1em;
+    font-size: 7em;
+}
+
+.ProfilContainer {
+    padding-left: 2em;
+    padding-right: 2em;
+    margin-top: 8em;
+}
+
 .postContainer {
     margin-top: 8em;
     padding-left: 2em;
     padding-right: 2em;
 }
 
-h1 {
+.ProfilContainer h1,
+.postContainer h1 {
     font-family: 'Open Sans', sans-serif;
     text-align: center;
 }
