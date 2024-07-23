@@ -38,14 +38,11 @@
 }
 
 .email p,
-.job p {
+.job p,
+.adresse p {
     padding-right: 2em;
     font-size: 1.5em;
     font-family: 'Open Sans', sans-serif;
-}
-
-.email p,
-.job p {
     margin-top: -0.5em;
 }
 

@@ -89,10 +89,11 @@ $createTableRequestPassPro = ("CREATE TABLE IF NOT EXISTS
     `UserJob` varchar(255) DEFAULT NULL,
     `UserAge` int(11) DEFAULT NULL,
     `Description` TEXT DEFAULT NULL,
-    `UserPicture` LONGBLOB DEFAULT NULL,
     `IdentityCardRecto` LONGBLOB DEFAULT NULL,
     `IdentityCardVerso` LONGBLOB DEFAULT NULL,
     `IsRequestValid` tinyint(1) DEFAULT '0',
+    `UserPicture` LONGBLOB DEFAULT NULL,
+    `UserAdress` varchar(255) DEFAULT NULL,
     PRIMARY KEY (`IdRequest`),
     CONSTRAINT fk_IdUser_RequestPassPro FOREIGN KEY (`IdUser`) REFERENCES User (`IdUser`)
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 DEFAULT CHARSET = latin1");

@@ -117,6 +117,7 @@ class dashboardController
         $html .= '<p><strong>Âge :</strong> ' . $requestPassProData['UserAge'] . '</p>';
         $html .= '<p><strong>Métier :</strong> ' . $requestPassProData['UserJob'] . '</p>';
         $html .= '<p><strong>Email :</strong> ' . $requestPassProData['Email'] . '</p>';
+        $html .= '<p><strong>Adresse :</strong> ' . $requestPassProData['UserAdress'] . '</p>';
         $html .= '<p><strong>Description :</strong> ' . $requestPassProData['Description'] . '</p>';
         $pdf->writeHTML($html, true, false, true, false, '');
 
