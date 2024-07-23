@@ -17,27 +17,32 @@
     <div class="allPostFiltre">
         <form action="/allPost" method="get" class="filter-form">
             <div class="group">
-                <label for="sortBy">Sort by:</label>
-                <select name="sortBy" id="sortBy">
-                    <option value="date" {% if sortBy=='date' %}selected{% endif %}>Date</option>
-                    <option value="likes" {% if sortBy=='likes' %}selected{% endif %}>Likes</option>
-                    <option value="views" {% if sortBy=='views' %}selected{% endif %}>Views</option>
-                    <option value="comments" {% if sortBy=='comments' %}selected{% endif %}>Comments</option>
-                </select>
+                <div class="groupe1">
+                    <label for="sortBy">Filtrer par :</label>
+                    <select name="sortBy" id="sortBy">
+                        <option value="" disabled {% if not sortBy %}selected{% endif %}>Choisissez un critère</option>
+                        <option value="date" {% if sortBy=='date' %}selected{% endif %}>Date</option>
+                        <option value="likes" {% if sortBy=='likes' %}selected{% endif %}>Nombre de likes</option>
+                        <option value="views" {% if sortBy=='views' %}selected{% endif %}>Nombre de vues</option>
+                        <option value="comments" {% if sortBy=='comments' %}selected{% endif %}>Nombre de commentaires
+                        </option>
+                    </select>
+                </div>
 
-                <label for="order">Order:</label>
-                <select name="order" id="order">
-                    <option value="DESC" {% if order=='DESC' %}selected{% endif %}>Descending</option>
-                    <option value="ASC" {% if order=='ASC' %}selected{% endif %}>Ascending</option>
-                </select>
-
-                <button type="submit">Apply Filters</button>
+                <div class="groupe2">
+                    <label for="order">Ordre :</label>
+                    <select name="order" id="order">
+                        <option value="DESC" {% if order=='DESC' %}selected{% endif %}>Les plus récents en premier</option>
+                        <option value="ASC" {% if order=='ASC' %}selected{% endif %}>Les plus anciens en premier</option>
+                    </select>
+                </div>
             </div>
+            <button type="submit">Appliquer les filtres</button>
         </form>
 
         <form action="/allPost" method="get" class="reset-form">
             <input type="hidden" name="search" value="{{ searchQuery }}">
-            <button type="submit">Reset Filters</button>
+            <button type="submit">Réinitialiser les filtres</button>
         </form>
     </div>
     <div class="allPostPost">
@@ -120,7 +125,7 @@
         {% endif %}
         <div class="searchBar">
             <form action="/allPost" method="get" class="search-form">
-                <div class="group">
+                <div class="group-search">
                     <svg class="iconSearch" aria-hidden="true" viewBox="0 0 24 24">
                         <g>
                             <path
@@ -157,4 +162,5 @@
 
 {% block scripts %}
 <script src="/../public/js/modalUser.js"></script>
+<script src="/../public/js/filterText.js"></script>
 {% endblock %}

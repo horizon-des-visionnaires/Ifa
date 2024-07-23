@@ -219,7 +219,7 @@ input[type=file]::file-selector-button {
     padding-top: 2.5em;
 }
 
-.group {
+.group-search {
     display: flex;
     line-height: 28px;
     align-items: center;
@@ -321,4 +321,9 @@ span {
     margin-top: 0.4em;
     font-family: 'Montserrat', sans-serif;
     padding-left: 13em;
+}
+
+.group {
+    display: flex;
+    flex-direction: column;
 }
