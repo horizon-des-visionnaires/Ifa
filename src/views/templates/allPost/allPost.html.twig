@@ -45,6 +45,7 @@
             <button type="submit">Réinitialiser les filtres</button>
         </form>
     </div>
+
     <div class="allPostPost">
         {% for Post in postData %}
         <div class="post">
@@ -100,7 +101,7 @@
                     </button>
                 </form>
 
-                <p class="viewsPost">{{ Post.Views }} views</p>
+                <p class="viewsPost">{{ Post.Views }} vues</p>
             </div>
             {% else %}
             <div class="interaction">
@@ -111,7 +112,7 @@
                 <button class="favorite" disabled>
                     <i class="far fa-star"></i>
                 </button>
-                <p class="viewsPost">{{ Post.Views }} views</p>
+                <p class="viewsPost">{{ Post.Views }} vues</p>
             </div>
             {% endif %}
         </div>
@@ -120,7 +121,7 @@
     <div class="search-add">
         {% if isConnected %}
         <div class="PostButton">
-            <button id="openModalButton" class="boton-elegante">Add Post</button>
+            <button id="openModalButton" class="boton-elegante">Ajouter un Post</button>
         </div>
         {% endif %}
         <div class="searchBar">
@@ -145,14 +146,14 @@
     <div class="modal-content">
         <span class="close">&times;</span>
         <form action="/allPost" method="post" id="formAddPost" enctype="multipart/form-data">
-            <input type="text" name="TitlePost" placeholder="TitlePost" class="inputField" required>
+            <input type="text" name="TitlePost" placeholder="Titre du post (sujet/thème)" class="inputField" required>
 
-            <textarea name="ContentPost" placeholder="ContentPost" class="inputFieldDesc" required></textarea>
+            <textarea name="ContentPost" placeholder="Contenue du post" class="inputFieldDesc" required></textarea>
 
             <input type="file" id="images" name="PicturePost[]" multiple accept="image/*"
                 onchange="validateFiles(this)">
 
-            <button type="submit" name="addPost" class="inputField2">Add Post</button>
+            <button type="submit" name="addPost" class="inputField2">Poster</button>
         </form>
     </div>
 </div>

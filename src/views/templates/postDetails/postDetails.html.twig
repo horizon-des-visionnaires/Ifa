@@ -90,7 +90,7 @@
                         </button>
                     </form>
 
-                    <p class="viewsPost">{{ Post.Views }} views</p>
+                    <p class="viewsPost">{{ Post.Views }} vues</p>
                 </div>
                 {% else %}
                 <div class="interaction">
@@ -101,7 +101,7 @@
                     <button class="favorite" disabled>
                         <i class="far fa-star"></i>
                     </button>
-                    <p class="viewsPost">{{ Post.Views }} views</p>
+                    <p class="viewsPost">{{ Post.Views }} vues</p>
                 </div>
                 {% endif %}
             </div>
@@ -109,63 +109,61 @@
         </div>
     </div>
 
-    <div class="commmentContainer">
-        {% if isConnected %}
-        <div class="CommentButton">
-            <button id="openModalButton" class="boton-elegante">Add Comment</button>
-        </div>
-        {% endif %}
+    {% if isConnected %}
+    <div class="CommentButton">
+        <button id="openModalButton" class="boton-elegante">Ajouter un Commentaire</button>
+    </div>
+    {% endif %}
 
-        {% for Post in postData %}
-        <div id="profileModal" class="modal">
-            <div class="modal-content">
-                <span class="close">&times;</span>
-                <form action="/postDetails-{{ Post.IdPost }}" method="post" id="formAddComment"
-                    enctype="multipart/form-data">
-                    <textarea name="ContentComment" placeholder="ContentComment" class="inputFieldDesc"
-                        required></textarea>
-                    <input type="hidden" name="IdUser" value="{{ userId }}">
-                    <button type="submit" name="addComment" class="inputField2">Add Comment</button>
+    {% for Post in postData %}
+    <div id="profileModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <form action="/postDetails-{{ Post.IdPost }}" method="post" id="formAddComment"
+                enctype="multipart/form-data">
+                <textarea name="ContentComment" placeholder="Contenue du commentaires" class="inputFieldDesc"
+                    required></textarea>
+                <input type="hidden" name="IdUser" value="{{ userId }}">
+                <button type="submit" name="addComment" class="inputField2">Commenter</button>
+            </form>
+        </div>
+    </div>
+    {% endfor %}
+
+    <div class="commentContainer">
+        {% for Comment in commentsData %}
+        <div class="comment">
+            <div class="user-info">
+                <a href="/profile-{{ Comment.IdUser }}">
+                    <img class="user-picture" src="data:image;base64,{{ Comment.ProfilPicture }}" alt="profile picture">
+                    {% if Comment.IsPro == 1 %}
+                    <h1>{{ Comment.FirstName }} {{ Comment.LastName }}</h1> <i id="certifIcon"
+                        class="fas fa-check-circle"></i>
+                    {% else %}
+                    <h1>{{ Comment.FirstName }} {{ Comment.LastName }}</h1>
+                    {% endif %}
+                </a>
+                {% if isConnected and userId == Comment.IdUser%}
+                {% for Post in postData %}
+                <form action="/postDetails-{{ Post.IdPost }}" method="post" class="formDeletePostComment">
+                    <button type="submit" name="deletePostComment" id="deleteButton">
+                        <input type="hidden" name="idComment" value="{{ Comment.IdComment }}">
+                        <input type="hidden" name="idPost" value="{{ Post.IdPost }}">
+                        <div class="hover-text">
+                            <img src="/../public/image/bin.png" id="deleteImage">
+                        </div>
+                    </button>
                 </form>
+                {% endfor %}
+                {% endif %}
+
+            </div>
+            <p class="dateComment">{{ Comment.RelativeDateComment }}</p>
+            <div class="contentComment">
+                <p>{{ Comment.ContentComment | nl2br }}</p>
             </div>
         </div>
         {% endfor %}
-
-        <div class="commentContainer">
-            {% for Comment in commentsData %}
-            <div class="comment">
-                <div class="user-info">
-                    <a href="/profile-{{ Comment.IdUser }}">
-                        <img class="user-picture" src="data:image;base64,{{ Comment.ProfilPicture }}"
-                            alt="profile picture">
-                        {% if Comment.IsPro == 1 %}
-                        <h1>{{ Comment.FirstName  }} {{ Comment.LastName }}</h1> <i id="certifIcon" class="fas fa-check-circle"></i>
-                        {% else %}
-                        <h1>{{ Comment.FirstName  }} {{ Comment.LastName }}</h1>
-                        {% endif %}
-                    </a>
-                    {% if isConnected and userId == Comment.IdUser%}
-                    {% for Post in postData %}
-                    <form action="/postDetails-{{ Post.IdPost }}" method="post" class="formDeletePostComment">
-                        <button type="submit" name="deletePostComment" id="deleteButton">
-                            <input type="hidden" name="idComment" value="{{ Comment.IdComment }}">
-                            <input type="hidden" name="idPost" value="{{ Post.IdPost }}">
-                            <div class="hover-text">
-                                <img src="/../public/image/bin.png" id="deleteImage">
-                            </div>
-                        </button>
-                    </form>
-                    {% endfor %}
-                    {% endif %}
-
-                </div>
-                <p class="dateComment">{{ Comment.RelativeDateComment }}</p>
-                <div class="contentComment">
-                    <p>{{ Comment.ContentComment | nl2br }}</p>
-                </div>
-            </div>
-            {% endfor %}
-        </div>
     </div>
 </div>
 

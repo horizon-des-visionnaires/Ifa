@@ -10,6 +10,10 @@
     margin-top: 10em;
 }
 
+.post {
+    position: fixed;
+}
+
 .post,
 .comment,
 .avis {
@@ -199,9 +203,9 @@ a {
 }
 
 .CommentButton {
-    margin-top: 6em;
-    padding-left: 9.5em;
-    margin-bottom: -8em;
+    margin-top: 35em;
+    padding-right: 52em;
+    position: fixed;
 }
 
 .formDeletePost,
