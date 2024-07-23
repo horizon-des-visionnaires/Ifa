@@ -34,7 +34,7 @@ ul {
 nav li {
     display: flex;
     align-items: center;
-    margin-left: 5em;
+    margin-left: 4em;
 }
 
 .item,
