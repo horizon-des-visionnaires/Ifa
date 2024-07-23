@@ -146,4 +146,35 @@ class dashboardModel
             echo "Erreur : " . $e->getMessage();
         }
     }
+
+    public function requestInvalid($IdRequest, $rejectReason)
+    {
+        try {
+            $this->dsn->beginTransaction();
+
+            // Mettre à jour la demande comme invalidée
+            $updateRequestQuery = "UPDATE RequestPassPro SET IsRequestValid = -1 WHERE IdRequest = :IdRequest";
+            $stmt = $this->dsn->prepare($updateRequestQuery);
+            $stmt->execute([':IdRequest' => $IdRequest]);
+
+            // Obtenir l'ID utilisateur associé à la demande
+            $getUserIdQuery = "SELECT IdUser FROM RequestPassPro WHERE IdRequest = :IdRequest";
+            $stmt = $this->dsn->prepare($getUserIdQuery);
+            $stmt->execute([':IdRequest' => $IdRequest]);
+            $IdUser = $stmt->fetchColumn();
+
+            if ($IdUser) {
+                // Ajouter le message de rejet pour l'utilisateur
+                $this->addUserMessage($IdUser, "Désolé, votre demande pour être pro a été refusée. Raison : " . $rejectReason);
+            }
+
+            $this->dsn->commit();
+
+            header("Location: /dashboard");
+            exit();
+        } catch (PDOException $e) {
+            $this->dsn->rollBack();
+            echo "Erreur : " . $e->getMessage();
+        }
+    }
 }

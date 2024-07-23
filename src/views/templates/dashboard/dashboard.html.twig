@@ -53,6 +53,7 @@
             <div class="buttonInvalid">
                 <form action="/dashboard" method="post">
                     <input type="hidden" name="IdRequest" value="{{ RequestPassPro.IdRequest }}">
+                    <textarea name="rejectReason" placeholder="Raison du refus" rows="3" cols="30"></textarea>
                     <button name="requestInvalid" type="submit" id="inputField2">Refuser la demande</button>
                 </form>
             </div>

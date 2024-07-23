@@ -55,6 +55,12 @@ class dashboardController
             $IdRequest = $_POST['IdRequest'];
             $this->dashboardModel->requestValid($IdRequest);
         }
+    
+        if (isset($_POST['requestInvalid'])) {
+            $IdRequest = $_POST['IdRequest'];
+            $rejectReason = $_POST['rejectReason'];
+            $this->dashboardModel->requestInvalid($IdRequest, $rejectReason);
+        }
 
         $requestPassProData = $this->dashboardModel->getAllRequestPassPro();
 
