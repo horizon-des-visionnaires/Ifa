@@ -105,6 +105,7 @@ class profileController
 
             $identityCardRecto = null;
             $identityCardVerso = null;
+            $UserPicture = null;
 
             if (isset($_FILES["identityCardRecto"]) && $_FILES["identityCardRecto"]["error"] == UPLOAD_ERR_OK) {
                 $identityCardRecto = file_get_contents($_FILES["identityCardRecto"]["tmp_name"]);
@@ -112,8 +113,11 @@ class profileController
             if (isset($_FILES["identityCardVerso"]) && $_FILES["identityCardVerso"]["error"] == UPLOAD_ERR_OK) {
                 $identityCardVerso = file_get_contents($_FILES["identityCardVerso"]["tmp_name"]);
             }
+            if (isset($_FILES["UserPicture"]) && $_FILES["UserPicture"]["error"] == UPLOAD_ERR_OK) {
+                $UserPicture = file_get_contents($_FILES["UserPicture"]["tmp_name"]);
+            }
 
-            $this->profileModel->insertRequestPassProData($Job, $Age, $Description, $idUser, $identityCardRecto, $identityCardVerso);
+            $this->profileModel->insertRequestPassProData($Job, $Age, $Description, $idUser, $identityCardRecto, $identityCardVerso, $UserPicture);
         }
     }
 

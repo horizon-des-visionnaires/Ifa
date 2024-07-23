@@ -89,6 +89,7 @@ $createTableRequestPassPro = ("CREATE TABLE IF NOT EXISTS
     `UserJob` varchar(255) DEFAULT NULL,
     `UserAge` int(11) DEFAULT NULL,
     `Description` TEXT DEFAULT NULL,
+    `UserPicture` LONGBLOB DEFAULT NULL,
     `IdentityCardRecto` LONGBLOB DEFAULT NULL,
     `IdentityCardVerso` LONGBLOB DEFAULT NULL,
     `IsRequestValid` tinyint(1) DEFAULT '0',

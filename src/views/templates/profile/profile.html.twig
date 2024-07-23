@@ -81,6 +81,10 @@
             <input type="file" id="images" name="identityCardVerso" accept="image/*" aria-label="Carte d'identité recto"
                 required />
 
+            <label for="images" id="labelText">Photo d'identité :</label>
+            <input type="file" id="images" name="UserPicture" accept="image/*" aria-label="Photo d'identité"
+                required />
+
             <input type="hidden" name="idUser" value="{{ user.IdUser }}">
 
             <button type="submit" name="pushRequest" id="inputField2">envoyer la demande</button>

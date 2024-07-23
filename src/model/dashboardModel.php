@@ -49,6 +49,9 @@ class dashboardModel
                 if (!is_null($row['IdentityCardVerso'])) {
                     $row['IdentityCardVerso'] = base64_encode($row['IdentityCardVerso']);
                 }
+                if (!is_null($row['UserPicture'])) {
+                    $row['UserPicture'] = base64_encode($row['UserPicture']);
+                }
             }
 
             return $results;
@@ -115,6 +118,9 @@ class dashboardModel
             }
             if (!is_null($row['IdentityCardVerso'])) {
                 $row['IdentityCardVerso'] = base64_encode($row['IdentityCardVerso']);
+            }
+            if (!is_null($row['UserPicture'])) {
+                $row['UserPicture'] = base64_encode($row['UserPicture']);
             }
 
             return $row;
