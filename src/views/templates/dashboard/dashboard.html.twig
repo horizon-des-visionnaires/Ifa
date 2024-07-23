@@ -13,10 +13,12 @@
 {% block body %}
 <div class="requestContainer">
     {% for RequestPassPro in requestPassProData %}
+    {% set requestId = RequestPassPro.IdRequest %}
     <div class="request">
         <div class="infoUser">
             <div class="name">
-                <img class="icon2" src="data:image;base64,{{ RequestPassPro.UserPicture }}" alt="icon" onclick="openModal(this)">
+                <img class="icon2" src="data:image;base64,{{ RequestPassPro.UserPicture }}" alt="icon"
+                    onclick="openModal(this)">
                 <h1>{{ RequestPassPro.FirstName }}</h1>
                 <h1>{{ RequestPassPro.LastName }}</h1>
                 <p>{{ RequestPassPro.UserAge }} ans</p>
@@ -33,8 +35,10 @@
             <p>{{ RequestPassPro.Description | nl2br }}</p>
         </div>
         <div class="identityCard">
-            <img class="icon" src="data:image;base64,{{ RequestPassPro.IdentityCardRecto }}" alt="icon" onclick="openModal(this)">
-            <img class="icon" src="data:image;base64,{{ RequestPassPro.IdentityCardVerso }}" alt="icon" onclick="openModal(this)">
+            <img class="icon" src="data:image;base64,{{ RequestPassPro.IdentityCardRecto }}" alt="icon"
+                onclick="openModal(this)">
+            <img class="icon" src="data:image;base64,{{ RequestPassPro.IdentityCardVerso }}" alt="icon"
+                onclick="openModal(this)">
         </div>
         <div class="button">
             <div class="buttonValid">
@@ -50,11 +54,10 @@
                 </form>
             </div>
             <form action="/dashboard" method="post">
-                <input type="hidden" name="IdRequest" value="{{ RequestPassPro.IdRequest }}">
-                <input type="hidden" name="downloadPDF" value="1">
-                <button type="submit" id="inputField2">Télécharger la demande au format PDF</button>
+                <input type="hidden" name="IdRequest" value="{{ requestId }}">
+                <button type="submit" name="downloadImages" id="inputField2">Télécharger les Images</button>
+                <button type="submit" name="downloadInfoPDF" id="inputField2">Télécharger le PDF</button>
             </form>
-            
         </div>
     </div>
     {% endfor %}

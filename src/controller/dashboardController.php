@@ -5,6 +5,7 @@ namespace dashboard;
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
 use TCPDF;
+use ZipArchive;
 
 require 'vendor/autoload.php';
 require 'vendor/tecnickcom/tcpdf/tcpdf.php';
@@ -45,8 +46,13 @@ class dashboardController
             exit();
         }
 
-        if (isset($_POST['downloadPDF'])) {
-            $this->downloadRequestAsPDF($_POST['IdRequest']);
+        if (isset($_POST['downloadImages'])) {
+            $this->downloadImages($_POST['IdRequest']);
+            return;
+        }
+
+        if (isset($_POST['downloadInfoPDF'])) {
+            $this->downloadRequestInfoAsPDF($_POST['IdRequest']);
             return;
         }
 
@@ -65,7 +71,7 @@ class dashboardController
         ]);
     }
 
-    public function downloadRequestAsPDF($IdRequest)
+    public function downloadRequestInfoAsPDF($IdRequest)
     {
         $requestPassProData = $this->dashboardModel->getRequestPassProById($IdRequest);
         if (!$requestPassProData) {
@@ -99,6 +105,48 @@ class dashboardController
         $filename = 'Demande_pour_passez_pro_de_' . $firstName . '_' . $lastName . '.pdf';
 
         $pdf->Output($filename, 'D');
+        exit();
+    }
+
+    public function downloadImages($IdRequest)
+    {
+        $requestPassProData = $this->dashboardModel->getRequestPassProById($IdRequest);
+        if (!$requestPassProData) {
+            http_response_code(404);
+            echo "Request not found";
+            exit();
+        }
+
+        $zip = new ZipArchive();
+        $filename = "Images_$IdRequest.zip";
+
+        // Création de l'archive ZIP en mémoire
+        if ($zip->open($filename, ZipArchive::CREATE) !== TRUE) {
+            exit("Impossible d'ouvrir l'archive ZIP.");
+        }
+
+        // Ajouter les images à l'archive ZIP
+        if (!empty($requestPassProData['IdentityCardRecto'])) {
+            $zip->addFromString('IdentityCardRecto.png', base64_decode($requestPassProData['IdentityCardRecto']));
+        }
+
+        if (!empty($requestPassProData['IdentityCardVerso'])) {
+            $zip->addFromString('IdentityCardVerso.png', base64_decode($requestPassProData['IdentityCardVerso']));
+        }
+
+        if (!empty($requestPassProData['UserPicture'])) {
+            $zip->addFromString('UserPicture.png', base64_decode($requestPassProData['UserPicture']));
+        }
+
+        $zip->close();
+
+        header('Content-Type: application/zip');
+        header('Content-Disposition: attachment; filename="' . basename($filename) . '"');
+        header('Content-Length: ' . filesize($filename));
+        readfile($filename);
+
+        unlink($filename);
+
         exit();
     }
 }
