@@ -56,6 +56,9 @@ class profileController
         $this->getAddViewsData();
 
         $postFav = $this->profileModel->getUserFavorites($id);
+        $messages = $this->profileModel->getUserMessages($id);
+
+        $this->profileModel->cleanupOldData();
 
 
         echo $this->twig->render('profile/profile.html.twig', [
@@ -64,7 +67,8 @@ class profileController
             'userId' => $userId,
             'IsAdmin' => $IsAdmin,
             'userPost' => $userPost,
-            'postFav' => $postFav
+            'postFav' => $postFav,
+            'messages' => $messages
         ]);
     }
 

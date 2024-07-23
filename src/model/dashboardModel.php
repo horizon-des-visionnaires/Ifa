@@ -80,6 +80,7 @@ class dashboardModel
                 $updateUserQuery = "UPDATE User SET IsPro = 1 WHERE IdUser = :IdUser";
                 $stmt = $this->dsn->prepare($updateUserQuery);
                 $stmt->execute([':IdUser' => $IdUser]);
+                $this->addUserMessage($IdUser, "Félicitations, votre demande pour être pro a été validée !");
             }
 
             $this->dsn->commit();
@@ -132,5 +133,17 @@ class dashboardModel
         }
 
         return false;
+    }
+    public function addUserMessage($IdUser, $message)
+    {
+        try {
+            $stmt = $this->dsn->prepare("INSERT INTO UserMessages (IdUser, Message) VALUES (:IdUser, :Message)");
+            $stmt->execute([
+                ':IdUser' => $IdUser,
+                ':Message' => $message
+            ]);
+        } catch (PDOException $e) {
+            echo "Erreur : " . $e->getMessage();
+        }
     }
 }

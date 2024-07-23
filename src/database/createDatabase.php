@@ -94,7 +94,19 @@ $createTableRequestPassPro = ("CREATE TABLE IF NOT EXISTS
     `IsRequestValid` tinyint(1) DEFAULT '0',
     `UserPicture` LONGBLOB DEFAULT NULL,
     `UserAdress` varchar(255) DEFAULT NULL,
+    `CreatedAt` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (`IdRequest`),
     CONSTRAINT fk_IdUser_RequestPassPro FOREIGN KEY (`IdUser`) REFERENCES User (`IdUser`)
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 DEFAULT CHARSET = latin1");
 $dsn->exec($createTableRequestPassPro);
+
+$createTableUserMessages = ("CREATE TABLE IF NOT EXISTS
+`UserMessages` (
+    `IdMessage` int(11) NOT NULL AUTO_INCREMENT,
+    `IdUser` int(11) DEFAULT NULL,
+    `Message` TEXT DEFAULT NULL,
+    `CreatedAt` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (`IdMessage`),
+    CONSTRAINT fk_IdUser_UserMessages FOREIGN KEY (`IdUser`) REFERENCES User (`IdUser`)
+) ENGINE = InnoDB AUTO_INCREMENT = 1 DEFAULT CHARSET = latin1");
+$dsn->exec($createTableUserMessages);

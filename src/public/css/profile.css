@@ -1,3 +1,13 @@
+.alert {
+    margin-top: 8em;
+    margin-left: 25em;
+    margin-bottom: -6em;
+}
+
+.alert h1 {
+    color: red;
+}
+
 .ProfilContainer {
     background-color: #b0dfb3;
     margin-top: 8em;

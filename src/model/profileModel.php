@@ -398,4 +398,38 @@ class profileModel
 
         return $getFavPostData;
     }
+
+    public function getUserMessages($id)
+    {
+        try {
+            $stmt = $this->dsn->prepare("SELECT Message FROM UserMessages WHERE IdUser = :IdUser AND CreatedAt > NOW() - INTERVAL 24 HOUR");
+            $stmt->execute([':IdUser' => $id]);
+            return $stmt->fetchAll(PDO::FETCH_COLUMN);
+        } catch (PDOException $e) {
+            echo "Erreur : " . $e->getMessage();
+            return [];
+        }
+    }
+
+    public function cleanupOldData()
+    {
+        try {
+            $this->dsn->beginTransaction();
+
+            // Supprimer les messages plus anciens que 24 heures
+            $deleteOldMessages = "DELETE FROM UserMessages WHERE CreatedAt <= NOW() - INTERVAL 24 HOUR";
+            $stmtMessages = $this->dsn->prepare($deleteOldMessages);
+            $stmtMessages->execute();
+
+            // Supprimer les demandes plus anciennes que 24 heures
+            $deleteOldRequests = "DELETE FROM RequestPassPro WHERE CreatedAt <= NOW() - INTERVAL 24 HOUR";
+            $stmtRequests = $this->dsn->prepare($deleteOldRequests);
+            $stmtRequests->execute();
+
+            $this->dsn->commit();
+        } catch (PDOException $e) {
+            $this->dsn->rollBack();
+            echo "Erreur : " . $e->getMessage();
+        }
+    }
 }

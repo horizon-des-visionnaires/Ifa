@@ -14,6 +14,14 @@
 {% endblock %}
 
 {% block body %}
+{% if messages is not empty %}
+    <div class="alert">
+        {% for message in messages %}
+            <h1>{{ message }}</h1>
+        {% endfor %}
+    </div>
+{% endif %}
+
 <div class="ProfilContainer">
     <div class="profil">
         <div class="profilPictureName">
