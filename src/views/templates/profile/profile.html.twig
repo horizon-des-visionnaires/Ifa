@@ -15,11 +15,11 @@
 
 {% block body %}
 {% if messages is not empty %}
-    <div class="alert">
-        {% for message in messages %}
-            <h1>{{ message }}</h1>
-        {% endfor %}
-    </div>
+<div class="alert">
+    {% for message in messages %}
+    <h1>{{ message }}</h1>
+    {% endfor %}
+</div>
 {% endif %}
 
 <div class="ProfilContainer">
@@ -33,7 +33,7 @@
             {% endif %}
         </div>
         {% if isConnected and userId == user.IdUser %}
-        {% if userId == user.IdUser and user.IsPro == 0 %}
+        {% if userId == user.IdUser and user.IsPro == 0 and messages is empty %}
         <div class="passProButton">
             <button id="openModalButtonPro" class="boton-elegante">Demande Passez pro</button>
         </div>
@@ -91,8 +91,7 @@
                 required />
 
             <label for="images" id="labelText">Photo d'identité :</label>
-            <input type="file" id="images" name="UserPicture" accept="image/*" aria-label="Photo d'identité"
-                required />
+            <input type="file" id="images" name="UserPicture" accept="image/*" aria-label="Photo d'identité" required />
 
             <input type="hidden" name="idUser" value="{{ user.IdUser }}">
 
