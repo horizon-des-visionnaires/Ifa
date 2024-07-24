@@ -177,4 +177,43 @@ class dashboardModel
             echo "Erreur : " . $e->getMessage();
         }
     }
+
+    public function getUserPro()
+    {
+        try {
+            $getUser = "SELECT IdUser, FirstName, LastName, ProfilPicture FROM User WHERE IsPro = 1";
+            $stmt = $this->dsn->prepare($getUser);
+            $stmt->execute();
+            $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            foreach ($results as &$row) {
+                if (!is_null($row['ProfilPicture'])) {
+                    $row['ProfilPicture'] = base64_encode($row['ProfilPicture']);
+                }
+            }
+
+            return $results;
+        } catch (PDOException $e) {
+            $this->dsn->rollBack();
+            echo "Erreur : " . $e->getMessage();
+        }
+    }
+
+    public function deletePro($IdUser)
+    {
+        try {
+            $this->dsn->beginTransaction();
+
+            $updateStatusPro = "UPDATE User SET IsPro = 0 WHERE IdUser = :IdUser";
+            $stmt = $this->dsn->prepare($updateStatusPro);
+            $stmt->execute([':IdUser' => $IdUser]);
+
+            $this->dsn->commit();
+            header("Location: /dashboard");
+            exit();
+        } catch (PDOException $e) {
+            $this->dsn->rollBack();
+            echo "Erreur : " . $e->getMessage();
+        }
+    }
 }

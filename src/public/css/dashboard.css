@@ -105,3 +105,30 @@
     margin-bottom: 2em;
     margin-left: 3em;
 }
+
+.tableUserPro {
+    margin-top: 10em;
+    margin-left: 33em;
+}
+
+.tableUserPro table {
+    width: 30em;
+    border-collapse: collapse;
+    border: 1px solid #ddd; 
+    margin-bottom: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.tableUserPro table th {
+    background-color: #4CAF50;
+    padding: 10px;
+    text-align: left;
+    border: 1px solid black;
+}
+
+.tableUserPro table td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    border: 1px solid black;
+}

@@ -61,10 +61,35 @@
                 <input type="hidden" name="IdRequest" value="{{ requestId }}">
                 <button type="submit" name="downloadPDFAndImages" id="inputField2">Télécharger PDF et Images</button>
             </form>
-            
+
         </div>
     </div>
     {% endfor %}
+</div>
+
+<div class="tableUserPro">
+    <table>
+        <tr>
+            <th>FirstName</th>
+            <th>LastName</th>
+            <th>ProfilPicture</th>
+            <th>supprimer pro</th>
+        </tr>
+        {% for User in userPro %}
+        <tr>
+            <td>{{ User.FirstName }}</td>
+            <td>{{ User.LastName }}</td>
+            <td><img class="icon" src="data:image;base64,{{ User.ProfilPicture }}" alt="icon" onclick="openModal(this)">
+            </td>
+            <td>
+                <form action="/dashboard" method="post">
+                    <input type="hidden" name="IdUser" value="{{ User.IdUser }}">
+                    <button type="submit" name="deletePro">Supprimer des pro</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
 </div>
 
 <div id="myModal" class="modal">

@@ -55,7 +55,7 @@ class dashboardController
             $IdRequest = $_POST['IdRequest'];
             $this->dashboardModel->requestValid($IdRequest);
         }
-    
+
         if (isset($_POST['requestInvalid'])) {
             $IdRequest = $_POST['IdRequest'];
             $rejectReason = $_POST['rejectReason'];
@@ -64,11 +64,15 @@ class dashboardController
 
         $requestPassProData = $this->dashboardModel->getAllRequestPassPro();
 
+        $userPro = $this->dashboardModel->getUserPro();
+        $this->getDeletePro();
+
         echo $this->twig->render('dashboard/dashboard.html.twig', [
             'isConnected' => $isConnected,
             'userId' => $userId,
             'IsAdmin' => $IsAdmin,
-            'requestPassProData' => $requestPassProData
+            'requestPassProData' => $requestPassProData,
+            'userPro' => $userPro
         ]);
     }
 
@@ -146,5 +150,14 @@ class dashboardController
         unlink($zipFilename);
 
         exit();
+    }
+
+    public function getDeletePro()
+    {
+        if (isset($_POST['deletePro'])) {
+            $IdUser = $_POST['IdUser'];
+            
+            $this->dashboardModel->deletePro($IdUser);
+        }
     }
 }
