@@ -110,3 +110,17 @@ $createTableUserMessages = ("CREATE TABLE IF NOT EXISTS
     CONSTRAINT fk_IdUser_UserMessages FOREIGN KEY (`IdUser`) REFERENCES User (`IdUser`)
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 DEFAULT CHARSET = latin1");
 $dsn->exec($createTableUserMessages);
+
+$createTableChat = ("CREATE TABLE IF NOT EXISTS
+`Chat` (
+    `IdChat` int(11) NOT NULL AUTO_INCREMENT,
+    `IdSender` int(11) DEFAULT NULL,
+    `IdReceiver` int(11) DEFAULT NULL,
+    `Message` TEXT DEFAULT NULL,
+    `CreatedAt` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (`IdChat`),
+    CONSTRAINT fk_IdSender_Chat FOREIGN KEY (`IdSender`) REFERENCES User (`IdUser`),
+    CONSTRAINT fk_IdReceiver_Chat FOREIGN KEY (`IdReceiver`) REFERENCES User (`IdUser`)
+) ENGINE = InnoDB AUTO_INCREMENT = 1 DEFAULT CHARSET = latin1");
+$dsn->exec($createTableChat);
+
